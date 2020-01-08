@@ -11,15 +11,16 @@ public class Dalmuti {
 			for(int j = 0; j < i; j++) {
 				
 				cards[index] = new Card(i);
-				//System.out.printf("%d,%d/", index,i);
 				index++;	
 			}
-			System.out.println();
 		}
 		cards[55] = new Card(13);
 		cards[56] = new Card(13);
 		
-		
+		Player players[] = new Player[4];
+		for(int i = 0; i<4; i++) {
+			players[i] = new Player("Me" + i);
+		}
 	}
 	
 	public static void main(String[] args) {

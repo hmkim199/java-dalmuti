@@ -17,10 +17,22 @@ public class Dalmuti {
 		cards[55] = new Card(13);
 		cards[56] = new Card(13);
 		
+		//player생성
 		Player players[] = new Player[4];
 		for(int i = 0; i<4; i++) {
 			players[i] = new Player("Me" + i);
 		}
+		
+		//card로 계급지정
+		int first_rank[] = new int[4];
+		for(int i = 0; i<4; i++) {
+			first_rank[i] = (int) (Math.random()*56);
+			System.out.println(first_rank[i]);
+			System.out.println(cards[first_rank[i]]);
+			
+		}
+		
+			
 	}
 	
 	public static void main(String[] args) {

@@ -5,4 +5,9 @@ public class Card {
 	public Card(int number) {
 		this.number = number;
 	}
+	
+	@Override
+	public String toString() {
+		return "Card " + number; 
+	}
 }

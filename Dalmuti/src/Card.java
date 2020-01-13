@@ -6,6 +6,10 @@ public class Card {
 		this.number = number;
 	}
 	
+	public int getNumber() {
+		return this.number;
+	}
+	
 	@Override
 	public String toString() {
 		return "Card " + number; 

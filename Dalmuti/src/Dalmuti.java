@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class Dalmuti {
+	private final int NUMBER_OF_PLAYERS = 5;
 	Player[] players;
 	ArrayList<Card> cards;
 
@@ -12,13 +14,40 @@ public class Dalmuti {
 		createCards();
 		createPlayers();
 		designateRanks();
+		//handOutCards();
+		
+		
+	}
+
+	private void handOutCards() {
+
+		Collections.shuffle(cards);
+
+		int handCount = cards.size() / players.length;
+		int index = 0;
+
+		for (int i = 0; i < players.length; i++) {
+			if (players[i].getRank() == Rank.dalmuti) {
+				handCount = cards.size() / players.length + 1;
+			} else { 
+				handCount = cards.size() / players.length;
+			}
+			
+			for (int j = 0; j < handCount; j++) {
+				players[i].receiveCard(cards.get(index));
+				index++;
+			}
+			
+			System.out.println(players[i].getHand());
+			System.out.println(players[i].getHand().size());
+		}
 
 	}
 
 	private void designateRanks() {
 		// »Ì±â
 		ArrayList<int[]> firstRank = new ArrayList<>();
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < players.length; i++) {
 			int tuple[] = new int[2];
 			tuple[0] = i;
 			tuple[1] = cards.get(i).getNumber();
@@ -34,19 +63,26 @@ public class Dalmuti {
 				return o1[1] - o2[1];
 			}
 		});
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < players.length; i++) {
 			System.out.printf("%d %d\n", firstRank.get(i)[0], firstRank.get(i)[1]);
 		}
 
-		players[firstRank.get(0)[0]].rank = Rank.dalmuti;
-		players[firstRank.get(1)[0]].rank = Rank.bishop;
-		players[firstRank.get(2)[0]].rank = Rank.flush;
-		players[firstRank.get(3)[0]].rank = Rank.peasant;
+		players[firstRank.get(0)[0]].setRank(Rank.dalmuti);
+		players[firstRank.get(1)[0]].setRank(Rank.bishop);
+		players[firstRank.get(2)[0]].setRank(Rank.flush);
+		players[firstRank.get(3)[0]].setRank(Rank.peasant);
+		
+		// sort players based on rank
+		
+		Arrays.sort(players);
+		for(int i = 0; i < players.length; i++) {
+			System.out.println(players[i]);
+		}
 	}
 
 	private void createPlayers() {
-		players = new Player[4];
-		for (int i = 0; i < 4; i++) {
+		players = new Player[NUMBER_OF_PLAYERS];
+		for (int i = 0; i < players.length; i++) {
 			players[i] = new Player("Me" + i);
 		}
 	}

@@ -27,9 +27,10 @@ public class Dalmuti {
 		int index = 0;
 
 		for (int i = 0; i < players.length; i++) {
-			if (players[i].getRank() == Rank.dalmuti) {
+			if (players[i].getRank() == 1) {
 				handCount = cards.size() / players.length + 1;
-			} else { 
+			} 
+			else { 
 				handCount = cards.size() / players.length;
 			}
 			
@@ -67,11 +68,9 @@ public class Dalmuti {
 			System.out.printf("%d %d\n", firstRank.get(i)[0], firstRank.get(i)[1]);
 		}
 
-		players[firstRank.get(0)[0]].setRank(Rank.dalmuti);
-		players[firstRank.get(1)[0]].setRank(Rank.bishop);
-		players[firstRank.get(2)[0]].setRank(Rank.flush);
-		players[firstRank.get(3)[0]].setRank(Rank.peasant);
-		
+		for (int i = 0; i < players.length; i++) {
+			players[firstRank.get(i)[0]].setRank(i + 1);
+		}
 		// sort players based on rank
 		
 		Arrays.sort(players);

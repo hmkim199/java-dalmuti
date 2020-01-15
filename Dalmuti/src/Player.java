@@ -1,26 +1,32 @@
 import java.util.ArrayList;
 
-enum Rank{
-	none, dalmuti, bishop, flush, peasant
-}
-public class Player implements Comparable {
+
+public class Player implements Comparable<Player> {
 	private String name;
-	private Rank rank;
+	/**
+	 * 0 = 계급 없음
+	 * 1 = 달무티
+	 * 2 = 대주교
+	 * 3 = 광부
+	 * 4 = 농노
+	 * 5이상은 사용할 순 있지만 이름이 주어지진 않음
+	 */
+	private int rank;
 	private ArrayList<Card> hand;
 	
 	public Player(String name) {
 		this.name = name;
-		this.rank = Rank.none;
+		this.rank = 0;
 		this.hand = new ArrayList<Card>();
 		
 		System.out.println("Created player " + name);
 	}
 
-	public Rank getRank() {
+	public int getRank() {
 		return rank;
 	}
 
-	public void setRank(Rank rank) {
+	public void setRank(int rank) {
 		this.rank = rank;
 	}
 
@@ -33,13 +39,12 @@ public class Player implements Comparable {
 	}
 
 	@Override
-	public int compareTo(Object o) {
-		// TODO Auto-generated method stub
-		Player that = (Player)o;
-		return this.rank.ordinal() - that.rank.ordinal();
-	}
-	@Override
 	public String toString() {
 		return "Player " + name; 
+	}
+
+	@Override
+	public int compareTo(Player o) {
+		return this.rank - o.rank;
 	}
 }

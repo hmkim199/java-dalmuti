@@ -15,20 +15,19 @@ public class Dalmuti {
 		createPlayers();
 		designateRanks();
 		handOutCards();
-		
-		
+
 	}
 
 	private void handOutCards() {
 
 		Collections.shuffle(cards);
-		
-		for(int i = 0; i < cards.size(); i++) {
+
+		for (int i = 0; i < cards.size(); i++) {
 			int receiver = i % players.length;
-			players[receiver].receiveCard(cards.get(i));			
+			players[receiver].receiveCard(cards.get(i));
 		}
-		
-		for(int i = 0; i <players.length; i++) {
+
+		for (int i = 0; i < players.length; i++) {
 			System.out.println(players[i].getHand());
 			System.out.println(players[i].getHand().size());
 		}
@@ -62,9 +61,9 @@ public class Dalmuti {
 			players[firstRank.get(i)[0]].setRank(i + 1);
 		}
 		// sort players based on rank
-		
+
 		Arrays.sort(players);
-		for(int i = 0; i < players.length; i++) {
+		for (int i = 0; i < players.length; i++) {
 			System.out.println(players[i]);
 		}
 	}

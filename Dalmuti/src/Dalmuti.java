@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Dalmuti {
-	private final int NUMBER_OF_PLAYERS = 5;
+	private final int NUMBER_OF_PLAYERS = 7;
 	Player[] players;
 	ArrayList<Card> cards;
 
@@ -14,7 +14,7 @@ public class Dalmuti {
 		createCards();
 		createPlayers();
 		designateRanks();
-		//handOutCards();
+		handOutCards();
 		
 		
 	}
@@ -22,16 +22,15 @@ public class Dalmuti {
 	private void handOutCards() {
 
 		Collections.shuffle(cards);
-
-		int handCount = cards.size() / players.length;
+		int handCount;
+		int extraHand = cards.size() % players.length;
 		int index = 0;
 
 		for (int i = 0; i < players.length; i++) {
-			if (players[i].getRank() == 1) {
-				handCount = cards.size() / players.length + 1;
-			} 
-			else { 
-				handCount = cards.size() / players.length;
+			handCount = cards.size() / players.length;			
+			if(extraHand != 0) {
+				handCount++;
+				extraHand--;
 			}
 			
 			for (int j = 0; j < handCount; j++) {

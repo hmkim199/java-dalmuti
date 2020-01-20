@@ -15,10 +15,32 @@ public class Dalmuti {
 		createPlayers();
 		designateRanks();
 		handOutCards();
-		revolution();
+		if(someoneWantsRevolution()) {
+			revolution();
+		}
+		else {
+			collectTaxes();
+		}
 	}
 
+	private void collectTaxes() {
+		
+	}
+	
 	private void revolution() {
+		// 세금 없고 계급 반대
+		System.out.println("혁명! 계급순서 변경!!!!!!!!!!");
+		for (int j = 0; j < players.length; j++) {
+			int newRank = players.length - j;
+			players[j].setRank(newRank);
+		}
+		Arrays.sort(players);
+		for (int k = 0; k < players.length; k++) {
+			System.out.println(players[k]);
+		}
+	}
+	
+	private boolean someoneWantsRevolution() {
 		// 혁명 가능 체크
 		for (int i = 0; i < players.length; i++) {
 			ArrayList<Card> hand = players[i].getHand();
@@ -27,20 +49,12 @@ public class Dalmuti {
 			if (indexFirst13 != indexLast13) {
 				System.out.println(players[i] + "가 13을 2개 가졌다");
 				if (players[i].wantsRevolution()) {
-					// 세금 없고 계급 반대
-					System.out.println("혁명! 계급순서 변경!!!!!!!!!!");
-					for (int j = 0; j < players.length; j++) {
-						int newRank = players.length - j;
-						players[j].setRank(newRank);
-					}
-
+					return true;
 				}
 			}
 		}
-		Arrays.sort(players);
-		for (int i = 0; i < players.length; i++) {
-			System.out.println(players[i]);
-		}
+		
+		return false;
 	}
 
 	private void handOutCards() {

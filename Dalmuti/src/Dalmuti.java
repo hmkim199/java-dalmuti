@@ -26,13 +26,12 @@ public class Dalmuti {
 			int indexLast13 = hand.lastIndexOf(new Card(13));
 			if (indexFirst13 != indexLast13) {
 				System.out.println(players[i] + "가 13을 2개 가졌다");
-				boolean revo = Math.random() < 0.5;
-				if (revo) {
+				if (players[i].wantsRevolution()) {
 					// 세금 없고 계급 반대
-					System.out.println(revo);
-					int playerLength = players.length;
-					for (int j = 0; j < playerLength; j++) {
-						players[j].setRank(playerLength - j);
+					System.out.println("혁명! 계급순서 변경!!!!!!!!!!");
+					for (int j = 0; j < players.length; j++) {
+						int newRank = players.length - j;
+						players[j].setRank(newRank);
 					}
 
 				}

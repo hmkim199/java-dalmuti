@@ -22,6 +22,10 @@ public class Player implements Comparable<Player> {
 		System.out.println("Created player " + name);
 	}
 
+	public boolean wantsRevolution() {
+		return Math.random() < 0.5;
+	}
+	
 	public int getRank() {
 		return rank;
 	}

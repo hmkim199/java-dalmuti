@@ -27,20 +27,20 @@ public class Dalmuti {
 			if (indexFirst13 != indexLast13) {
 				System.out.println(players[i] + "가 13을 2개 가졌다");
 				boolean revo = Math.random() < 0.5;
-				if(true) {
-					//세금 없고 계급 반대
+				if (revo) {
+					// 세금 없고 계급 반대
 					System.out.println(revo);
-					for (int j = 0; j < players.length / 2; j++) {
-						int tempRank;
-						tempRank = players[j].getRank();
-						players[j].setRank(players[players.length - 1 - j].getRank());
-						players[players.length - 1- j].setRank(tempRank);
-						System.out.println("계급이 바뀌어써요" + players[j].getRank());
-
+					int playerLength = players.length;
+					for (int j = 0; j < playerLength; j++) {
+						players[j].setRank(playerLength - j);
 					}
-					
-									}
+
+				}
 			}
+		}
+		Arrays.sort(players);
+		for (int i = 0; i < players.length; i++) {
+			System.out.println(players[i]);
 		}
 	}
 

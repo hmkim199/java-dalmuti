@@ -5,8 +5,8 @@ import java.util.Comparator;
 
 public class Dalmuti {
 	private final int NUMBER_OF_PLAYERS = 4;
-	Player[] players;
-	ArrayList<Card> cards;
+	private Player[] players;
+	private ArrayList<Card> cards;
 
 	public Dalmuti() {
 		System.out.println("Welcome to Dalmuti.");
@@ -15,7 +15,21 @@ public class Dalmuti {
 		createPlayers();
 		designateRanks();
 		handOutCards();
+		revolution();
+	}
 
+	private void revolution() {
+		// 혁명 가능 체크
+		for (int i = 0; i < players.length; i++) {
+			ArrayList<Card> hand = players[i].getHand();
+			int indexFirst13 = hand.indexOf(new Card(13));
+			if (indexFirst13 != -1) {
+				if (hand.subList(indexFirst13 + 1, hand.size()).contains(new Card(13))) {
+					System.out.println(players[i] + "가 13을 2개 가졌다");
+				}
+
+			}
+		}
 	}
 
 	private void handOutCards() {

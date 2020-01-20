@@ -14,4 +14,9 @@ public class Card {
 	public String toString() {
 		return "Card " + number; 
 	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		return this.number == ((Card) obj).number;
+	}
 }

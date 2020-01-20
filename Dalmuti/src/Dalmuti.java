@@ -23,11 +23,9 @@ public class Dalmuti {
 		for (int i = 0; i < players.length; i++) {
 			ArrayList<Card> hand = players[i].getHand();
 			int indexFirst13 = hand.indexOf(new Card(13));
-			if (indexFirst13 != -1) {
-				if (hand.subList(indexFirst13 + 1, hand.size()).contains(new Card(13))) {
-					System.out.println(players[i] + "가 13을 2개 가졌다");
-				}
-
+			int indexLast13 = hand.lastIndexOf(new Card(13));
+			if (indexFirst13 != indexLast13) {
+				System.out.println(players[i] + "가 13을 2개 가졌다");
 			}
 		}
 	}
@@ -43,7 +41,7 @@ public class Dalmuti {
 
 		for (int i = 0; i < players.length; i++) {
 			System.out.println(players[i].getHand());
-			System.out.println(players[i].getHand().size());
+			// System.out.println(players[i].getHand().size());
 		}
 
 	}

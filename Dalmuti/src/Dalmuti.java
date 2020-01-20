@@ -15,18 +15,25 @@ public class Dalmuti {
 		createPlayers();
 		designateRanks();
 		handOutCards();
-		if(someoneWantsRevolution()) {
+		if (someoneWantsRevolution()) {
 			revolution();
-		}
-		else {
+		} else {
 			collectTaxes();
 		}
 	}
 
 	private void collectTaxes() {
-		
+		// shallow copy. deep copy
+		ArrayList hand = (ArrayList) players[0].getHand().clone();
+		// ((ArrayList<Card>)hand).add(new Card(9999999));
+
+		// 플레이어들의 핸드를
+
+		System.out.println(hand);
+		System.out.println(players[0].getHand());
+//		Arrays.sort(hand);
 	}
-	
+
 	private void revolution() {
 		// 세금 없고 계급 반대
 		System.out.println("혁명! 계급순서 변경!!!!!!!!!!");
@@ -39,7 +46,7 @@ public class Dalmuti {
 			System.out.println(players[k]);
 		}
 	}
-	
+
 	private boolean someoneWantsRevolution() {
 		// 혁명 가능 체크
 		for (int i = 0; i < players.length; i++) {
@@ -53,7 +60,7 @@ public class Dalmuti {
 				}
 			}
 		}
-		
+
 		return false;
 	}
 

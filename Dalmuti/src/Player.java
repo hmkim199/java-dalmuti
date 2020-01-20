@@ -38,6 +38,11 @@ public class Player implements Comparable<Player> {
 		return hand;
 	}
 
+	public void giveCard(Card card, Player toPlayer) {
+		this.hand.remove(card);
+		toPlayer.receiveCard(card);
+	}
+	
 	public void receiveCard(Card card) {
 		hand.add(card);
 	}

@@ -27,6 +27,7 @@ public class Dalmuti {
 		ArrayList hand = (ArrayList) players[0].getHand().clone();
 		// ((ArrayList<Card>)hand).add(new Card(9999999));
 
+		
 		// 플레이어들의 핸드를
 
 		System.out.println(hand);
@@ -138,7 +139,40 @@ public class Dalmuti {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Dalmuti game = new Dalmuti();
+		//Dalmuti game = new Dalmuti();
+		Car car1 = new Car();
+		car1.setBrand("Hyundai Motors");
+		 
+		Car car2 = new Car();
+		car2.setBrand("Mercedes Benz");
+		 
+		// shallow copy
+		Car car3 = car1;
+		Car car4 = new Car();
+		try {
+		    // example of deep copy
+		    car4 = (Car) car2.clone();
+		} catch(CloneNotSupportedException e) {
+		    System.out.println(e.getMessage());
+		}
+		
+		//shallow copy는 객체 = 객체 형태로 직접 대입, 같은 주소를 가짐. car1의 값을 바꾸든 3을 바꾸든 1,3 둘 다 같이 변함.
+		car3.setBrand("changed");
+		System.out.println(car1.getBrand());
+		System.out.println(car3.getBrand());
+		
+		//deep copy는 객체.clone()의 형태로 복제하는 해당 클래스가 인터페이스 cloneable을 implements해야함. 예외처리도 해주어야 한다. 
+		//다른 주소에 복사된 객체를 저장. 둘 중 어느것을 바꾸어도 다른 한쪽에는 영향을 주지 않음.
+		car4.setBrand("changed");
+		System.out.println(car2.getBrand());
+		System.out.println(car4.getBrand());
+
+		System.out.println();
+		System.out.println(car1.hashCode());
+		System.out.println(car2.hashCode());
+		System.out.println(car3.hashCode());
+		System.out.println(car4.hashCode());
+
 	}
 
 }

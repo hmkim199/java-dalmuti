@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Dalmuti {
-	private final int NUMBER_OF_PLAYERS = 4;
+	private final int NUMBER_OF_PLAYERS = 6;
 	private Player[] players;
 	private ArrayList<Card> cards;
 
@@ -23,39 +23,12 @@ public class Dalmuti {
 	}
 
 	private void collectTaxes() {
-		
-		 ArrayList hand = (ArrayList) players[0].getHand().clone();
-	      // ((ArrayList<Card>)hand).add(new Card(9999999));
+		System.out.println("TAX");
 
-	      // 플레이어들의 핸드를
-
-	      System.out.println(hand);
-	      System.out.println(players[0].getHand());
-//	      Arrays.sort(hand);
-	      
-	      
-// 여기서부턴 다시 생각해야 하는 부분.....
-//		ArrayList<ArrayList<Card>> hand = new ArrayList<>();
-//		
-//		//달무티부터 농노까지 전체 플레이어의 패를 deep copy해서 hand에 추가
-//		for (int i = 0; i < players.length; i++) {
-//			hand.add((ArrayList<Card>) players[i].getHand().clone());
-//			Collections.sort(hand.get(i), new Comparator<Card>() {
-//
-//				@Override
-//				public int compare(Card o1, Card o2) {
-//					// TODO Auto-generated method stub
-//					return o1.getNumber()-o2.getNumber();
-//				}
-//				
-//			});
-//		}
-//		System.out.println(hand);
-//		
-//		//TODO 본격 세금교환.
-//		
-//		players[players.length-1]hand.get(players.length-i).get(0);
-		
+		for (int i = players.length - 1; i >= 0; i--) {
+			int rank = players[i].getRank();
+			players[i].payTaxTo(players[players.length - rank]);
+		}
 	}
 
 	private void revolution() {
@@ -163,7 +136,7 @@ public class Dalmuti {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Dalmuti game = new Dalmuti();
-		
+
 	}
 
 }

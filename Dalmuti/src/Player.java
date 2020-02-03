@@ -1,14 +1,17 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class Player implements Comparable<Player> {
+	private static int numberOfPlayers = 0;
+	
 	private String name;
 	/**
 	 * 0 = 계급 없음
-	 * 1 = 달무티
-	 * 2 = 대주교
-	 * 3 = 광부
-	 * 4 = 농노
+	 * 1 = 달무티 DALMUTI
+	 * 2 = 대주교 BISHOP
+	 * 3 = 광부 STONECUTTER
+	 * 4 = 농노 PEASANT
 	 * 5이상은 사용할 순 있지만 이름이 주어지진 않음
 	 */
 	private int rank;
@@ -20,6 +23,7 @@ public class Player implements Comparable<Player> {
 		this.hand = new ArrayList<Card>();
 		
 		System.out.println("Created player " + name);
+		numberOfPlayers++;
 	}
 
 	public boolean wantsRevolution() {
@@ -47,6 +51,13 @@ public class Player implements Comparable<Player> {
 		hand.add(card);
 	}
 
+	public Card findMinCard() {
+		
+		Card minCard = Collections.min(this.hand);
+		return minCard;
+		
+	}
+	
 	@Override
 	public String toString() {
 		return "Player " + name; 

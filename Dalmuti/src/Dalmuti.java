@@ -18,46 +18,34 @@ public class Dalmuti {
 		if (someoneWantsRevolution()) {
 			revolution();
 		} else {
-			collectTaxes();
+			collectTaxes(players.length-1,2);
+			collectTaxes(players.length-2,1);
+			collectTaxes(1,1);
+			collectTaxes(0,2);
+			
+			System.out.println("세금 교환 완료");
+			for(int i = 0; i<4; i++) {
+				System.out.println(players[i].getHand());
+			}
+			
 		}
 	}
 
-	private void collectTaxes() {
+	private void collectTaxes(int giver, int countOfCardsForTax) {		
 		
-		 ArrayList hand = (ArrayList) players[0].getHand().clone();
-	      // ((ArrayList<Card>)hand).add(new Card(9999999));
-
-	      // 플레이어들의 핸드를
-
-	      System.out.println(hand);
-	      System.out.println(players[0].getHand());
-//	      Arrays.sort(hand);
-	      
-	      
-// 여기서부턴 다시 생각해야 하는 부분.....
-//		ArrayList<ArrayList<Card>> hand = new ArrayList<>();
-//		
-//		//달무티부터 농노까지 전체 플레이어의 패를 deep copy해서 hand에 추가
-//		for (int i = 0; i < players.length; i++) {
-//			hand.add((ArrayList<Card>) players[i].getHand().clone());
-//			Collections.sort(hand.get(i), new Comparator<Card>() {
-//
-//				@Override
-//				public int compare(Card o1, Card o2) {
-//					// TODO Auto-generated method stub
-//					return o1.getNumber()-o2.getNumber();
-//				}
-//				
-//			});
-//		}
-//		System.out.println(hand);
-//		
-//		//TODO 본격 세금교환.
-//		
-//		players[players.length-1]hand.get(players.length-i).get(0);
-		
+		while(countOfCardsForTax != 0) {
+			Card tax = players[giver].findMinCard();
+			if(giver < 2) {
+				int taxIndex = (int) (Math.random() * players[giver].getHand().size());
+				tax = players[giver].getHand().get(taxIndex);
+				
+			}
+			System.out.println(tax);
+			players[giver].giveCard(tax, players[players.length-1-giver]);
+			countOfCardsForTax--;
+		}
 	}
-
+	
 	private void revolution() {
 		// 세금 없고 계급 반대
 		System.out.println("혁명! 계급순서 변경!!!!!!!!!!");

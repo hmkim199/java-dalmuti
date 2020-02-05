@@ -16,24 +16,90 @@ public class Player implements Comparable<Player> {
 		this.rank = 0;
 		this.hand = new ArrayList<Card>();
 
-		System.out.println("Created player " + name);
+//		System.out.println("Created player " + name);
 		numberOfPlayers++;
+	}
+
+	public ArrayList<Card> playCards(Card currentCard, int count) {
+		ArrayList<Card> cards = new ArrayList<Card>();
+		
+		int[] assortedCards = sortCards();
+		
+		if (currentCard == null) {
+			// 가진 카드 중 가장 높은 숫자 다 내기
+			int maxCount = 0;
+			int maxIndex = 0;
+			
+			for (int i = 1; i <= 13; i++) {
+				if (assortedCards[i] >= maxCount) {
+					maxCount = assortedCards[i];
+					maxIndex = i;
+				}
+			}
+			
+//			System.out.println("Card " + maxIndex + "이 " + maxCount + "장으로 가장 많음.");
+			
+			Card card = new Card(maxIndex);
+			for (int i = 0; i < maxCount; i++) {
+				cards.add(card);
+				hand.remove(card);
+			}
+			
+			return cards;
+		} else {
+			// 가진 카드 중 조건에 맞는 가장 큰 숫자 20% 확률로 내기
+			// 조건: currentCard보다 작은 수가 count만큼 있음
+			int cardIndex = currentCard.getNumber();
+			for (int i = cardIndex; i > 0; i--) {
+				if (assortedCards[i] >= count) {
+					int random = (int)(Math.random() * 100);
+//					System.out.println("Card " + assortedCards[i] + " 낼 수 있음.");
+					if (random < 20) {
+						// 내지 않음
+						return cards;
+					} else {
+						Card card = new Card(i);
+						for (int j = 0; j < count; j++) {
+							cards.add(card);
+							hand.remove(card);
+						}
+						
+						return cards;
+					}
+				}
+			}
+		}
+
+		return cards;
+	}
+	
+	private int[] sortCards() {
+		int[] assortedCards = new int[14];
+		for (int i = 0; i < hand.size(); i++) {
+			int cardNumber = hand.get(i).getNumber();
+			assortedCards[cardNumber]++;
+		}
+
+		System.out.println("-----------------------------------------------------------------");
+		System.out.print("| ");
+		for (int i = 1; i <= 13; i++) {
+			System.out.printf("%2d | ", i);
+		}
+		System.out.println();
+		System.out.println("-----------------------------------------------------------------");
+
+		System.out.print("| ");
+		for (int i = 1; i <= 13; i++) {
+			System.out.printf("%2d | ", assortedCards[i]);
+		}
+		System.out.println();
+		System.out.println("-----------------------------------------------------------------");
+		
+		return assortedCards;
 	}
 
 	public boolean wantsRevolution() {
 		return Math.random() < 0.5;
-	}
-
-	public int getRank() {
-		return rank;
-	}
-
-	public void setRank(int rank) {
-		this.rank = rank;
-	}
-
-	public ArrayList<Card> getHand() {
-		return hand;
 	}
 
 	private void giveCard(Card card, Player toPlayer) {
@@ -56,12 +122,11 @@ public class Player implements Comparable<Player> {
 			return;
 		}
 
-
 		for (int i = 0; i < nExchange; i++) {
 			Card selectedCard = selectCard();
 			giveCard(selectedCard, toPlayer);
 
-			System.out.println("Rank " + rank + " pays " + selectedCard + " to rank " + toPlayer.rank);
+//			System.out.println("Rank " + rank + " pays " + selectedCard + " to rank " + toPlayer.rank);
 		}
 	}
 
@@ -76,6 +141,18 @@ public class Player implements Comparable<Player> {
 		}
 
 		return selectedCard;
+	}
+
+	public int getRank() {
+		return rank;
+	}
+
+	public void setRank(int rank) {
+		this.rank = rank;
+	}
+
+	public ArrayList<Card> getHand() {
+		return hand;
 	}
 
 	@Override

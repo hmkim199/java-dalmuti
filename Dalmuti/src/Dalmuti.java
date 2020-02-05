@@ -20,9 +20,32 @@ public class Dalmuti {
 		} else {
 			collectTaxes();	
 		}
+		playGame();
 	}
 
 	
+	
+	private void playGame() {
+		// TODO 달무티가 카드를 내면 그 다음 사람들은 더 낮은 숫자의 카드를 해당개수만큼 내야함. 못내면 한 라운드 끝
+		boolean afford = true;
+		while(!afford) {
+			playRound();
+		}
+		
+	}
+
+
+	private void playRound() {
+		// TODO Auto-generated method stub
+		int[] firstInfo = new int[2];
+		firstInfo = players[0].dalPlayCards();
+		for(int i = 0; i < players.length; i++) {
+			players[i].playCards(firstInfo[0], firstInfo[1]);
+		}
+	}
+
+
+
 	private void collectTaxes() {
 		players[players.length - 1].payTax(2, players[0]);
 		players[players.length - 2].payTax(1, players[1]);

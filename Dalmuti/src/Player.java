@@ -70,6 +70,66 @@ public class Player implements Comparable<Player> {
 
 	}
 
+	// 라운드 시작 때 달무티가 카드 고르기
+	public Card dalSelectCard() {
+		Card selectedCard = Collections.max(this.hand);
+		return selectedCard;
+	}
+	
+	public Card selectCard(int exCardNum) {
+		
+		ArrayList<Integer> handInfo = new ArrayList<Integer>();		
+		for(int i = 0; i < hand.size(); i++) {
+			handInfo.add(hand.get(i).getNumber());
+		}
+		
+		int myMaxCardIndex = Collections.max(handInfo);
+		while(myMaxCardIndex >= exCardNum) {
+			handInfo.remove(myMaxCardIndex);
+			myMaxCardIndex = Collections.max(handInfo);
+		}
+		int selectedCardNum = handInfo.get(myMaxCardIndex);
+		selectedCardNum = hand.indexOf(selectedCardNum);
+		
+		return hand.get(selectedCardNum);
+		
+	}
+	
+	// 라운드 시작 때 달무티가 골랐던 카드 몇 개 낼 지 정하기
+	public int dalCardsCountToPlay() {
+		Card cardToPlay = dalSelectCard();
+		int count = 0;
+		for(int i = 0; i < hand.size(); i++) {
+			if(hand.get(i) == cardToPlay) {
+				count++;
+			}
+		}
+		return count;
+	}
+	
+	public int[] dalPlayCards() {
+		Card card = dalSelectCard();
+		int nCard = dalCardsCountToPlay();
+		int[] cardInfo = new int[2];
+		for(int i = 0; i < nCard; i++) {
+			card =  dalSelectCard();
+			hand.remove(card);
+		}
+		
+		cardInfo[0] = card.getNumber();
+		cardInfo[1] = nCard;
+		
+		return cardInfo;
+		
+	}
+	
+	public void playCards(int cardNum, int nCard) {
+		Card card = new Card(cardNum);
+		for (int i = 0; i < nCard; i++) {
+			this.getHand().remove(card);
+		}
+	}
+	
 	@Override
 	public String toString() {
 		return "Player " + name;
@@ -79,4 +139,6 @@ public class Player implements Comparable<Player> {
 	public int compareTo(Player o) {
 		return this.rank - o.rank;
 	}
+	
+	
 }

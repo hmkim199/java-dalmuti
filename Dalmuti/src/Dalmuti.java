@@ -4,9 +4,15 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Dalmuti {
-	private final int NUMBER_OF_PLAYERS = 6;
+	private final int NUMBER_OF_PLAYERS = 4;
 	private Player[] players;
 	private ArrayList<Card> cards;
+	
+	private int round = 1;
+	private int currentPlayer = 0;
+	private Card currentCard = null;
+	private int currentCount = 0;
+	private boolean[] skipped;
 
 	public Dalmuti() {
 		System.out.println("Welcome to Dalmuti.");
@@ -20,11 +26,63 @@ public class Dalmuti {
 		} else {
 			collectTaxes();
 		}
+		playGame();
+	}
+
+	private void playGame() {
+		while (!hasGameEnded()/* 모두가 카드를 소진함 */) {
+
+			System.out.println("Round " + round);
+			currentCard = null;
+			currentCount = 0;
+			skipped = new boolean[players.length];
+			
+			while (!hasRoundEnded()/* 아무도 낼 카드가 없음 */) {
+				System.out.println();
+				System.out.println(players[currentPlayer] + "'s turn");
+				ArrayList<Card> playedCards = players[currentPlayer].playCards(currentCard, currentCount);
+				
+				if (playedCards.size() == 0) {
+					skipped[currentPlayer] = true;
+					System.out.println("PASS");
+				} else {
+					skipped[currentPlayer] = false;
+					currentCard = playedCards.get(0);
+					currentCount = playedCards.size();
+					System.out.println(players[currentPlayer] + " played [" + currentCard + "] X " + currentCount);
+				}
+				
+				currentPlayer = (currentPlayer + 1) % 4;
+			}
+			round++;
+		}
+	}
+	
+	private boolean hasGameEnded() {
+		int nPeopleWithCards = 0;
+		
+		for (int i = 0; i < players.length; i++) {
+			int nCards = players[i].getHand().size();
+			if (nCards > 0) {
+				nPeopleWithCards++;
+			}
+		}
+		System.out.println("카드가 남아 있는 사람 수: " + nPeopleWithCards);
+		
+		return nPeopleWithCards < 1;
+	}
+	
+	private boolean hasRoundEnded() {
+		boolean isEnd = true;
+		for (int i = 0; i < players.length; i++) {
+//			System.out.print(skipped[i] + " ");
+			isEnd = isEnd && skipped[i];
+		}
+//		System.out.println();
+		return isEnd;
 	}
 
 	private void collectTaxes() {
-		System.out.println("TAX");
-
 		for (int i = players.length - 1; i >= 0; i--) {
 			int rank = players[i].getRank();
 			players[i].payTaxTo(players[players.length - rank]);
@@ -40,7 +98,7 @@ public class Dalmuti {
 		}
 		Arrays.sort(players);
 		for (int k = 0; k < players.length; k++) {
-			System.out.println(players[k]);
+//			System.out.println(players[k]);
 		}
 	}
 
@@ -51,7 +109,7 @@ public class Dalmuti {
 			int indexFirst13 = hand.indexOf(new Card(13));
 			int indexLast13 = hand.lastIndexOf(new Card(13));
 			if (indexFirst13 != indexLast13) {
-				System.out.println(players[i] + "가 13을 2개 가졌다");
+//				System.out.println(players[i] + "가 13을 2개 가졌다");
 				if (players[i].wantsRevolution()) {
 					return true;
 				}
@@ -71,7 +129,7 @@ public class Dalmuti {
 		}
 
 		for (int i = 0; i < players.length; i++) {
-			System.out.println(players[i].getHand());
+//			System.out.println(players[i].getHand());
 			// System.out.println(players[i].getHand().size());
 		}
 
@@ -85,8 +143,6 @@ public class Dalmuti {
 			tuple[0] = i;
 			tuple[1] = cards.get(i).getNumber();
 			firstRank.add(tuple);
-			System.out.printf("%d %d\n", firstRank.get(i)[0], firstRank.get(i)[1]);
-
 		}
 		// TODO 계급정하기
 		Collections.sort(firstRank, new Comparator<int[]>() {
@@ -97,7 +153,7 @@ public class Dalmuti {
 			}
 		});
 		for (int i = 0; i < players.length; i++) {
-			System.out.printf("%d %d\n", firstRank.get(i)[0], firstRank.get(i)[1]);
+//			System.out.printf("%d %d\n", firstRank.get(i)[0], firstRank.get(i)[1]);
 		}
 
 		for (int i = 0; i < players.length; i++) {

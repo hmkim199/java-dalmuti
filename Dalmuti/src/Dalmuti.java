@@ -18,34 +18,24 @@ public class Dalmuti {
 		if (someoneWantsRevolution()) {
 			revolution();
 		} else {
-			collectTaxes(players.length-1,2);
-			collectTaxes(players.length-2,1);
-			collectTaxes(1,1);
-			collectTaxes(0,2);
-			
-			System.out.println("세금 교환 완료");
-			for(int i = 0; i<4; i++) {
-				System.out.println(players[i].getHand());
-			}
-			
+			collectTaxes();	
 		}
 	}
 
-	private void collectTaxes(int giver, int countOfCardsForTax) {		
-		
-		while(countOfCardsForTax != 0) {
-			Card tax = players[giver].findMinCard();
-			if(giver < 2) {
-				int taxIndex = (int) (Math.random() * players[giver].getHand().size());
-				tax = players[giver].getHand().get(taxIndex);
-				
-			}
-			System.out.println(tax);
-			players[giver].giveCard(tax, players[players.length-1-giver]);
-			countOfCardsForTax--;
+	
+	private void collectTaxes() {
+		players[players.length - 1].payTax(2, players[0]);
+		players[players.length - 2].payTax(1, players[1]);
+		players[1].payTax(1, players[players.length - 2]);
+		players[0].payTax(2, players[players.length - 2]);
+
+		System.out.println("세금 교환 완료");
+		for (int i = 0; i < 4; i++) {
+			System.out.println(players[i].getHand());
 		}
 	}
-	
+
+
 	private void revolution() {
 		// 세금 없고 계급 반대
 		System.out.println("혁명! 계급순서 변경!!!!!!!!!!");
@@ -151,7 +141,7 @@ public class Dalmuti {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Dalmuti game = new Dalmuti();
-		
+
 	}
 
 }

@@ -36,7 +36,7 @@ public class Player implements Comparable<Player> {
 		return hand;
 	}
 
-	public void giveCard(Card card, Player toPlayer) {
+	private void giveCard(Card card, Player toPlayer) {
 		this.hand.remove(card);
 		toPlayer.receiveCard(card);
 	}
@@ -52,21 +52,16 @@ public class Player implements Comparable<Player> {
 		} else if (rank == 2 || rank == numberOfPlayers - 1) {
 			nExchange = 1;
 		} else {
-			System.out.println("세금을 낼 대상이 아닙니다.\n");
+			System.out.println("세금을 낼 대상이 아닙니다.");
 			return;
 		}
 
-		System.out.println("===== Rank " + rank + " pays tax to rank " + toPlayer.rank + " =====\n");
 
 		for (int i = 0; i < nExchange; i++) {
 			Card selectedCard = selectCard();
 			giveCard(selectedCard, toPlayer);
 
-//			System.out.println("Selected card: " + selectedCard);
-//			
-//			System.out.println(hand);
-//			System.out.println(toPlayer.hand);
-//			System.out.println();
+			System.out.println("Rank " + rank + " pays " + selectedCard + " to rank " + toPlayer.rank);
 		}
 	}
 

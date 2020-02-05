@@ -26,10 +26,13 @@ public class Dalmuti {
 	
 	
 	private void playGame() {
-		// TODO 달무티가 카드를 내면 그 다음 사람들은 더 낮은 숫자의 카드를 해당개수만큼 내야함. 못내면 한 라운드 끝
-		boolean afford = true;
-		while(!afford) {
+		// TODO 달무티가 카드를 내면 그 다음 사람들은 더 낮은 숫자의 카드를 해당개수만큼 내야함. 모두가 못내면 한 라운드 끝
+		// 이전 라운드에 마지막으로 낸 사람이 다음 라운드의 선 플레이어가 됨.
+		// 한 게임에 여러 라운드가 있다. 한명 제외 모두가 카드를 소진했을 때 한 게임 끝.
+	
+		while(true) {
 			playRound();
+			break;
 		}
 		
 	}
@@ -37,10 +40,15 @@ public class Dalmuti {
 
 	private void playRound() {
 		// TODO Auto-generated method stub
-		int[] firstInfo = new int[2];
-		firstInfo = players[0].dalPlayCards();
-		for(int i = 0; i < players.length; i++) {
-			players[i].playCards(firstInfo[0], firstInfo[1]);
+		int turn = 0;
+		while(true) {
+			int[] Info = new int[2];
+			if(turn == 0) {
+				Info = players[0].firstPPlayCards();
+				turn++;
+				players[1].playCards(Info[0], Info[1]);
+				turn++;
+			}
 		}
 	}
 

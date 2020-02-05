@@ -70,8 +70,8 @@ public class Player implements Comparable<Player> {
 
 	}
 
-	// 라운드 시작 때 달무티가 카드 고르기
-	public Card dalSelectCard() {
+	// 라운드 시작 때 선플레이어가 카드 고르기
+	public Card firstPSelectCard() {
 		Card selectedCard = Collections.max(this.hand);
 		return selectedCard;
 	}
@@ -95,9 +95,9 @@ public class Player implements Comparable<Player> {
 		
 	}
 	
-	// 라운드 시작 때 달무티가 골랐던 카드 몇 개 낼 지 정하기
-	public int dalCardsCountToPlay() {
-		Card cardToPlay = dalSelectCard();
+	// 라운드 시작 때 선플레이어가 해당 카드 몇 개 낼 지 정하기
+	public int firstPCardsCountToPlay() {
+		Card cardToPlay = firstPSelectCard();
 		int count = 0;
 		for(int i = 0; i < hand.size(); i++) {
 			if(hand.get(i) == cardToPlay) {
@@ -107,12 +107,12 @@ public class Player implements Comparable<Player> {
 		return count;
 	}
 	
-	public int[] dalPlayCards() {
-		Card card = dalSelectCard();
-		int nCard = dalCardsCountToPlay();
+	public int[] firstPPlayCards() {
+		Card card = firstPSelectCard();
+		int nCard = firstPCardsCountToPlay();
 		int[] cardInfo = new int[2];
 		for(int i = 0; i < nCard; i++) {
-			card =  dalSelectCard();
+			card =  firstPSelectCard();
 			hand.remove(card);
 		}
 		
@@ -123,6 +123,7 @@ public class Player implements Comparable<Player> {
 		
 	}
 	
+	// cardNum인 카드를 nCard개수만큼 낸다
 	public void playCards(int cardNum, int nCard) {
 		Card card = new Card(cardNum);
 		for (int i = 0; i < nCard; i++) {

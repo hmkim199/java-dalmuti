@@ -69,66 +69,72 @@ public class Player implements Comparable<Player> {
 		return tax;
 
 	}
-
-	// 라운드 시작 때 선플레이어가 카드 고르기
-	public Card firstPSelectCard() {
-		Card selectedCard = Collections.max(this.hand);
-		return selectedCard;
-	}
 	
-	public Card selectCard(int exCardNum) {
+	public int selectCard(int exCardNum) {
+		// 라운드 시작 때 선플레이어가 카드 고르기
+		int selectedCardNum = 0;
+		if (exCardNum == 0) {
+			Card selectedCard = Collections.max(this.hand);
+			selectedCardNum = selectedCard.getNumber();
+			return selectedCardNum;
+		}
 		
+		// 후 플레이어들 카드 고르기
 		ArrayList<Integer> handInfo = new ArrayList<Integer>();		
 		for(int i = 0; i < hand.size(); i++) {
 			handInfo.add(hand.get(i).getNumber());
 		}
 		
-		int myMaxCardIndex = Collections.max(handInfo);
-		while(myMaxCardIndex >= exCardNum) {
-			handInfo.remove(myMaxCardIndex);
-			myMaxCardIndex = Collections.max(handInfo);
+		selectedCardNum = Collections.max(handInfo);
+		while(selectedCardNum >= exCardNum) {
+			handInfo.remove(selectedCardNum);
+			selectedCardNum = Collections.max(handInfo);
 		}
-		int selectedCardNum = handInfo.get(myMaxCardIndex);
-		selectedCardNum = hand.indexOf(selectedCardNum);
 		
-		return hand.get(selectedCardNum);
+		return selectedCardNum;
 		
 	}
 	
 	// 라운드 시작 때 선플레이어가 해당 카드 몇 개 낼 지 정하기
-	public int firstPCardsCountToPlay() {
-		Card cardToPlay = firstPSelectCard();
-		int count = 0;
-		for(int i = 0; i < hand.size(); i++) {
-			if(hand.get(i) == cardToPlay) {
-				count++;
+	public int cardsCountToPlay(int selectedCardNum, int exCardsCount) {
+		int cardsCount = 0;
+		
+			for(int i = 0; i < hand.size(); i++) {
+				if(hand.get(i).getNumber() == selectedCardNum) {
+					cardsCount++;
+				}
 			}
+			//return cardsCount;
+		if(exCardsCount == 0) {
+			return cardsCount;
 		}
-		return count;
-	}
-	
-	public int[] firstPPlayCards() {
-		Card card = firstPSelectCard();
-		int nCard = firstPCardsCountToPlay();
-		int[] cardInfo = new int[2];
-		for(int i = 0; i < nCard; i++) {
-			card =  firstPSelectCard();
-			hand.remove(card);
+		else if(exCardsCount <= cardsCount) {
+			cardsCount = exCardsCount;
 		}
-		
-		cardInfo[0] = card.getNumber();
-		cardInfo[1] = nCard;
-		
-		return cardInfo;
+		else {
+			//pass 해야 하는 경우
+			return -1;
+		}
+		return cardsCount;
 		
 	}
 	
-	// cardNum인 카드를 nCard개수만큼 낸다
-	public void playCards(int cardNum, int nCard) {
-		Card card = new Card(cardNum);
-		for (int i = 0; i < nCard; i++) {
-			this.getHand().remove(card);
+	public boolean wantsPass() {
+		return Math.random() < 0.2;
+	}
+	
+	// 이전 카드에 대한 정보를 받아서 내 카드 중 어느 걸 얼마나 낼지 정한 후, 카드 내기
+	public boolean playCards(int exCardNum, int exCardsCount) {
+		if(!wantsPass() && exCardsCount != -1) {
+			int selectedCardNum = selectCard(exCardNum);
+			int cardsCount = cardsCountToPlay(selectedCardNum, exCardsCount);
+			Card card = new Card(selectedCardNum);
+			for (int i = 0; i < cardsCount; i++) {
+				this.getHand().remove(card);
+			}
+			return true;
 		}
+		return false;
 	}
 	
 	@Override

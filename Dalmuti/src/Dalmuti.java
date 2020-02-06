@@ -29,27 +29,58 @@ public class Dalmuti {
 		// TODO 달무티가 카드를 내면 그 다음 사람들은 더 낮은 숫자의 카드를 해당개수만큼 내야함. 모두가 못내면 한 라운드 끝
 		// 이전 라운드에 마지막으로 낸 사람이 다음 라운드의 선 플레이어가 됨.
 		// 한 게임에 여러 라운드가 있다. 한명 제외 모두가 카드를 소진했을 때 한 게임 끝.
-	
+		int gameOver = 0;
+		int firstPlayer = 0;
 		while(true) {
-			playRound();
-			break;
-		}
-		
+			
+			firstPlayer = playRound(firstPlayer);
+			
+			for(int i = 0; i < players.length; i++) {
+				System.out.println(players[i] + "'s hand");
+				System.out.println(players[i].getHand());
+				if(players[i].getHand().size() == 0) {
+					gameOver++;
+				}
+			}
+			if(gameOver == players.length - 1) {
+				break;
+			}
+		}	
 	}
 
 
-	private void playRound() {
-		// TODO Auto-generated method stub
+	private int playRound(int firstPlayer) {
+		
+		int totalTurn = firstPlayer;
 		int turn = 0;
+		int gameOver = 0;
+		boolean play = false;
+		int passCount = 0;
+		int exCardNum = 0;
+		int exCardsCount = 0;
+		
 		while(true) {
-			int[] Info = new int[2];
-			if(turn == 0) {
-				Info = players[0].firstPPlayCards();
-				turn++;
-				players[1].playCards(Info[0], Info[1]);
-				turn++;
+			//players[0].playCards(exCardNum, exCardsCount);
+			//players[1].playCards(exCardNum, exCardsCount);
+			//System.out.println(players[0].getHand());
+			//System.out.println(players[1].getHand());
+			turn = totalTurn % players.length;
+			if(players[turn].getHand().size() == 0) {
+				gameOver++;
+				continue;
+			}
+			
+			play = players[turn].playCards(exCardNum, exCardsCount);
+			if(play == false) {
+				passCount++;
+			}
+			totalTurn++;
+			
+			if(passCount == players.length || gameOver == players.length - 1) {
+				break;
 			}
 		}
+		return turn;
 	}
 
 

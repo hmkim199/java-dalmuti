@@ -87,7 +87,8 @@ public class Player implements Comparable<Player> {
 		
 		selectedCardNum = Collections.max(handInfo);
 		while(selectedCardNum >= exCardNum) {
-			handInfo.remove(selectedCardNum);
+			handInfo.remove((Integer)selectedCardNum);
+		
 			selectedCardNum = Collections.max(handInfo);
 		}
 		
@@ -99,11 +100,11 @@ public class Player implements Comparable<Player> {
 	public int cardsCountToPlay(int selectedCardNum, int exCardsCount) {
 		int cardsCount = 0;
 		
-			for(int i = 0; i < hand.size(); i++) {
-				if(hand.get(i).getNumber() == selectedCardNum) {
-					cardsCount++;
-				}
+		for(int i = 0; i < hand.size(); i++) {
+			if(hand.get(i).getNumber() == selectedCardNum) {
+				cardsCount++;
 			}
+		}
 			//return cardsCount;
 		if(exCardsCount == 0) {
 			return cardsCount;
@@ -113,7 +114,7 @@ public class Player implements Comparable<Player> {
 		}
 		else {
 			//pass 해야 하는 경우
-			return -1;
+			cardsCount = -1;
 		}
 		return cardsCount;
 		
@@ -124,17 +125,26 @@ public class Player implements Comparable<Player> {
 	}
 	
 	// 이전 카드에 대한 정보를 받아서 내 카드 중 어느 걸 얼마나 낼지 정한 후, 카드 내기
-	public boolean playCards(int exCardNum, int exCardsCount) {
-		if(!wantsPass() && exCardsCount != -1) {
+	public int[] playCards(int exCardNum, int exCardsCount) {
+		//cardsInfo에 무슨 카드를 몇장 냈는지 저장
+		int[] cardsInfo = new int[2];
+		if(!wantsPass()) {
 			int selectedCardNum = selectCard(exCardNum);
 			int cardsCount = cardsCountToPlay(selectedCardNum, exCardsCount);
-			Card card = new Card(selectedCardNum);
-			for (int i = 0; i < cardsCount; i++) {
-				this.getHand().remove(card);
+			if(cardsCount != -1) {
+				Card card = new Card(selectedCardNum);
+				for (int i = 0; i < cardsCount; i++) {
+					this.getHand().remove(card);
+				}
+				System.out.println(selectedCardNum + "을" + cardsCount + "장 냈습니다.\n");
+				cardsInfo[0] = selectedCardNum;
+				cardsInfo[1] = cardsCount;
+				return cardsInfo;
 			}
-			return true;
+			
 		}
-		return false;
+		System.out.println("패스했습니다.\n");
+		return cardsInfo;
 	}
 	
 	@Override

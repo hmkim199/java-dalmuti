@@ -31,20 +31,22 @@ public class Dalmuti {
 		// 한 게임에 여러 라운드가 있다. 한명 제외 모두가 카드를 소진했을 때 한 게임 끝.
 		int gameOver = 0;
 		int firstPlayer = 0;
+		System.out.println("\n게임 시작!!\n");
 		while(true) {
 			
 			firstPlayer = playRound(firstPlayer);
 			
-			for(int i = 0; i < players.length; i++) {
-				System.out.println(players[i] + "'s hand");
-				System.out.println(players[i].getHand());
-				if(players[i].getHand().size() == 0) {
-					gameOver++;
-				}
-			}
-			if(gameOver == players.length - 1) {
-				break;
-			}
+//			for(int i = 0; i < players.length; i++) {
+//				
+//				if(players[i].getHand().size() == 0) {
+//					gameOver++;
+//				}
+//			}
+//			if(gameOver == players.length - 1) {
+//				break;
+//			}
+			
+			break;
 		}	
 	}
 
@@ -54,7 +56,7 @@ public class Dalmuti {
 		int totalTurn = firstPlayer;
 		int turn = 0;
 		int gameOver = 0;
-		boolean play = false;
+		int[] play = new int[2];
 		int passCount = 0;
 		int exCardNum = 0;
 		int exCardsCount = 0;
@@ -65,20 +67,29 @@ public class Dalmuti {
 			//System.out.println(players[0].getHand());
 			//System.out.println(players[1].getHand());
 			turn = totalTurn % players.length;
+			
+			System.out.println(turn+"번째 player 차례입니다.");
+			System.out.println(players[turn].getHand());
+			
 			if(players[turn].getHand().size() == 0) {
 				gameOver++;
 				continue;
 			}
 			
+			if(passCount == players.length || gameOver == players.length - 1) {
+				break;
+			}
+			
 			play = players[turn].playCards(exCardNum, exCardsCount);
-			if(play == false) {
+			exCardNum = play[0];
+			exCardsCount = play[1];
+			
+			if(play[0] == 0 && play[1] == 0) {
 				passCount++;
 			}
 			totalTurn++;
 			
-			if(passCount == players.length || gameOver == players.length - 1) {
-				break;
-			}
+			
 		}
 		return turn;
 	}

@@ -57,7 +57,6 @@ public class Player implements Comparable<Player> {
 		}
 	}
 
-	
 	public Card findTaxCard() {
 
 		Card tax = Collections.min(this.hand);
@@ -69,84 +68,63 @@ public class Player implements Comparable<Player> {
 		return tax;
 
 	}
-	
-	public int selectCard(int exCardNum) {
-		// 라운드 시작 때 선플레이어가 카드 고르기
-		int selectedCardNum = 0;
+
+	public int[] selectCards(int exCardNum, int exCardsCount) {
+
+		int[] cardsInfo = new int[2];
+		int[] handCount = new int[14];
+
+		for (int i = 0; i < hand.size(); i++) {
+			handCount[hand.get(i).getNumber()] += 1;
+		}
+
 		if (exCardNum == 0) {
-			Card selectedCard = Collections.max(this.hand);
-			selectedCardNum = selectedCard.getNumber();
-			return selectedCardNum;
-		}
-		
-		// 후 플레이어들 카드 고르기
-		ArrayList<Integer> handInfo = new ArrayList<Integer>();		
-		for(int i = 0; i < hand.size(); i++) {
-			handInfo.add(hand.get(i).getNumber());
-		}
-		
-		selectedCardNum = Collections.max(handInfo);
-		while(selectedCardNum >= exCardNum) {
-			handInfo.remove((Integer)selectedCardNum);
-		
-			selectedCardNum = Collections.max(handInfo);
-		}
-		
-		return selectedCardNum;
-		
-	}
-	
-	// 라운드 시작 때 선플레이어가 해당 카드 몇 개 낼 지 정하기
-	public int cardsCountToPlay(int selectedCardNum, int exCardsCount) {
-		int cardsCount = 0;
-		
-		for(int i = 0; i < hand.size(); i++) {
-			if(hand.get(i).getNumber() == selectedCardNum) {
-				cardsCount++;
+			for (int i = 13; i > 0; i--) {
+				if (handCount[i] > 0) {
+					cardsInfo[0] = i;
+					cardsInfo[1] = handCount[i];
+					return cardsInfo;
+				}
 			}
 		}
-			//return cardsCount;
-		if(exCardsCount == 0) {
-			return cardsCount;
+
+		for (int i = exCardNum - 1; i > 0; i--) {
+			if (handCount[i] >= exCardsCount) {
+				cardsInfo[0] = i;
+				cardsInfo[1] = exCardsCount;
+				System.out.println(cardsInfo[0] + " " + cardsInfo[1]);
+				return cardsInfo;
+			}
 		}
-		else if(exCardsCount <= cardsCount) {
-			cardsCount = exCardsCount;
-		}
-		else {
-			//pass 해야 하는 경우
-			cardsCount = -1;
-		}
-		return cardsCount;
-		
+		return cardsInfo;
+
 	}
-	
+
 	public boolean wantsPass() {
 		return Math.random() < 0.2;
 	}
-	
+
 	// 이전 카드에 대한 정보를 받아서 내 카드 중 어느 걸 얼마나 낼지 정한 후, 카드 내기
 	public int[] playCards(int exCardNum, int exCardsCount) {
-		//cardsInfo에 무슨 카드를 몇장 냈는지 저장
+		// cardsInfo에 무슨 카드를 몇장 냈는지 저장
 		int[] cardsInfo = new int[2];
-		if(!wantsPass()) {
-			int selectedCardNum = selectCard(exCardNum);
-			int cardsCount = cardsCountToPlay(selectedCardNum, exCardsCount);
-			if(cardsCount != -1) {
-				Card card = new Card(selectedCardNum);
-				for (int i = 0; i < cardsCount; i++) {
+		if (!wantsPass()) {
+			cardsInfo = selectCards(exCardNum, exCardsCount);
+
+			if (cardsInfo[0] != 0 && cardsInfo[1] != 0) {
+				Card card = new Card(cardsInfo[0]);
+				for (int i = 0; i < cardsInfo[1]; i++) {
 					this.getHand().remove(card);
 				}
-				System.out.println(selectedCardNum + "을" + cardsCount + "장 냈습니다.\n");
-				cardsInfo[0] = selectedCardNum;
-				cardsInfo[1] = cardsCount;
+				System.out.println(cardsInfo[0] + "을" + cardsInfo[1] + "장 냈습니다.\n");
 				return cardsInfo;
 			}
-			
+
 		}
 		System.out.println("패스했습니다.\n");
 		return cardsInfo;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Player " + name;
@@ -156,6 +134,5 @@ public class Player implements Comparable<Player> {
 	public int compareTo(Player o) {
 		return this.rank - o.rank;
 	}
-	
-	
+
 }

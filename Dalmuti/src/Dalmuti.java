@@ -18,13 +18,11 @@ public class Dalmuti {
 		if (someoneWantsRevolution()) {
 			revolution();
 		} else {
-			collectTaxes();	
+			collectTaxes();
 		}
 		playGame();
 	}
 
-	
-	
 	private void playGame() {
 		// TODO 달무티가 카드를 내면 그 다음 사람들은 더 낮은 숫자의 카드를 해당개수만큼 내야함. 모두가 못내면 한 라운드 끝
 		// 이전 라운드에 마지막으로 낸 사람이 다음 라운드의 선 플레이어가 됨.
@@ -32,10 +30,10 @@ public class Dalmuti {
 		int gameOver = 0;
 		int firstPlayer = 0;
 		System.out.println("\n게임 시작!!\n");
-		while(true) {
-			
+		while (true) {
+
 			firstPlayer = playRound(firstPlayer);
-			
+
 //			for(int i = 0; i < players.length; i++) {
 //				
 //				if(players[i].getHand().size() == 0) {
@@ -45,14 +43,13 @@ public class Dalmuti {
 //			if(gameOver == players.length - 1) {
 //				break;
 //			}
-			
+
 			break;
-		}	
+		}
 	}
 
-
 	private int playRound(int firstPlayer) {
-		
+
 		int totalTurn = firstPlayer;
 		int turn = 0;
 		int gameOver = 0;
@@ -60,41 +57,37 @@ public class Dalmuti {
 		int passCount = 0;
 		int exCardNum = 0;
 		int exCardsCount = 0;
-		
-		while(true) {
-			//players[0].playCards(exCardNum, exCardsCount);
-			//players[1].playCards(exCardNum, exCardsCount);
-			//System.out.println(players[0].getHand());
-			//System.out.println(players[1].getHand());
+
+		while (true) {
 			turn = totalTurn % players.length;
-			
-			System.out.println(turn+"번째 player 차례입니다.");
+
+			System.out.println(turn + "번째 player 차례입니다.");
 			System.out.println(players[turn].getHand());
-			
-			if(players[turn].getHand().size() == 0) {
-				gameOver++;
-				continue;
+
+//			if(players[turn].getHand().size() == 0) {
+//				gameOver++;
+//				continue;
+//			}
+
+			play = players[turn].playCards(exCardNum, exCardsCount);
+
+			if (play[0] == 0 && play[1] == 0) {
+				passCount++;
+			} else {
+				exCardNum = play[0];
+				exCardsCount = play[1];
+				passCount = 0;
 			}
-			
-			if(passCount == players.length || gameOver == players.length - 1) {
+
+			if (passCount == players.length || gameOver == players.length - 1) {
+				System.out.println("라운드 끝");
 				break;
 			}
-			
-			play = players[turn].playCards(exCardNum, exCardsCount);
-			exCardNum = play[0];
-			exCardsCount = play[1];
-			
-			if(play[0] == 0 && play[1] == 0) {
-				passCount++;
-			}
+
 			totalTurn++;
-			
-			
 		}
 		return turn;
 	}
-
-
 
 	private void collectTaxes() {
 		players[players.length - 1].payTax(2, players[0]);
@@ -107,7 +100,6 @@ public class Dalmuti {
 			System.out.println(players[i].getHand());
 		}
 	}
-
 
 	private void revolution() {
 		// 세금 없고 계급 반대

@@ -9,7 +9,7 @@ public class Dalmuti {
 	private ArrayList<Card> cards;
 	
 	private int round = 1;
-	private int currentPlayer = 0;
+	private int currentPlayer = 1;
 	private Card currentCard = null;
 	private int currentCount = 0;
 	private boolean[] skipped;
@@ -37,7 +37,7 @@ public class Dalmuti {
 			currentCount = 0;
 			skipped = new boolean[players.length];
 			
-			while (!hasRoundEnded()/* 아무도 낼 카드가 없음 */) {
+			while (true/* 아무도 낼 카드가 없음 */) {
 				System.out.println();
 				System.out.println(players[currentPlayer] + "'s turn");
 				ArrayList<Card> playedCards = players[currentPlayer].playCards(currentCard, currentCount);
@@ -52,7 +52,12 @@ public class Dalmuti {
 					System.out.println(players[currentPlayer] + " played [" + currentCard + "] X " + currentCount);
 				}
 				
-				currentPlayer = (currentPlayer + 1) % 4;
+				if (hasRoundEnded()) {
+					currentPlayer = ((currentPlayer - 1) % 4 + 4 ) % 4;
+					break;
+				} else {
+					currentPlayer = (currentPlayer + 1) % 4;
+				}
 			}
 			round++;
 		}

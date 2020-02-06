@@ -20,27 +20,28 @@ public class Player implements Comparable<Player> {
 		numberOfPlayers++;
 	}
 
-	public ArrayList<Card> playCards(Card currentCard, int count) {
+	public ArrayList<Card> playCards(Card currentCard, int currentCount) {
 		ArrayList<Card> cards = new ArrayList<Card>();
 		
 		int[] assortedCards = sortCards();
 		
 		if (currentCard == null) {
 			// 가진 카드 중 가장 높은 숫자 다 내기
-			int maxCount = 0;
-			int maxIndex = 0;
+			int count = 0;
+			int index = 0;
 			
-			for (int i = 1; i <= 13; i++) {
-				if (assortedCards[i] >= maxCount) {
-					maxCount = assortedCards[i];
-					maxIndex = i;
+			for (int i = 13; i >= 1; i--) {
+				if (assortedCards[i] > 0) {
+					count = assortedCards[i];
+					index = i;
+					break;
 				}
 			}
 			
 //			System.out.println("Card " + maxIndex + "이 " + maxCount + "장으로 가장 많음.");
 			
-			Card card = new Card(maxIndex);
-			for (int i = 0; i < maxCount; i++) {
+			Card card = new Card(index);
+			for (int i = 0; i < count; i++) {
 				cards.add(card);
 				hand.remove(card);
 			}
@@ -50,8 +51,8 @@ public class Player implements Comparable<Player> {
 			// 가진 카드 중 조건에 맞는 가장 큰 숫자 20% 확률로 내기
 			// 조건: currentCard보다 작은 수가 count만큼 있음
 			int cardIndex = currentCard.getNumber();
-			for (int i = cardIndex; i > 0; i--) {
-				if (assortedCards[i] >= count) {
+			for (int i = cardIndex - 1; i > 0; i--) {
+				if (assortedCards[i] >= currentCount) {
 					int random = (int)(Math.random() * 100);
 //					System.out.println("Card " + assortedCards[i] + " 낼 수 있음.");
 					if (random < 20) {
@@ -59,7 +60,7 @@ public class Player implements Comparable<Player> {
 						return cards;
 					} else {
 						Card card = new Card(i);
-						for (int j = 0; j < count; j++) {
+						for (int j = 0; j < currentCount; j++) {
 							cards.add(card);
 							hand.remove(card);
 						}
@@ -123,14 +124,14 @@ public class Player implements Comparable<Player> {
 		}
 
 		for (int i = 0; i < nExchange; i++) {
-			Card selectedCard = selectCard();
+			Card selectedCard = selectTaxCard();
 			giveCard(selectedCard, toPlayer);
 
 //			System.out.println("Rank " + rank + " pays " + selectedCard + " to rank " + toPlayer.rank);
 		}
 	}
 
-	private Card selectCard() {
+	private Card selectTaxCard() {
 		Card selectedCard = null;
 
 		if (rank <= 2) {

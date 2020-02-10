@@ -44,24 +44,24 @@ public class Dalmuti {
 		currentCount = 0;
 		skipped = new boolean[players.length];
 
+		ArrayList<Card> playedCards = null;
+
 		while (true/* 아무도 낼 카드가 없음 */) {
 			System.out.println();
+
+			skipped[currentPlayer] = true;
 
 			if (players[currentPlayer].getHand().size() > 0) {
 				System.out.println(players[currentPlayer] + "'s turn");
 
-				ArrayList<Card> playedCards = players[currentPlayer].playCards(currentCard, currentCount);
+				playedCards = players[currentPlayer].playCards(currentCard, currentCount);
 
 				if (playedCards.size() > 0) {
 					skipped = new boolean[players.length];
 					currentCard = playedCards.get(0);
 					currentCount = playedCards.size();
-					System.out.println(players[currentPlayer] + " played [" + currentCard + "] X " + currentCount);
 				}
 			}
-
-			skipped[currentPlayer] = true;
-			System.out.println("PASS");
 
 			currentPlayer = (currentPlayer + 1) % 4;
 

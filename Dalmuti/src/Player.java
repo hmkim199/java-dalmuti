@@ -22,14 +22,14 @@ public class Player implements Comparable<Player> {
 
 	public ArrayList<Card> playCards(Card currentCard, int currentCount) {
 		ArrayList<Card> cards = new ArrayList<Card>();
-		
+
 		int[] assortedCards = sortCards();
 		
+		int count = 0;
+		int index = 0;
+
 		if (currentCard == null) {
 			// 가진 카드 중 가장 높은 숫자 다 내기
-			int count = 0;
-			int index = 0;
-			
 			for (int i = 13; i >= 1; i--) {
 				if (assortedCards[i] > 0) {
 					count = assortedCards[i];
@@ -37,43 +37,39 @@ public class Player implements Comparable<Player> {
 					break;
 				}
 			}
-			
+
 //			System.out.println("Card " + maxIndex + "이 " + maxCount + "장으로 가장 많음.");
-			
-			Card card = new Card(index);
-			for (int i = 0; i < count; i++) {
-				cards.add(card);
-				hand.remove(card);
-			}
-			
-			return cards;
 		} else {
 			// 가진 카드 중 조건에 맞는 가장 큰 숫자 20% 확률로 내기
 			// 조건: currentCard보다 작은 수가 count만큼 있음
 			int cardIndex = currentCard.getNumber();
 			for (int i = cardIndex - 1; i > 0; i--) {
 				if (assortedCards[i] >= currentCount) {
-					int random = (int)(Math.random() * 100);
+					int random = (int) (Math.random() * 100);
 //					System.out.println("Card " + assortedCards[i] + " 낼 수 있음.");
-					if (random < 20) {
-						// 내지 않음
-						return cards;
-					} else {
-						Card card = new Card(i);
-						for (int j = 0; j < currentCount; j++) {
-							cards.add(card);
-							hand.remove(card);
-						}
-						
-						return cards;
+					if (random > 20) {
+						index = i;
+						count = currentCount;
 					}
 				}
 			}
 		}
 
+		Card card = new Card(index);
+		for (int i = 0; i < count; i++) {
+			cards.add(card);
+			hand.remove(card);
+		}
+		
+		if (cards.size() > 0) {
+			System.out.println(this + " played [" + card + "] X " + count);
+		} else {
+			System.out.println(this + " passed.");
+		}
+
 		return cards;
 	}
-	
+
 	private int[] sortCards() {
 		int[] assortedCards = new int[14];
 		for (int i = 0; i < hand.size(); i++) {
@@ -95,7 +91,7 @@ public class Player implements Comparable<Player> {
 		}
 		System.out.println();
 		System.out.println("-----------------------------------------------------------------");
-		
+
 		return assortedCards;
 	}
 

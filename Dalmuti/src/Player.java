@@ -38,7 +38,6 @@ public class Player implements Comparable<Player> {
 				}
 			}
 
-//			System.out.println("Card " + maxIndex + "이 " + maxCount + "장으로 가장 많음.");
 		} else {
 			// 가진 카드 중 조건에 맞는 가장 큰 숫자 20% 확률로 내기
 			// 조건: currentCard보다 작은 수가 count만큼 있음
@@ -46,7 +45,6 @@ public class Player implements Comparable<Player> {
 			for (int i = cardIndex - 1; i > 0; i--) {
 				if (assortedCards[i] >= currentCount) {
 					int random = (int) (Math.random() * 100);
-//					System.out.println("Card " + assortedCards[i] + " 낼 수 있음.");
 					if (random > 20) {
 						index = i;
 						count = currentCount;
@@ -138,6 +136,10 @@ public class Player implements Comparable<Player> {
 		}
 
 		return selectedCard;
+	}
+	
+	public boolean handIsEmpty() {
+		return hand.size() == 0;
 	}
 
 	public int getRank() {

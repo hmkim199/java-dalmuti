@@ -51,7 +51,7 @@ public class Dalmuti {
 
 			skipped[currentPlayer] = true;
 
-			if (players[currentPlayer].getHand().size() > 0) {
+			if (!players[currentPlayer].handIsEmpty()) {
 				System.out.println(players[currentPlayer] + "'s turn");
 
 				playedCards = players[currentPlayer].playCards(currentCard, currentCount);
@@ -72,17 +72,16 @@ public class Dalmuti {
 	}
 
 	private boolean hasGameEnded() {
-		int nPeopleWithCards = 0;
+		int nDonePeople = 0;
 
 		for (int i = 0; i < players.length; i++) {
-			int nCards = players[i].getHand().size();
-			if (nCards > 0) {
-				nPeopleWithCards++;
+			if (players[i].handIsEmpty()) {
+				nDonePeople++;
 			}
 		}
-		System.out.println("카드가 남아 있는 사람 수: " + nPeopleWithCards);
+		System.out.println("카드를 다 사용한 사람 수: " + nDonePeople);
 
-		return nPeopleWithCards < 1;
+		return nDonePeople > players.length - 1;
 	}
 
 	private boolean hasRoundEnded() {

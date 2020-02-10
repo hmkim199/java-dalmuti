@@ -72,7 +72,7 @@ public class Player implements Comparable<Player> {
 	public int[] selectCards(int exCardNum, int exCardsCount) {
 
 		int[] cardsInfo = new int[2];
-		int[] handCount = new int[14];	
+		int[] handCount = new int[14];
 
 		for (int i = 0; i < hand.size(); i++) {
 			handCount[hand.get(i).getNumber()] += 1;
@@ -83,21 +83,20 @@ public class Player implements Comparable<Player> {
 				if (handCount[i] > 0) {
 					cardsInfo[0] = i;
 					cardsInfo[1] = handCount[i];
-					return cardsInfo;
+				}
+			}
+			
+		} else {
+			for (int i = exCardNum - 1; i > 0; i--) {
+				if (handCount[i] >= exCardsCount) {
+					cardsInfo[0] = i;
+					cardsInfo[1] = exCardsCount;
+					System.out.println(cardsInfo[0] + " " + cardsInfo[1]);
 				}
 			}
 		}
-
-		for (int i = exCardNum - 1; i > 0; i--) {
-			if (handCount[i] >= exCardsCount) {
-				cardsInfo[0] = i;
-				cardsInfo[1] = exCardsCount;
-				System.out.println(cardsInfo[0] + " " + cardsInfo[1]);
-				return cardsInfo;
-			}
-		}
+		
 		return cardsInfo;
-
 	}
 
 	public boolean wantsPass() {
@@ -116,14 +115,15 @@ public class Player implements Comparable<Player> {
 				for (int i = 0; i < cardsInfo[1]; i++) {
 					this.getHand().remove(card);
 				}
-				System.out.println(cardsInfo[0] + "을" + cardsInfo[1] + "장 냈습니다.\n");
-				return cardsInfo;
 			}
-
 		}
 		
-		System.out.println("패스했습니다.\n");
-		
+		if (cardsInfo[0] != 0 && cardsInfo[1] != 0) {
+			System.out.println(cardsInfo[0] + "을" + cardsInfo[1] + "장 냈습니다.\n");
+		}
+		else {
+			System.out.println("패스했습니다.\n");
+		}
 		return cardsInfo;
 	}
 

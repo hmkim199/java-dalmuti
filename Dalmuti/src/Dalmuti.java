@@ -7,7 +7,7 @@ public class Dalmuti {
 	private final int NUMBER_OF_PLAYERS = 4;
 	private Player[] players;
 	private ArrayList<Card> cards;
-	
+
 	private int round = 1;
 	private int firstPlayer = 0;
 	private Card currentCard = null;
@@ -32,59 +32,48 @@ public class Dalmuti {
 	private void playGame() {
 		while (!hasGameEnded()/* 모두가 카드를 소진함 */) {
 			System.out.println("Round " + round);
-			
+
 			firstPlayer = playRound(firstPlayer);
 			round++;
 		}
 	}
-	
+
 	private int playRound(int firstPlayer) {
 		int currentPlayer = firstPlayer;
 		currentCard = null;
 		currentCount = 0;
 		skipped = new boolean[players.length];
-		
+
 		while (true/* 아무도 낼 카드가 없음 */) {
 			System.out.println();
-			
-//			if (players[currentPlayer].getHand().size() == 0) {
-//				skipped[currentPlayer] = true;
-//				
-//				currentPlayer = (currentPlayer + 1) % 4;
-//				
-//				if (hasRoundEnded()) {
-//					return currentPlayer;
-//				}
-//				
-//				continue;
-//			}
-			
-			System.out.println(players[currentPlayer] + "'s turn");
 
-			
-			ArrayList<Card> playedCards = players[currentPlayer].playCards(currentCard, currentCount);
-			
-			if (playedCards.size() == 0) {
-				skipped[currentPlayer] = true;
-				System.out.println("PASS");
-			} else {
-				skipped = new boolean[players.length];
-				currentCard = playedCards.get(0);
-				currentCount = playedCards.size();
-				System.out.println(players[currentPlayer] + " played [" + currentCard + "] X " + currentCount);
+			if (players[currentPlayer].getHand().size() > 0) {
+				System.out.println(players[currentPlayer] + "'s turn");
+
+				ArrayList<Card> playedCards = players[currentPlayer].playCards(currentCard, currentCount);
+
+				if (playedCards.size() > 0) {
+					skipped = new boolean[players.length];
+					currentCard = playedCards.get(0);
+					currentCount = playedCards.size();
+					System.out.println(players[currentPlayer] + " played [" + currentCard + "] X " + currentCount);
+				}
 			}
-			
+
+			skipped[currentPlayer] = true;
+			System.out.println("PASS");
+
 			currentPlayer = (currentPlayer + 1) % 4;
-			
+
 			if (hasRoundEnded()) {
 				return currentPlayer;
 			}
 		}
 	}
-	
+
 	private boolean hasGameEnded() {
 		int nPeopleWithCards = 0;
-		
+
 		for (int i = 0; i < players.length; i++) {
 			int nCards = players[i].getHand().size();
 			if (nCards > 0) {
@@ -92,10 +81,10 @@ public class Dalmuti {
 			}
 		}
 		System.out.println("카드가 남아 있는 사람 수: " + nPeopleWithCards);
-		
+
 		return nPeopleWithCards < 1;
 	}
-	
+
 	private boolean hasRoundEnded() {
 		int skippedCount = 0;
 		for (int i = 0; i < players.length; i++) {

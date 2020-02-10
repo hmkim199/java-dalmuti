@@ -78,7 +78,7 @@ public class Dalmuti {
 			int donePlayers = 0;
 			for (int i = 0; i < players.length; i++) {
 
-				if (players[i].getHand().size() == 0) {
+				if (players[i].handIsEmpty()) {
 					donePlayers++;
 				}
 			}

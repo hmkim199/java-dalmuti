@@ -127,6 +127,10 @@ public class Player implements Comparable<Player> {
 		return cardsInfo;
 	}
 
+	public boolean handIsEmpty() {
+		return hand.size() == 0;
+	}
+	
 	@Override
 	public String toString() {
 		return "Player " + name;

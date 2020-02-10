@@ -81,7 +81,7 @@ public class Dalmuti {
 		}
 		System.out.println("카드를 다 사용한 사람 수: " + nDonePeople);
 
-		return nDonePeople > players.length - 1;
+		return nDonePeople >= players.length - 1;
 	}
 
 	private boolean hasRoundEnded() {

@@ -72,7 +72,7 @@ public class Player implements Comparable<Player> {
 	public int[] selectCards(int exCardNum, int exCardsCount) {
 
 		int[] cardsInfo = new int[2];
-		int[] handCount = new int[14];
+		int[] handCount = new int[14];	
 
 		for (int i = 0; i < hand.size(); i++) {
 			handCount[hand.get(i).getNumber()] += 1;
@@ -121,7 +121,9 @@ public class Player implements Comparable<Player> {
 			}
 
 		}
+		
 		System.out.println("패스했습니다.\n");
+		
 		return cardsInfo;
 	}
 

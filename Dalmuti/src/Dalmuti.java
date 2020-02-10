@@ -9,7 +9,7 @@ public class Dalmuti {
 	private ArrayList<Card> cards;
 	
 	private int round = 1;
-	private int currentPlayer = 1;
+	private int currentPlayer = 0;
 	private Card currentCard = null;
 	private int currentCount = 0;
 	private boolean[] skipped;
@@ -31,35 +31,39 @@ public class Dalmuti {
 
 	private void playGame() {
 		while (!hasGameEnded()/* 모두가 카드를 소진함 */) {
-
 			System.out.println("Round " + round);
-			currentCard = null;
-			currentCount = 0;
-			skipped = new boolean[players.length];
 			
-			while (true/* 아무도 낼 카드가 없음 */) {
-				System.out.println();
-				System.out.println(players[currentPlayer] + "'s turn");
-				ArrayList<Card> playedCards = players[currentPlayer].playCards(currentCard, currentCount);
-				
-				if (playedCards.size() == 0) {
-					skipped[currentPlayer] = true;
-					System.out.println("PASS");
-				} else {
-					skipped[currentPlayer] = false;
-					currentCard = playedCards.get(0);
-					currentCount = playedCards.size();
-					System.out.println(players[currentPlayer] + " played [" + currentCard + "] X " + currentCount);
-				}
-				
-				if (hasRoundEnded()) {
-					currentPlayer = ((currentPlayer - 1) % 4 + 4 ) % 4;
-					break;
-				} else {
-					currentPlayer = (currentPlayer + 1) % 4;
-				}
-			}
+			currentPlayer = playRound(currentPlayer);
 			round++;
+		}
+	}
+	
+	private int playRound(int firstPlayer) {
+		currentPlayer = firstPlayer;
+		currentCard = null;
+		currentCount = 0;
+		skipped = new boolean[players.length];
+		
+		while (true/* 아무도 낼 카드가 없음 */) {
+			System.out.println();
+			System.out.println(players[currentPlayer] + "'s turn");
+			ArrayList<Card> playedCards = players[currentPlayer].playCards(currentCard, currentCount);
+			
+			if (playedCards.size() == 0) {
+				skipped[currentPlayer] = true;
+				System.out.println("PASS");
+			} else {
+				skipped[currentPlayer] = false;
+				currentCard = playedCards.get(0);
+				currentCount = playedCards.size();
+				System.out.println(players[currentPlayer] + " played [" + currentCard + "] X " + currentCount);
+			}
+			
+			if (hasRoundEnded()) {
+				return currentPlayer;
+			} else {
+				currentPlayer = (currentPlayer + 1) % 4;
+			}
 		}
 	}
 	

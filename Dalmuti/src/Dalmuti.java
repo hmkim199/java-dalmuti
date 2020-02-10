@@ -9,7 +9,7 @@ public class Dalmuti {
 	private ArrayList<Card> cards;
 	
 	private int round = 1;
-	private int currentPlayer = 0;
+	private int firstPlayer = 0;
 	private Card currentCard = null;
 	private int currentCount = 0;
 	private boolean[] skipped;
@@ -33,36 +33,51 @@ public class Dalmuti {
 		while (!hasGameEnded()/* 모두가 카드를 소진함 */) {
 			System.out.println("Round " + round);
 			
-			currentPlayer = playRound(currentPlayer);
+			firstPlayer = playRound(firstPlayer);
 			round++;
 		}
 	}
 	
 	private int playRound(int firstPlayer) {
-		currentPlayer = firstPlayer;
+		int currentPlayer = firstPlayer;
 		currentCard = null;
 		currentCount = 0;
 		skipped = new boolean[players.length];
 		
 		while (true/* 아무도 낼 카드가 없음 */) {
 			System.out.println();
+			
+//			if (players[currentPlayer].getHand().size() == 0) {
+//				skipped[currentPlayer] = true;
+//				
+//				currentPlayer = (currentPlayer + 1) % 4;
+//				
+//				if (hasRoundEnded()) {
+//					return currentPlayer;
+//				}
+//				
+//				continue;
+//			}
+			
 			System.out.println(players[currentPlayer] + "'s turn");
+
+			
 			ArrayList<Card> playedCards = players[currentPlayer].playCards(currentCard, currentCount);
 			
 			if (playedCards.size() == 0) {
 				skipped[currentPlayer] = true;
 				System.out.println("PASS");
 			} else {
-				skipped[currentPlayer] = false;
+				skipped = new boolean[players.length];
 				currentCard = playedCards.get(0);
 				currentCount = playedCards.size();
 				System.out.println(players[currentPlayer] + " played [" + currentCard + "] X " + currentCount);
 			}
 			
+			currentPlayer = (currentPlayer + 1) % 4;
+			
 			if (hasRoundEnded()) {
 				return currentPlayer;
-			} else {
-				currentPlayer = (currentPlayer + 1) % 4;
 			}
 		}
 	}
@@ -82,13 +97,15 @@ public class Dalmuti {
 	}
 	
 	private boolean hasRoundEnded() {
-		boolean isEnd = true;
+		int skippedCount = 0;
 		for (int i = 0; i < players.length; i++) {
 //			System.out.print(skipped[i] + " ");
-			isEnd = isEnd && skipped[i];
+			if (skipped[i] == true) {
+				skippedCount++;
+			}
 		}
 //		System.out.println();
-		return isEnd;
+		return skippedCount == players.length - 1;
 	}
 
 	private void collectTaxes() {

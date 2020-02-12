@@ -63,7 +63,7 @@ public class Dalmuti {
 				}
 			}
 
-			currentPlayer = (currentPlayer + 1) % 4;
+			currentPlayer = (currentPlayer + 1) % players.length;
 
 			if (hasRoundEnded()) {
 				return currentPlayer;

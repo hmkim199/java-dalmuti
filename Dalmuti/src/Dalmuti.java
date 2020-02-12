@@ -14,6 +14,8 @@ public class Dalmuti {
 	private int currentCount = 0;
 	private boolean[] skipped;
 
+	private int newRankCounter = 1;
+
 	public Dalmuti() {
 		System.out.println("Welcome to Dalmuti.");
 
@@ -36,6 +38,13 @@ public class Dalmuti {
 			firstPlayer = playRound(firstPlayer);
 			round++;
 		}
+
+		Arrays.sort(players);
+
+		for (Player player : players) {
+			System.out.print(player + "     ");
+		}
+		System.out.println();
 	}
 
 	private int playRound(int firstPlayer) {
@@ -61,11 +70,22 @@ public class Dalmuti {
 					currentCard = playedCards.get(0);
 					currentCount = playedCards.size();
 				}
+
+				if (players[currentPlayer].handIsEmpty()) {
+					players[currentPlayer].setRank(newRankCounter);
+					newRankCounter++;
+//					System.out.println(players[currentPlayer]+ " is done!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+				}
 			}
 
 			currentPlayer = (currentPlayer + 1) % players.length;
 
 			if (hasRoundEnded()) {
+				for (Player player : players) {
+					if (player.handIsEmpty() == false) {
+						player.setRank(newRankCounter);
+					}
+				}
 				return currentPlayer;
 			}
 		}
@@ -79,7 +99,7 @@ public class Dalmuti {
 				nDonePeople++;
 			}
 		}
-		System.out.println("카드를 다 사용한 사람 수: " + nDonePeople);
+//		System.out.println("카드를 다 사용한 사람 수: " + nDonePeople);
 
 		return nDonePeople >= players.length - 1;
 	}

@@ -10,11 +10,14 @@ public class Player implements Comparable<Player> {
 	 */
 	private int rank;
 	private ArrayList<Card> hand;
+	
+	private int score;
 
 	public Player(String name) {
 		this.name = name;
 		this.rank = 0;
 		this.hand = new ArrayList<Card>();
+		this.score = 0;
 
 //		System.out.println("Created player " + name);
 		numberOfPlayers++;
@@ -59,11 +62,11 @@ public class Player implements Comparable<Player> {
 			hand.remove(card);
 		}
 		
-		if (cards.size() > 0) {
-			System.out.println(this + " played [" + card + "] X " + count);
-		} else {
-			System.out.println(this + " passed.");
-		}
+//		if (cards.size() > 0) {
+//			System.out.println(this + " played [" + card + "] X " + count);
+//		} else {
+//			System.out.println(this + " passed.");
+//		}
 
 		return cards;
 	}
@@ -75,20 +78,20 @@ public class Player implements Comparable<Player> {
 			assortedCards[cardNumber]++;
 		}
 
-		System.out.println("-----------------------------------------------------------------");
-		System.out.print("| ");
-		for (int i = 1; i <= 13; i++) {
-			System.out.printf("%2d | ", i);
-		}
-		System.out.println();
-		System.out.println("-----------------------------------------------------------------");
-
-		System.out.print("| ");
-		for (int i = 1; i <= 13; i++) {
-			System.out.printf("%2d | ", assortedCards[i]);
-		}
-		System.out.println();
-		System.out.println("-----------------------------------------------------------------");
+//		System.out.println("-----------------------------------------------------------------");
+//		System.out.print("| ");
+//		for (int i = 1; i <= 13; i++) {
+//			System.out.printf("%2d | ", i);
+//		}
+//		System.out.println();
+//		System.out.println("-----------------------------------------------------------------");
+//
+//		System.out.print("| ");
+//		for (int i = 1; i <= 13; i++) {
+//			System.out.printf("%2d | ", assortedCards[i]);
+//		}
+//		System.out.println();
+//		System.out.println("-----------------------------------------------------------------");
 
 		return assortedCards;
 	}
@@ -141,7 +144,15 @@ public class Player implements Comparable<Player> {
 	public boolean handIsEmpty() {
 		return hand.size() == 0;
 	}
+	
+	public void addScore(int score) {
+		this.score += score;
+	}
 
+	public int getScore() {
+		return this.score;
+	}
+	
 	public int getRank() {
 		return rank;
 	}

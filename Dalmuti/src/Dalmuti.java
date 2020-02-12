@@ -4,12 +4,13 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Dalmuti {
-	private final int NUMBER_OF_PLAYERS = 8;
+	private final int NUMBER_OF_PLAYERS = 4;
 	private final int NUMBER_OF_GAMES = 5; 
 	
 	private Player[] players;
 	private ArrayList<Card> cards;
 
+	private int game = 0;
 	private int round = 1;
 	private int firstPlayer = 0;
 	private Card currentCard = null;
@@ -25,8 +26,7 @@ public class Dalmuti {
 		createPlayers();
 		designateRanks();
 		
-		for (int nGames = 0; nGames < NUMBER_OF_GAMES; nGames++) {
-			Arrays.sort(players);
+		for (game = 0; game < NUMBER_OF_GAMES; game++) {
 			handOutCards();
 			if (someoneWantsRevolution()) {
 				revolution();
@@ -34,17 +34,44 @@ public class Dalmuti {
 				collectTaxes();
 			}
 			playGame();
-			
-			System.out.println("Game " + nGames + " over~~~");
+			aggregateScores();
 		}
+		
+		Arrays.sort(players, new Comparator<Player>() {
+
+			@Override
+			public int compare(Player o1, Player o2) {
+				// TODO Auto-generated method stub
+				return o2.getScore() - o1.getScore();
+			}
+			
+		});
+		
+		System.out.println(players[0] + " is the winner!!!");
 	}
 
-	private void playGame() {
+	private void aggregateScores() {
+		Arrays.sort(players);
 		
+		System.out.println("Result of Game " + game + ": ");
+		
+		for (Player player: players) {
+			player.addScore(players.length - player.getRank());
+		}
+
+		for (Player player: players) {
+			System.out.println(player + "\t" + player.getScore() + " ( +" + (players.length - player.getRank()) + ")");
+		}
+		System.out.println();
+		
+	}
+	
+	private void playGame() {
+		round = 1;
 		newRankCounter = 1;
 		
 		while (!hasGameEnded()/* 모두가 카드를 소진함 */) {
-			System.out.println("Round " + round);
+//			System.out.println("Round " + round);
 			
 			firstPlayer = playRound(firstPlayer);
 			round++;
@@ -60,12 +87,12 @@ public class Dalmuti {
 		ArrayList<Card> playedCards = null;
 
 		while (true/* 아무도 낼 카드가 없음 */) {
-			System.out.println();
+//			System.out.println();
 
 			skipped[currentPlayer] = true;
 
 			if (!players[currentPlayer].handIsEmpty()) {
-				System.out.println(players[currentPlayer] + "'s turn");
+//				System.out.println(players[currentPlayer] + "'s turn");
 
 				playedCards = players[currentPlayer].playCards(currentCard, currentCount);
 
@@ -175,7 +202,6 @@ public class Dalmuti {
 
 	private void designateRanks() {
 		// 뽑기
-		ArrayList<int[]> firstRank = new ArrayList<>();
 		for (int i = 0; i < players.length; i++) {
 			players[i].setRank(cards.get(i).getNumber());
 		}

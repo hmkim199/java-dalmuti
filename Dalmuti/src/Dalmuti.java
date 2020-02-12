@@ -5,9 +5,10 @@ import java.util.Comparator;
 
 public class Dalmuti {
 	private final int NUMBER_OF_PLAYERS = 4;
+	private final int NUMBER_OF_GAMES = 5;
 	private Player[] players;
 	private ArrayList<Card> cards;
-	private int newRank = 1;
+	private int newRank;
 	
 	public Dalmuti() {
 		System.out.println("Welcome to Dalmuti.");
@@ -15,13 +16,25 @@ public class Dalmuti {
 		createCards();
 		createPlayers();
 		designateRanks();
-		handOutCards();
-		if (someoneWantsRevolution()) {
-			revolution();
-		} else {
-			collectTaxes();
+		
+		for (int nGames = 0; nGames < NUMBER_OF_GAMES; nGames++) {
+			Arrays.sort(players);
+			handOutCards();
+			if (someoneWantsRevolution()) {
+				revolution();
+			} else {
+				collectTaxes();
+			}
+			System.out.println(nGames+"번째 게임입니다.");
+			playGame();
+			aggregateScore();
 		}
-		playGame();
+		
+		for(int i = 0; i < players.length; i++) {
+			System.out.println("점수 집계!");
+			System.out.println((i+1)+"등은 "+players[i]+" 점수는 "+players[i].getScore());
+		}
+		
 	}
 
 	private void playGame() {
@@ -31,10 +44,11 @@ public class Dalmuti {
 		
 		int firstPlayer = 0;
 		int thisRound = 0;
-		System.out.println("\n게임 시작!!\n");
+		newRank = 1;
+//		System.out.println("\n게임 시작!!\n");
 		while (true) {
-			System.out.println("\n**********" + thisRound + "번째 라운드 입니다.*************\n");
-			System.out.println("선플레이어는 " + firstPlayer + "입니다.");
+//			System.out.println("\n**********" + thisRound + "번째 라운드 입니다.*************\n");
+//			System.out.println("선플레이어는 " + firstPlayer + "입니다.");
 			firstPlayer = playRound(firstPlayer);
 
 			thisRound++;
@@ -43,11 +57,10 @@ public class Dalmuti {
 			}
 		}
 		
-		Arrays.sort(players);
-		for (Player player: players) {
-			System.out.print(player + "   ");
-		}
-		System.out.println();
+//		for (Player player: players) {
+//			System.out.print(player + "   ");
+//		}
+//		System.out.println();
 	}
 
 	private int playRound(int firstPlayer) {
@@ -67,8 +80,8 @@ public class Dalmuti {
 				passCount++;
 			}
 			else {
-				System.out.println(turn + "번째 player 차례입니다.");
-				System.out.println(players[turn].getHand());
+//				System.out.println(turn + "번째 player 차례입니다.");
+//				System.out.println(players[turn].getHand());
 				
 				play = players[turn].playCards(exCardNum, exCardsCount);
 
@@ -82,13 +95,14 @@ public class Dalmuti {
 				if(players[turn].handIsEmpty()) {
 					players[turn].setRank(newRank);
 					newRank++;
-					System.out.println("#######" + players[turn] + "끝!!!!!!!났고");
-					System.out.println("########새 랭크는"+players[turn].getRank());	
+					
+//					System.out.println("#######" + players[turn] + "끝!!!!!!!났고");
+//					System.out.println("########새 랭크는"+players[turn].getRank());	
 				}
 			}
 			
 			if (passCount == players.length - 1) {
-				System.out.println("라운드 끝");
+//				System.out.println("라운드 끝");
 				turn = (turn + 1) % players.length;
 				break;
 			}
@@ -102,7 +116,7 @@ public class Dalmuti {
 				}
 			}
 			
-			System.out.println(donePlayers + "명이 패를 모두 소진했습니다.");
+//			System.out.println(donePlayers + "명이 패를 모두 소진했습니다.");
 			
 			if (donePlayers == players.length - 1) {
 				for (int i = 0; i < players.length; i++) {
@@ -117,6 +131,22 @@ public class Dalmuti {
 		}
 		return turn;
 	}
+	
+	private void aggregateScore() {
+		
+		for(int i = 0; i<players.length; i++) {
+			players[i].addScore(players.length - players[i].getRank());
+		}
+		
+		Arrays.sort(players, new Comparator<Player>() {
+
+			@Override
+			public int compare(Player o1, Player o2) {
+				// TODO Auto-generated method stub
+				return o2.getScore() - o1.getScore();
+			}
+		});
+	}
 
 	private void collectTaxes() {
 		players[players.length - 1].payTax(2, players[0]);
@@ -124,23 +154,23 @@ public class Dalmuti {
 		players[1].payTax(1, players[players.length - 2]);
 		players[0].payTax(2, players[players.length - 2]);
 
-		System.out.println("세금 교환 완료");
+//		System.out.println("세금 교환 완료");
 		for (int i = 0; i < 4; i++) {
-			System.out.println(players[i].getHand());
+//			System.out.println(players[i].getHand());
 		}
 	}
 
 	private void revolution() {
 		// 세금 없고 계급 반대
-		System.out.println("혁명! 계급순서 변경!!!!!!!!!!");
+//		System.out.println("혁명! 계급순서 변경!!!!!!!!!!");
 		for (int j = 0; j < players.length; j++) {
 			int newRank = players.length - j;
 			players[j].setRank(newRank);
 		}
 		Arrays.sort(players);
-		for (int k = 0; k < players.length; k++) {
-			System.out.println(players[k]);
-		}
+//		for (int k = 0; k < players.length; k++) {
+//			System.out.println(players[k]);
+//		}
 	}
 
 	private boolean someoneWantsRevolution() {
@@ -150,7 +180,7 @@ public class Dalmuti {
 			int indexFirst13 = hand.indexOf(new Card(13));
 			int indexLast13 = hand.lastIndexOf(new Card(13));
 			if (indexFirst13 != indexLast13) {
-				System.out.println(players[i] + "가 13을 2개 가졌다");
+//				System.out.println(players[i] + "가 13을 2개 가졌다");
 				if (players[i].wantsRevolution()) {
 					return true;
 				}
@@ -169,10 +199,10 @@ public class Dalmuti {
 			players[receiver].receiveCard(cards.get(i));
 		}
 
-		for (int i = 0; i < players.length; i++) {
-			System.out.println(players[i].getHand());
-			// System.out.println(players[i].getHand().size());
-		}
+//		for (int i = 0; i < players.length; i++) {
+//			System.out.println(players[i].getHand());
+//			// System.out.println(players[i].getHand().size());
+//		}
 
 	}
 
@@ -183,14 +213,14 @@ public class Dalmuti {
 			rank = cards.get(i).getNumber();
 			players[i].setRank(rank);
 			
-			System.out.println(rank);
+//			System.out.println(rank);
 		}
 
 		Arrays.sort(players);
 		for (int i = 0; i < players.length; i++) {
 			players[i].setRank(i + 1);
-			System.out.println(players[i]);
-			System.out.println("랭크는"+players[i].getRank()+"입니다!!!");
+//			System.out.println(players[i]);
+//			System.out.println("랭크는"+players[i].getRank()+"입니다!!!");
 		}
 	}
 

@@ -11,16 +11,26 @@ public class Player implements Comparable<Player> {
 	 */
 	private int rank;
 	private ArrayList<Card> hand;
+	private int score;
 
 	public Player(String name) {
 		this.name = name;
 		this.rank = 0;
 		this.hand = new ArrayList<Card>();
+		this.score = 0;
 
-		System.out.println("Created player " + name);
+//		System.out.println("Created player " + name);
 		numberOfPlayers++;
 	}
 
+	public int getScore() {
+		return this.score;
+	}
+	
+	public void addScore(int gameScore) {
+		this.score += gameScore;
+	}
+	
 	public boolean wantsRevolution() {
 		return Math.random() < 0.5;
 	}
@@ -51,7 +61,7 @@ public class Player implements Comparable<Player> {
 		while (countOfCardsForTax != 0) {
 			Card tax = this.findTaxCard();
 
-			System.out.println(tax);
+//			System.out.println(tax);
 			this.giveCard(tax, toPlayer);
 			countOfCardsForTax--;
 		}
@@ -119,12 +129,12 @@ public class Player implements Comparable<Player> {
 			}
 		}
 		
-		if (cardsInfo[0] != 0 && cardsInfo[1] != 0) {
-			System.out.println(cardsInfo[0] + "을" + cardsInfo[1] + "장 냈습니다.\n");
-		}
-		else {
-			System.out.println("패스했습니다.\n");
-		}
+//		if (cardsInfo[0] != 0 && cardsInfo[1] != 0) {
+//			System.out.println(cardsInfo[0] + "을" + cardsInfo[1] + "장 냈습니다.\n");
+//		}
+//		else {
+//			System.out.println("패스했습니다.\n");
+//		}
 		return cardsInfo;
 	}
 

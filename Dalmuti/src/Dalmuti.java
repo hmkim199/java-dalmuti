@@ -173,29 +173,21 @@ public class Dalmuti {
 		// 뽑기
 		ArrayList<int[]> firstRank = new ArrayList<>();
 		for (int i = 0; i < players.length; i++) {
-			int tuple[] = new int[2];
-			tuple[0] = i;
-			tuple[1] = cards.get(i).getNumber();
-			firstRank.add(tuple);
-		}
-		// TODO 계급정하기
-		Collections.sort(firstRank, new Comparator<int[]>() {
-			@Override
-			public int compare(int[] o1, int[] o2) {
-				// TODO Auto-generated method stub
-				return o1[1] - o2[1];
-			}
-		});
-		for (int i = 0; i < players.length; i++) {
-//			System.out.printf("%d %d\n", firstRank.get(i)[0], firstRank.get(i)[1]);
+			players[i].setRank(cards.get(i).getNumber());
 		}
 
-		for (int i = 0; i < players.length; i++) {
-			players[firstRank.get(i)[0]].setRank(i + 1);
-		}
+//		for (Player player: players) {
+//			System.out.println(player + " picked Card " + player.getRank());
+//		}
+		
 		// sort players based on rank
-
 		Arrays.sort(players);
+		
+		int rank = 1;
+		for (Player player: players) {
+			player.setRank(rank);
+		}
+
 		for (int i = 0; i < players.length; i++) {
 			System.out.println(players[i]);
 		}

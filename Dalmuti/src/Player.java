@@ -83,6 +83,7 @@ public class Player implements Comparable<Player> {
 				if (handCount[i] > 0) {
 					cardsInfo[0] = i;
 					cardsInfo[1] = handCount[i];
+					break;
 				}
 			}
 			
@@ -91,7 +92,7 @@ public class Player implements Comparable<Player> {
 				if (handCount[i] >= exCardsCount) {
 					cardsInfo[0] = i;
 					cardsInfo[1] = exCardsCount;
-					System.out.println(cardsInfo[0] + " " + cardsInfo[1]);
+					break;
 				}
 			}
 		}

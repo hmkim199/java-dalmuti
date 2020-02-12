@@ -7,7 +7,6 @@ public class Dalmuti {
 	private final int NUMBER_OF_PLAYERS = 4;
 	private Player[] players;
 	private ArrayList<Card> cards;
-	//private ArrayList<Player> newPlayers;
 	private int newRank = 1;
 	
 	public Dalmuti() {
@@ -29,7 +28,7 @@ public class Dalmuti {
 		// TODO 달무티가 카드를 내면 그 다음 사람들은 더 낮은 숫자의 카드를 해당개수만큼 내야함. 모두가 못내면 한 라운드 끝
 		// 이전 라운드에 마지막으로 낸 사람이 다음 라운드의 선 플레이어가 됨.
 		// 한 게임에 여러 라운드가 있다. 한명 제외 모두가 카드를 소진했을 때 한 게임 끝.
-		//newPlayers = new ArrayList<Player>();
+		
 		int firstPlayer = 0;
 		int thisRound = 0;
 		System.out.println("\n게임 시작!!\n");
@@ -84,8 +83,7 @@ public class Dalmuti {
 					players[turn].setRank(newRank);
 					newRank++;
 					System.out.println("#######" + players[turn] + "끝!!!!!!!났고");
-					System.out.println("########새 랭크는"+players[turn].getRank());
-					//newPlayers.add(players[turn]);	
+					System.out.println("########새 랭크는"+players[turn].getRank());	
 				}
 			}
 			
@@ -109,17 +107,13 @@ public class Dalmuti {
 			if (donePlayers == players.length - 1) {
 				for (int i = 0; i < players.length; i++) {
 					if(!players[i].handIsEmpty()) {
-//						newPlayers.add(players[i]);
 						players[i].setRank(newRank);
-						
 						break;
 					}
 				}
 				turn = -1;
 				break;
 			}
-			
-
 		}
 		return turn;
 	}
@@ -197,7 +191,6 @@ public class Dalmuti {
 		Collections.sort(firstRank, new Comparator<int[]>() {
 			@Override
 			public int compare(int[] o1, int[] o2) {
-				// TODO Auto-generated method stub
 				return o1[1] - o2[1];
 			}
 		});

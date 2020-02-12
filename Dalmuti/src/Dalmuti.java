@@ -7,8 +7,9 @@ public class Dalmuti {
 	private final int NUMBER_OF_PLAYERS = 4;
 	private Player[] players;
 	private ArrayList<Card> cards;
-//	private Player[] newPlayers;
-
+	//private ArrayList<Player> newPlayers;
+	private int newRank = 1;
+	
 	public Dalmuti() {
 		System.out.println("Welcome to Dalmuti.");
 
@@ -28,7 +29,7 @@ public class Dalmuti {
 		// TODO 달무티가 카드를 내면 그 다음 사람들은 더 낮은 숫자의 카드를 해당개수만큼 내야함. 모두가 못내면 한 라운드 끝
 		// 이전 라운드에 마지막으로 낸 사람이 다음 라운드의 선 플레이어가 됨.
 		// 한 게임에 여러 라운드가 있다. 한명 제외 모두가 카드를 소진했을 때 한 게임 끝.
-//		newPlayers = new Player[players.length];
+		//newPlayers = new ArrayList<Player>();
 		int firstPlayer = 0;
 		int thisRound = 0;
 		System.out.println("\n게임 시작!!\n");
@@ -42,6 +43,12 @@ public class Dalmuti {
 				break;
 			}
 		}
+		
+		Arrays.sort(players);
+		for (Player player: players) {
+			System.out.print(player + "   ");
+		}
+		System.out.println();
 	}
 
 	private int playRound(int firstPlayer) {
@@ -52,6 +59,7 @@ public class Dalmuti {
 		int passCount = 0;
 		int exCardNum = 0;
 		int exCardsCount = 0;
+		
 
 		while (true) {
 			turn = totalTurn % players.length;
@@ -72,6 +80,13 @@ public class Dalmuti {
 					exCardsCount = play[1];
 					passCount = 0;
 				}
+				if(players[turn].handIsEmpty()) {
+					players[turn].setRank(newRank);
+					newRank++;
+					System.out.println("#######" + players[turn] + "끝!!!!!!!났고");
+					System.out.println("########새 랭크는"+players[turn].getRank());
+					//newPlayers.add(players[turn]);	
+				}
 			}
 			
 			if (passCount == players.length - 1) {
@@ -91,11 +106,15 @@ public class Dalmuti {
 			
 			System.out.println(donePlayers + "명이 패를 모두 소진했습니다.");
 			
-//			if(players[turn].handIsEmpty()) {
-//				newPlayers[donePlayers-1] = players[turn];
-//			}
-			
 			if (donePlayers == players.length - 1) {
+				for (int i = 0; i < players.length; i++) {
+					if(!players[i].handIsEmpty()) {
+//						newPlayers.add(players[i]);
+						players[i].setRank(newRank);
+						
+						break;
+					}
+				}
 				turn = -1;
 				break;
 			}

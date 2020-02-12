@@ -4,7 +4,9 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class Dalmuti {
-	private final int NUMBER_OF_PLAYERS = 4;
+	private final int NUMBER_OF_PLAYERS = 8;
+	private final int NUMBER_OF_GAMES = 5; 
+	
 	private Player[] players;
 	private ArrayList<Card> cards;
 
@@ -22,29 +24,31 @@ public class Dalmuti {
 		createCards();
 		createPlayers();
 		designateRanks();
-		handOutCards();
-		if (someoneWantsRevolution()) {
-			revolution();
-		} else {
-			collectTaxes();
+		
+		for (int nGames = 0; nGames < NUMBER_OF_GAMES; nGames++) {
+			Arrays.sort(players);
+			handOutCards();
+			if (someoneWantsRevolution()) {
+				revolution();
+			} else {
+				collectTaxes();
+			}
+			playGame();
+			
+			System.out.println("Game " + nGames + " over~~~");
 		}
-		playGame();
 	}
 
 	private void playGame() {
+		
+		newRankCounter = 1;
+		
 		while (!hasGameEnded()/* 모두가 카드를 소진함 */) {
 			System.out.println("Round " + round);
-
+			
 			firstPlayer = playRound(firstPlayer);
 			round++;
 		}
-
-		Arrays.sort(players);
-
-		for (Player player : players) {
-			System.out.print(player + "     ");
-		}
-		System.out.println();
 	}
 
 	private int playRound(int firstPlayer) {

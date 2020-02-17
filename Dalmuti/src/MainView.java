@@ -27,15 +27,12 @@ public class MainView extends JFrame {
 		
 		JLabel rankLabel = new JLabel("랭크");
 		JLabel nameLabel = new JLabel("이름");
-		
-		ImageIcon cardImage = new ImageIcon("res/card1.png");
-		
+				
 		JLabel[] cardLabels = new JLabel[15];
 		for (int i = 0; i < 15; i++) {
-			JLabel cardLabel = cardLabels[i];
-			cardLabel = new JLabel("이미");
-//			cardLabel.setSize(60,80);
-			cardLabel.setPreferredSize(new Dimension(60,80));
+			cardLabels[i] = new JLabel("이미");
+//			cardLabels[i].setSize(60,80);
+			cardLabels[i].setPreferredSize(new Dimension(60,80));
 			
 			
 			try {
@@ -43,7 +40,7 @@ public class MainView extends JFrame {
 				Image image = ImageIO.read(new File(imagePath));
 				Image scaledImage = image.getScaledInstance(60, 80, 0);
 				ImageIcon imageIcon = new ImageIcon(scaledImage);
-				cardLabel.setIcon(imageIcon);
+				cardLabels[i].setIcon(imageIcon);
 			} catch(IOException e) {
 				e.printStackTrace();
 			}

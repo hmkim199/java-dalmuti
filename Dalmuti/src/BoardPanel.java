@@ -25,17 +25,27 @@ public class BoardPanel extends JPanel {
 			String imagePath = "res/card3.png";
 			Image image = ImageIO.read(new File(imagePath));
 			cardImage = image.getScaledInstance(60, 80, 0);
+			
+			boardGraphics = imgBoard.getGraphics();
 			boardGraphics.drawImage(cardImage, j * 80, i * 60, this);	
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-//		if (cardImage != null) {
-//			
-//		}
-		
 	}	
+	
 	public void paint(Graphics g) {
+		
+		if (imgBoard == null) {
+			imgBoard = createImage(WIDTH * 45, HEIGHT * 60);
+			String imagePath = "./res\\board.png";
+			// System.out.println(imagePath);
+			try {
+				imgBoard = ImageIO.read(new File(imagePath));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		for (int i = 0; i < 3; i++) {
 			for (int j =0; j < 3; j++) {
 				drawCard(i, j);

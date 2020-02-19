@@ -1,14 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -31,9 +23,7 @@ public class MainView extends JFrame {
 		playerPanels[2] = new PlayerPanel(BorderLayout.SOUTH);
 		playerPanels[3] = new PlayerPanel(BorderLayout.NORTH);
 
-		JPanel boardPanel = new JPanel();
-		boardPanel.setBackground(new Color(255, 235, 96));
-		boardPanel.setPreferredSize(new Dimension(800, 700));
+		BoardPanel boardPanel = new BoardPanel();
 
 		JPanel mainPanel = new JPanel();
 		mainPanel.setSize(1000, 900);

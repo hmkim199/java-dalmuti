@@ -25,15 +25,23 @@ public class MainView extends JFrame {
 		infoPanel.add(infoLabel);
 		infoPanel.setBackground(Color.white);
 
-		PlayerPanel p1 = new PlayerPanel();
+		PlayerPanel[] playerPanels = new PlayerPanel[4];
+		playerPanels[0] = new PlayerPanel(BorderLayout.EAST);
+		playerPanels[1] = new PlayerPanel(BorderLayout.WEST);
+		playerPanels[2] = new PlayerPanel(BorderLayout.SOUTH);
+		playerPanels[3] = new PlayerPanel(BorderLayout.NORTH);
+
 		JPanel boardPanel = new JPanel();
 		boardPanel.setBackground(new Color(255, 235, 96));
+		boardPanel.setPreferredSize(new Dimension(800, 700));
 
 		JPanel mainPanel = new JPanel();
-		PlayerPanel playerPanel = new PlayerPanel();
 		mainPanel.setSize(1000, 900);
 		mainPanel.setLayout(new BorderLayout());
-		mainPanel.add(playerPanel, BorderLayout.SOUTH);
+		mainPanel.add(playerPanels[0], BorderLayout.EAST);
+		mainPanel.add(playerPanels[1], BorderLayout.WEST);
+		mainPanel.add(playerPanels[2], BorderLayout.SOUTH);
+		mainPanel.add(playerPanels[3], BorderLayout.NORTH);
 		mainPanel.add(boardPanel, BorderLayout.CENTER);
 
 		this.setLayout(new BorderLayout());

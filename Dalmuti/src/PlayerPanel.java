@@ -13,8 +13,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class PlayerPanel extends JPanel {
-	private JLabel rankLabel;
-	private JLabel nameLabel;
+	JLabel rankLabel;
+	JLabel nameLabel;
 	private JLabel[] cardLabels;
 	private JPanel cardPanel;
 	private JLabel leftCardsLabel;

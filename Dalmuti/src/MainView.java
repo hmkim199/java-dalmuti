@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 public class MainView extends JFrame {
+	PlayerPanel[] playerPanels;
+	
 	public MainView() {
 		super("Dalmuti");
 
@@ -25,7 +27,7 @@ public class MainView extends JFrame {
 		confirmBtn.setPreferredSize(new Dimension(60, 126));
 		infoPanel.add(confirmBtn, BorderLayout.SOUTH);
 
-		PlayerPanel[] playerPanels = new PlayerPanel[4];
+		playerPanels = new PlayerPanel[4];
 		playerPanels[0] = new PlayerPanel(BorderLayout.EAST);
 		playerPanels[1] = new PlayerPanel(BorderLayout.WEST);
 		playerPanels[2] = new PlayerPanel(BorderLayout.SOUTH);
@@ -56,5 +58,14 @@ public class MainView extends JFrame {
 		// TODO Auto-generated method stub
 		MainView mainview = new MainView();
 
+	}
+
+	void updateView(int[] ranks, String[] names) {
+		// TODO Auto-generated method stub
+		for (int i = 0; i < ranks.length; i++) {
+			playerPanels[i].rankLabel.setText("" + ranks[i]);
+			playerPanels[i].nameLabel.setText("" + names[i]);
+		}
+		
 	}
 }

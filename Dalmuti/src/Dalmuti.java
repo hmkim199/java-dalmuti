@@ -13,28 +13,32 @@ public class Dalmuti {
 	public Dalmuti() {
 		System.out.println("Welcome to Dalmuti.");
 
-		createCards();
-		createPlayers();
-		designateRanks();
-		
-		for (int nGames = 0; nGames < NUMBER_OF_GAMES; nGames++) {
-			Arrays.sort(players);
-			handOutCards();
-			if (someoneWantsRevolution()) {
-				revolution();
-			} else {
-				collectTaxes();
-			}
-			System.out.println(nGames+"번째 게임입니다.");
-			playGame();
-			aggregateScore();
-		}
-		
-		for(int i = 0; i < players.length; i++) {
-			System.out.println("점수 집계!");
-			System.out.println((i+1)+"등은 "+players[i]+" 점수는 "+players[i].getScore());
-		}
-		
+//		createCards();
+//		createPlayers();
+//		designateRanks();
+//		
+//		for (int nGames = 0; nGames < NUMBER_OF_GAMES; nGames++) {
+//			Arrays.sort(players);
+//			handOutCards();
+//			if (someoneWantsRevolution()) {
+//				revolution();
+//			} else {
+//				collectTaxes();
+//			}
+//			System.out.println(nGames+"번째 게임입니다.");
+//			playGame();
+//			aggregateScore();
+//		}
+//		
+//		for(int i = 0; i < players.length; i++) {
+//			System.out.println("점수 집계!");
+//			System.out.println((i+1)+"등은 "+players[i]+" 점수는 "+players[i].getScore());
+//		}
+//		
+	}
+	
+	Player[] getPlayers() {
+		return players;
 	}
 
 	private void playGame() {
@@ -206,7 +210,7 @@ public class Dalmuti {
 
 	}
 
-	private void designateRanks() {
+	void designateRanks() {
 		// 뽑기
 		int rank = 0;
 		for(int i = 0; i < players.length; i++) {
@@ -224,14 +228,14 @@ public class Dalmuti {
 		}
 	}
 
-	private void createPlayers() {
+	void createPlayers() {
 		players = new Player[NUMBER_OF_PLAYERS];
 		for (int i = 0; i < players.length; i++) {
 			players[i] = new Player("Me" + i);
 		}
 	}
 
-	private void createCards() {
+	void createCards() {
 		cards = new ArrayList<>();
 		for (int i = 1; i <= 10; i++) {
 			for (int j = 0; j < i; j++) {

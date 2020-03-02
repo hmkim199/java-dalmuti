@@ -1,6 +1,8 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -10,12 +12,18 @@ public class MainView extends JFrame {
 		super("Dalmuti");
 
 		JLabel infoLabel = new JLabel("정보        ...");
-		infoLabel.setPreferredSize(new Dimension(200, 500));
-
+		infoLabel.setPreferredSize(new Dimension(200, 500));		
+		
 		JPanel infoPanel = new JPanel();
 //		infoPanel.setSize(200,900);
+		infoPanel.setLayout(new BorderLayout());
 		infoPanel.add(infoLabel);
 		infoPanel.setBackground(Color.white);
+		
+		JButton confirmBtn = new JButton("확인");
+		confirmBtn.setVisible(true);
+		confirmBtn.setPreferredSize(new Dimension(60, 126));
+		infoPanel.add(confirmBtn, BorderLayout.SOUTH);
 
 		PlayerPanel[] playerPanels = new PlayerPanel[4];
 		playerPanels[0] = new PlayerPanel(BorderLayout.EAST);

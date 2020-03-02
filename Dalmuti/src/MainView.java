@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -28,20 +29,20 @@ public class MainView extends JFrame {
 		infoPanel.add(confirmBtn, BorderLayout.SOUTH);
 
 		playerPanels = new PlayerPanel[4];
-		playerPanels[0] = new PlayerPanel(BorderLayout.EAST);
+		playerPanels[0] = new PlayerPanel(BorderLayout.SOUTH);
 		playerPanels[1] = new PlayerPanel(BorderLayout.WEST);
-		playerPanels[2] = new PlayerPanel(BorderLayout.SOUTH);
-		playerPanels[3] = new PlayerPanel(BorderLayout.NORTH);
+		playerPanels[2] = new PlayerPanel(BorderLayout.NORTH);
+		playerPanels[3] = new PlayerPanel(BorderLayout.EAST);
 
 		BoardPanel boardPanel = new BoardPanel();
 
 		JPanel mainPanel = new JPanel();
 		mainPanel.setSize(1000, 900);
 		mainPanel.setLayout(new BorderLayout());
-		mainPanel.add(playerPanels[0], BorderLayout.EAST);
+		mainPanel.add(playerPanels[0], BorderLayout.SOUTH);
 		mainPanel.add(playerPanels[1], BorderLayout.WEST);
-		mainPanel.add(playerPanels[2], BorderLayout.SOUTH);
-		mainPanel.add(playerPanels[3], BorderLayout.NORTH);
+		mainPanel.add(playerPanels[2], BorderLayout.NORTH);
+		mainPanel.add(playerPanels[3], BorderLayout.EAST);
 		mainPanel.add(boardPanel, BorderLayout.CENTER);
 
 		this.setLayout(new BorderLayout());
@@ -60,11 +61,26 @@ public class MainView extends JFrame {
 
 	}
 
-	void updateView(int[] ranks, String[] names) {
+	void updateView(int[] ranks, String[] names, ArrayList<Card>[] hands) {
 		// TODO Auto-generated method stub
 		for (int i = 0; i < ranks.length; i++) {
 			playerPanels[i].rankLabel.setText("" + ranks[i]);
 			playerPanels[i].nameLabel.setText("" + names[i]);
+			if (playerPanels[i].leftCardsLabel != null) {
+				playerPanels[i].leftCardsLabel.setText("남은 카드 수: " + hands[i].size());
+			}
+			else {
+				for (int j = 0; j < playerPanels[i].cardLabels.length; j++) {
+					playerPanels[i].cardLabels[j].setText("");
+				}
+				
+				for (int j = 0; j < hands[i].size(); j++) {
+					playerPanels[i].cardLabels[j].setText("" + hands[i].get(j));
+				}
+				
+			}
+			
+			System.out.println(hands[i]);
 		}
 		
 	}

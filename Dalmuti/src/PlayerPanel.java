@@ -15,9 +15,9 @@ import javax.swing.JPanel;
 public class PlayerPanel extends JPanel {
 	JLabel rankLabel;
 	JLabel nameLabel;
-	private JLabel[] cardLabels;
+	JLabel[] cardLabels;
 	private JPanel cardPanel;
-	private JLabel leftCardsLabel;
+	JLabel leftCardsLabel;
 
 	public PlayerPanel(String position) {
 		super();
@@ -37,15 +37,15 @@ public class PlayerPanel extends JPanel {
 				cardLabels[i] = new JLabel();
 				cardLabels[i].setPreferredSize(new Dimension(60, 80));
 
-				try {
-					String imagePath = "res/1.png";
-					Image image = ImageIO.read(new File(imagePath));
-					Image scaledImage = image.getScaledInstance(60, 80, 0);
-					ImageIcon imageIcon = new ImageIcon(scaledImage);
-					cardLabels[i].setIcon(imageIcon);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+//				try {
+//					String imagePath = "res/1.png";
+//					Image image = ImageIO.read(new File(imagePath));
+//					Image scaledImage = image.getScaledInstance(60, 80, 0);
+//					ImageIcon imageIcon = new ImageIcon(scaledImage);
+//					cardLabels[i].setIcon(imageIcon);
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				}
 			}
 
 			cardPanel = new JPanel();

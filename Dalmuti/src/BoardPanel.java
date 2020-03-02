@@ -12,36 +12,27 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class BoardPanel extends JPanel {
-
-	private final int WIDTH = 22;
-	private final int HEIGHT = 8;
-
-	private Image boardImg;
+	
+	private final int WIDTH = 120;
+	private final int HEIGHT = 160;
 
 	public BoardPanel() {
 		super();
 		this.setBackground(new Color(255, 235, 96));
-
-		try {
-			boardImg = ImageIO.read(new File("res/board.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		g.drawImage(boardImg, 0, 0, this);
 
-		for (int i = 2; i < 5; i++) {
+		for (int i = 1; i < 4; i++) {
 			for (int j = 2; j < 5; j++) {
 				Image cardImage = null;
 				try {
 					String imagePath = "res/card3.png";
 					Image image = ImageIO.read(new File(imagePath));
-					cardImage = image.getScaledInstance(120, 160, 0);
-					g.drawImage(cardImage, j * 120, i * 160, this);
+					cardImage = image.getScaledInstance(WIDTH, HEIGHT, 0);
+					g.drawImage(cardImage, j * WIDTH, i * HEIGHT, this);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

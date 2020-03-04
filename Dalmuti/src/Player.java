@@ -26,11 +26,11 @@ public class Player implements Comparable<Player> {
 	public int getScore() {
 		return this.score;
 	}
-	
+
 	public void addScore(int gameScore) {
 		this.score += gameScore;
 	}
-	
+
 	public boolean wantsRevolution() {
 		return Math.random() < 0.5;
 	}
@@ -96,7 +96,7 @@ public class Player implements Comparable<Player> {
 					break;
 				}
 			}
-			
+
 		} else {
 			for (int i = exCardNum - 1; i > 0; i--) {
 				if (handCount[i] >= exCardsCount) {
@@ -106,7 +106,7 @@ public class Player implements Comparable<Player> {
 				}
 			}
 		}
-		
+
 		return cardsInfo;
 	}
 
@@ -128,7 +128,7 @@ public class Player implements Comparable<Player> {
 				}
 			}
 		}
-		
+
 //		if (cardsInfo[0] != 0 && cardsInfo[1] != 0) {
 //			System.out.println(cardsInfo[0] + "을" + cardsInfo[1] + "장 냈습니다.\n");
 //		}
@@ -141,7 +141,7 @@ public class Player implements Comparable<Player> {
 	public boolean handIsEmpty() {
 		return hand.size() == 0;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Player " + name;

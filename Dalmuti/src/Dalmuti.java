@@ -9,34 +9,42 @@ public class Dalmuti {
 	private Player[] players;
 	private ArrayList<Card> cards;
 	private int newRank;
-	
+
 	public Dalmuti() {
 		System.out.println("Welcome to Dalmuti.");
 
 //		createCards();
 //		createPlayers();
 //		designateRanks();
-//		
+//
 //		for (int nGames = 0; nGames < NUMBER_OF_GAMES; nGames++) {
 //			Arrays.sort(players);
+//			clearHands();
 //			handOutCards();
+//
 //			if (someoneWantsRevolution()) {
 //				revolution();
 //			} else {
 //				collectTaxes();
 //			}
-//			System.out.println(nGames+"번째 게임입니다.");
+//			System.out.println(nGames + "번째 게임입니다.");
 //			playGame();
 //			aggregateScore();
 //		}
-//		
-//		for(int i = 0; i < players.length; i++) {
+//
+//		for (int i = 0; i < players.length; i++) {
 //			System.out.println("점수 집계!");
-//			System.out.println((i+1)+"등은 "+players[i]+" 점수는 "+players[i].getScore());
+//			System.out.println((i + 1) + "등은 " + players[i] + " 점수는 " + players[i].getScore());
 //		}
-//		
+
 	}
-	
+
+	void clearHands() {
+		for (int i = 0; i < players.length; i++) {
+			players[i].getHand().clear();
+		}
+	}
+
 	Player[] getPlayers() {
 		return players;
 	}
@@ -45,7 +53,7 @@ public class Dalmuti {
 		// TODO 달무티가 카드를 내면 그 다음 사람들은 더 낮은 숫자의 카드를 해당개수만큼 내야함. 모두가 못내면 한 라운드 끝
 		// 이전 라운드에 마지막으로 낸 사람이 다음 라운드의 선 플레이어가 됨.
 		// 한 게임에 여러 라운드가 있다. 한명 제외 모두가 카드를 소진했을 때 한 게임 끝.
-		
+
 		int firstPlayer = 0;
 		int thisRound = 0;
 		newRank = 1;
@@ -56,11 +64,11 @@ public class Dalmuti {
 			firstPlayer = playRound(firstPlayer);
 
 			thisRound++;
-			if(firstPlayer == -1) {
+			if (firstPlayer == -1) {
 				break;
 			}
 		}
-		
+
 //		for (Player player: players) {
 //			System.out.print(player + "   ");
 //		}
@@ -75,18 +83,16 @@ public class Dalmuti {
 		int passCount = 0;
 		int exCardNum = 0;
 		int exCardsCount = 0;
-		
 
 		while (true) {
 			turn = totalTurn % players.length;
 
 			if (players[turn].handIsEmpty()) {
 				passCount++;
-			}
-			else {
+			} else {
 //				System.out.println(turn + "번째 player 차례입니다.");
 //				System.out.println(players[turn].getHand());
-				
+
 				play = players[turn].playCards(exCardNum, exCardsCount);
 
 				if (play[0] == 0 && play[1] == 0) {
@@ -96,22 +102,22 @@ public class Dalmuti {
 					exCardsCount = play[1];
 					passCount = 0;
 				}
-				if(players[turn].handIsEmpty()) {
+				if (players[turn].handIsEmpty()) {
 					players[turn].setRank(newRank);
 					newRank++;
-					
+
 //					System.out.println("#######" + players[turn] + "끝!!!!!!!났고");
 //					System.out.println("########새 랭크는"+players[turn].getRank());	
 				}
 			}
-			
+
 			if (passCount == players.length - 1) {
 //				System.out.println("라운드 끝");
 				turn = (turn + 1) % players.length;
 				break;
 			}
 			totalTurn++;
-			
+
 			int donePlayers = 0;
 			for (int i = 0; i < players.length; i++) {
 
@@ -119,12 +125,12 @@ public class Dalmuti {
 					donePlayers++;
 				}
 			}
-			
+
 //			System.out.println(donePlayers + "명이 패를 모두 소진했습니다.");
-			
+
 			if (donePlayers == players.length - 1) {
 				for (int i = 0; i < players.length; i++) {
-					if(!players[i].handIsEmpty()) {
+					if (!players[i].handIsEmpty()) {
 						players[i].setRank(newRank);
 						break;
 					}
@@ -135,13 +141,13 @@ public class Dalmuti {
 		}
 		return turn;
 	}
-	
+
 	void aggregateScore() {
-		
-		for(int i = 0; i<players.length; i++) {
+
+		for (int i = 0; i < players.length; i++) {
 			players[i].addScore(players.length - players[i].getRank());
 		}
-		
+
 		Arrays.sort(players, new Comparator<Player>() {
 
 			@Override
@@ -156,7 +162,7 @@ public class Dalmuti {
 		players[players.length - 1].payTax(2, players[0]);
 		players[players.length - 2].payTax(1, players[1]);
 		players[1].payTax(1, players[players.length - 2]);
-		players[0].payTax(2, players[players.length - 2]);
+		players[0].payTax(2, players[players.length - 1]);
 
 //		System.out.println("세금 교환 완료");
 		for (int i = 0; i < 4; i++) {
@@ -213,10 +219,10 @@ public class Dalmuti {
 	void designateRanks() {
 		// 뽑기
 		int rank = 0;
-		for(int i = 0; i < players.length; i++) {
+		for (int i = 0; i < players.length; i++) {
 			rank = cards.get(i).getNumber();
 			players[i].setRank(rank);
-			
+
 //			System.out.println(rank);
 		}
 

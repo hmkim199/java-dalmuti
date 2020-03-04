@@ -15,9 +15,28 @@ import javax.swing.JPanel;
 
 public class MainView extends JFrame {
 	PlayerPanel[] playerPanels;
+	int numOfImg = 14;
+	String imagePath;
+	Image image;
+	Image scaledImage;
+	ImageIcon[] imageIcons;
 
 	public MainView() {
 		super("Dalmuti");
+
+		try {
+			imageIcons = new ImageIcon[numOfImg];
+
+			for (int i = 1; i < numOfImg; i++) {
+				imagePath = "res/card" + i + ".png";
+				image = ImageIO.read(new File(imagePath));
+				scaledImage = image.getScaledInstance(60, 80, 0);
+				imageIcons[i] = new ImageIcon(scaledImage);
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		JLabel infoLabel = new JLabel("Á¤º¸        ...");
 		infoLabel.setPreferredSize(new Dimension(200, 500));
@@ -79,20 +98,13 @@ public class MainView extends JFrame {
 				}
 
 				for (int j = 0; j < hands[i].size(); j++) {
-					try {
-						int cardNum = hands[i].get(j).getNumber();
-						String imagePath = "res/card" + cardNum + ".png";
-						Image image = ImageIO.read(new File(imagePath));
-						Image scaledImage = image.getScaledInstance(60, 80, 0);
-						ImageIcon imageIcon = new ImageIcon(scaledImage);
-						playerPanels[i].cardLabels[j].setIcon(imageIcon);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					int cardNum = hands[i].get(j).getNumber();
+					playerPanels[i].cardLabels[j].setIcon(imageIcons[cardNum]);
 				}
 
 			}
 
+			System.out.println(hands[i].size());
 			System.out.println(hands[i]);
 		}
 

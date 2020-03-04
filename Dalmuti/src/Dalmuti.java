@@ -236,9 +236,9 @@ public class Dalmuti {
 
 	void createPlayers() {
 		players = new Player[NUMBER_OF_PLAYERS];
-		players[0] = new Player("³ª");
+		players[0] = new Human("³ª");
 		for (int i = 1; i < players.length; i++) {
-			players[i] = new Player("Bot" + i);
+			players[i] = new AI("Bot" + i);
 		}
 	}
 

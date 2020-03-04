@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class Player implements Comparable<Player> {
+abstract public class Player implements Comparable<Player> {
 	private static int numberOfPlayers = 0;
 
 	private String name;
@@ -9,8 +9,8 @@ public class Player implements Comparable<Player> {
 	 * 0 = 계급 없음 1 = 달무티 DALMUTI 2 = 대주교 BISHOP 3 = 광부 STONECUTTER 4 = 농노 PEASANT
 	 * 5이상은 사용할 순 있지만 이름이 주어지진 않음
 	 */
-	private int rank;
-	private ArrayList<Card> hand;
+	protected int rank;
+	protected ArrayList<Card> hand;
 	private int score;
 
 	public Player(String name) {
@@ -26,14 +26,12 @@ public class Player implements Comparable<Player> {
 	public int getScore() {
 		return this.score;
 	}
-
+	
 	public void addScore(int gameScore) {
 		this.score += gameScore;
 	}
-
-	public boolean wantsRevolution() {
-		return Math.random() < 0.5;
-	}
+	
+	abstract public boolean wantsRevolution();
 
 	public int getRank() {
 		return rank;
@@ -67,52 +65,11 @@ public class Player implements Comparable<Player> {
 		}
 	}
 
-	public Card findTaxCard() {
+	abstract public Card findTaxCard();
 
-		Card tax = Collections.min(this.hand);
+	abstract public int[] selectCards(int exCardNum, int exCardsCount); 
 
-		if (this.rank <= 2) {
-			int taxIndex = (int) (Math.random() * this.getHand().size());
-			tax = this.getHand().get(taxIndex);
-		}
-		return tax;
-
-	}
-
-	public int[] selectCards(int exCardNum, int exCardsCount) {
-
-		int[] cardsInfo = new int[2];
-		int[] handCount = new int[14];
-
-		for (int i = 0; i < hand.size(); i++) {
-			handCount[hand.get(i).getNumber()] += 1;
-		}
-
-		if (exCardNum == 0) {
-			for (int i = 13; i > 0; i--) {
-				if (handCount[i] > 0) {
-					cardsInfo[0] = i;
-					cardsInfo[1] = handCount[i];
-					break;
-				}
-			}
-
-		} else {
-			for (int i = exCardNum - 1; i > 0; i--) {
-				if (handCount[i] >= exCardsCount) {
-					cardsInfo[0] = i;
-					cardsInfo[1] = exCardsCount;
-					break;
-				}
-			}
-		}
-
-		return cardsInfo;
-	}
-
-	public boolean wantsPass() {
-		return Math.random() < 0.2;
-	}
+	abstract public boolean wantsPass();
 
 	// 이전 카드에 대한 정보를 받아서 내 카드 중 어느 걸 얼마나 낼지 정한 후, 카드 내기
 	public int[] playCards(int exCardNum, int exCardsCount) {
@@ -128,7 +85,7 @@ public class Player implements Comparable<Player> {
 				}
 			}
 		}
-
+		
 //		if (cardsInfo[0] != 0 && cardsInfo[1] != 0) {
 //			System.out.println(cardsInfo[0] + "을" + cardsInfo[1] + "장 냈습니다.\n");
 //		}
@@ -141,7 +98,7 @@ public class Player implements Comparable<Player> {
 	public boolean handIsEmpty() {
 		return hand.size() == 0;
 	}
-
+	
 	@Override
 	public String toString() {
 		return "Player " + name;

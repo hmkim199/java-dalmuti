@@ -1,8 +1,13 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -10,19 +15,19 @@ import javax.swing.JPanel;
 
 public class MainView extends JFrame {
 	PlayerPanel[] playerPanels;
-	
+
 	public MainView() {
 		super("Dalmuti");
 
 		JLabel infoLabel = new JLabel("정보        ...");
-		infoLabel.setPreferredSize(new Dimension(200, 500));		
-		
+		infoLabel.setPreferredSize(new Dimension(200, 500));
+
 		JPanel infoPanel = new JPanel();
 //		infoPanel.setSize(200,900);
 		infoPanel.setLayout(new BorderLayout());
 		infoPanel.add(infoLabel);
 		infoPanel.setBackground(Color.white);
-		
+
 		JButton confirmBtn = new JButton("확인");
 		confirmBtn.setVisible(true);
 		confirmBtn.setPreferredSize(new Dimension(60, 126));
@@ -68,20 +73,28 @@ public class MainView extends JFrame {
 			playerPanels[i].nameLabel.setText("" + names[i]);
 			if (playerPanels[i].leftCardsLabel != null) {
 				playerPanels[i].leftCardsLabel.setText("남은 카드 수: " + hands[i].size());
-			}
-			else {
+			} else {
 				for (int j = 0; j < playerPanels[i].cardLabels.length; j++) {
-					playerPanels[i].cardLabels[j].setText("");
+					playerPanels[i].cardLabels[j].setIcon(null);
 				}
-				
+
 				for (int j = 0; j < hands[i].size(); j++) {
-					playerPanels[i].cardLabels[j].setText("" + hands[i].get(j));
+					try {
+						int cardNum = hands[i].get(j).getNumber();
+						String imagePath = "res/card" + cardNum + ".png";
+						Image image = ImageIO.read(new File(imagePath));
+						Image scaledImage = image.getScaledInstance(60, 80, 0);
+						ImageIcon imageIcon = new ImageIcon(scaledImage);
+						playerPanels[i].cardLabels[j].setIcon(imageIcon);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
-				
+
 			}
-			
+
 			System.out.println(hands[i]);
 		}
-		
+
 	}
 }

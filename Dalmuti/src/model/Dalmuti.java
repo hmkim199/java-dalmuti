@@ -11,6 +11,17 @@ public class Dalmuti {
 	private Player[] players;
 	private ArrayList<Card> cards;
 	private int newRank;
+	
+	private int exCardNum = 0;
+	private int exCardsCount = 0;
+
+	public int getExCardNum() {
+		return exCardNum;
+	}
+
+	public int getExCardsCount() {
+		return exCardsCount;
+	}
 
 	public Dalmuti() {
 		System.out.println("Welcome to Dalmuti.");
@@ -83,8 +94,8 @@ public class Dalmuti {
 		int turn = 0;
 		int[] play = new int[2];
 		int passCount = 0;
-		int exCardNum = 0;
-		int exCardsCount = 0;
+		exCardNum = 0;
+		exCardsCount = 0;
 
 		while (true) {
 			turn = totalTurn % players.length;

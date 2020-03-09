@@ -29,7 +29,7 @@ public class Controller {
 			hands[i] = players[i].getHand();
 		}
 
-		view.updateView(ranks, names, hands);
+		view.updateView(ranks, names, hands, model.getExCardNum(), model.getExCardsCount());
 
 		Scanner sc = new Scanner(System.in);
 		int k;
@@ -40,7 +40,7 @@ public class Controller {
 			model.handOutCards();
 
 			k = sc.nextInt();
-			view.updateView(ranks, names, hands);
+			view.updateView(ranks, names, hands, model.getExCardNum(), model.getExCardsCount());
 
 			if (model.someoneWantsRevolution()) {
 				model.revolution();
@@ -60,7 +60,7 @@ public class Controller {
 			model.aggregateScore();
 
 			k = sc.nextInt();
-			view.updateView(ranks, names, hands);
+			view.updateView(ranks, names, hands, model.getExCardNum(), model.getExCardsCount());
 		}
 
 		for (int i = 0; i < players.length; i++) {

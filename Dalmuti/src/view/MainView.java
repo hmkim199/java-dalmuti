@@ -24,6 +24,7 @@ public class MainView extends JFrame {
 	Image image;
 	Image scaledImage;
 	ImageIcon[] imageIcons;
+	BoardPanel boardPanel;
 
 	public MainView() {
 		super("Dalmuti");
@@ -62,7 +63,7 @@ public class MainView extends JFrame {
 		playerPanels[2] = new PlayerPanel(BorderLayout.NORTH);
 		playerPanels[3] = new PlayerPanel(BorderLayout.EAST);
 
-		BoardPanel boardPanel = new BoardPanel();
+		boardPanel = new BoardPanel();
 
 		JPanel mainPanel = new JPanel();
 		mainPanel.setSize(1000, 900);
@@ -89,7 +90,7 @@ public class MainView extends JFrame {
 
 	}
 
-	public void updateView(int[] ranks, String[] names, ArrayList<Card>[] hands) {
+	public void updateView(int[] ranks, String[] names, ArrayList<Card>[] hands, int exCardNum, int exCardsCount) {
 		// TODO Auto-generated method stub
 		for (int i = 0; i < ranks.length; i++) {
 			playerPanels[i].rankLabel.setText("" + ranks[i]);
@@ -111,6 +112,6 @@ public class MainView extends JFrame {
 			System.out.println(hands[i].size());
 			System.out.println(hands[i]);
 		}
-
+		boardPanel.setExCards(exCardNum, exCardsCount);
 	}
 }

@@ -1,6 +1,13 @@
+package controller;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+
+import model.Card;
+import model.Dalmuti;
+import model.Player;
+import view.MainView;
 
 public class Controller {
 	Dalmuti model = new Dalmuti();

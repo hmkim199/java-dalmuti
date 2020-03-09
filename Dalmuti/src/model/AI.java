@@ -1,3 +1,5 @@
+package model;
+
 import java.util.Collections;
 
 public class AI extends Player {

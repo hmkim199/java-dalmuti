@@ -1,3 +1,5 @@
+package model;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -5,7 +7,7 @@ import java.util.Comparator;
 
 public class Dalmuti {
 	private final int NUMBER_OF_PLAYERS = 4;
-	final int NUMBER_OF_GAMES = 5;
+	public final int NUMBER_OF_GAMES = 5;
 	private Player[] players;
 	private ArrayList<Card> cards;
 	private int newRank;
@@ -39,17 +41,17 @@ public class Dalmuti {
 
 	}
 
-	void clearHands() {
+	public void clearHands() {
 		for (int i = 0; i < players.length; i++) {
 			players[i].getHand().clear();
 		}
 	}
 
-	Player[] getPlayers() {
+	public Player[] getPlayers() {
 		return players;
 	}
 
-	void playGame() {
+	public void playGame() {
 		// TODO 달무티가 카드를 내면 그 다음 사람들은 더 낮은 숫자의 카드를 해당개수만큼 내야함. 모두가 못내면 한 라운드 끝
 		// 이전 라운드에 마지막으로 낸 사람이 다음 라운드의 선 플레이어가 됨.
 		// 한 게임에 여러 라운드가 있다. 한명 제외 모두가 카드를 소진했을 때 한 게임 끝.
@@ -142,7 +144,7 @@ public class Dalmuti {
 		return turn;
 	}
 
-	void aggregateScore() {
+	public void aggregateScore() {
 
 		for (int i = 0; i < players.length; i++) {
 			players[i].addScore(players.length - players[i].getRank());
@@ -158,7 +160,7 @@ public class Dalmuti {
 		});
 	}
 
-	void collectTaxes() {
+	public void collectTaxes() {
 		players[players.length - 1].payTax(2, players[0]);
 		players[players.length - 2].payTax(1, players[1]);
 		players[1].payTax(1, players[players.length - 2]);
@@ -170,7 +172,7 @@ public class Dalmuti {
 		}
 	}
 
-	void revolution() {
+	public void revolution() {
 		// 세금 없고 계급 반대
 //		System.out.println("혁명! 계급순서 변경!!!!!!!!!!");
 		for (int j = 0; j < players.length; j++) {
@@ -183,7 +185,7 @@ public class Dalmuti {
 //		}
 	}
 
-	boolean someoneWantsRevolution() {
+	public boolean someoneWantsRevolution() {
 		// 혁명 가능 체크
 		for (int i = 0; i < players.length; i++) {
 			ArrayList<Card> hand = players[i].getHand();
@@ -200,7 +202,7 @@ public class Dalmuti {
 		return false;
 	}
 
-	void handOutCards() {
+	public void handOutCards() {
 
 		Collections.shuffle(cards);
 
@@ -216,7 +218,7 @@ public class Dalmuti {
 
 	}
 
-	void designateRanks() {
+	public void designateRanks() {
 		// 뽑기
 		int rank = 0;
 		for (int i = 0; i < players.length; i++) {
@@ -234,7 +236,7 @@ public class Dalmuti {
 		}
 	}
 
-	void createPlayers() {
+	public void createPlayers() {
 		players = new Player[NUMBER_OF_PLAYERS];
 		players[0] = new Human("나");
 		for (int i = 1; i < players.length; i++) {
@@ -242,7 +244,7 @@ public class Dalmuti {
 		}
 	}
 
-	void createCards() {
+	public void createCards() {
 		cards = new ArrayList<>();
 		for (int i = 1; i <= 10; i++) {
 			for (int j = 0; j < i; j++) {

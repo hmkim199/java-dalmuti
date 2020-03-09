@@ -1,3 +1,5 @@
+package view;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -12,6 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import model.Card;
 
 public class MainView extends JFrame {
 	PlayerPanel[] playerPanels;
@@ -85,7 +89,7 @@ public class MainView extends JFrame {
 
 	}
 
-	void updateView(int[] ranks, String[] names, ArrayList<Card>[] hands) {
+	public void updateView(int[] ranks, String[] names, ArrayList<Card>[] hands) {
 		// TODO Auto-generated method stub
 		for (int i = 0; i < ranks.length; i++) {
 			playerPanels[i].rankLabel.setText("" + ranks[i]);

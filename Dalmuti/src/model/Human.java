@@ -2,8 +2,10 @@ package model;
 
 import java.util.Scanner;
 
+import controller.Controller;
 import model.Card;
 import model.Player;
+import view.MainView;
 
 public class Human extends AI {
 
@@ -15,13 +17,14 @@ public class Human extends AI {
 	@Override
 	public boolean wantsRevolution() {
 		// TODO Auto-generated method stub
+		controller.updateView();
 		System.out.println("혁명을 원하시나요? (Y/N)");
 		Scanner sc = new Scanner(System.in);
 		String input = sc.next();
 		
 		System.out.println(input);
 		
-		if (input == "Y") {
+		if (input.equals("Y")) {
 			return true;
 		}
 		

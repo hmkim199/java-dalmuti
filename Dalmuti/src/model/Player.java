@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import controller.Controller;
+
 abstract public class Player implements Comparable<Player> {
 	private static int numberOfPlayers = 0;
 
@@ -14,6 +16,8 @@ abstract public class Player implements Comparable<Player> {
 	protected int rank;
 	protected ArrayList<Card> hand;
 	private int score;
+
+	public Controller controller;
 
 	public Player(String name) {
 		this.name = name;

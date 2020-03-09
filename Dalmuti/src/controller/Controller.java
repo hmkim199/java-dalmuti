@@ -16,8 +16,43 @@ public class Controller {
 	public Controller() {
 		model.createCards();
 		model.createPlayers();
+		
+		Player[] players = model.getPlayers();
+		for (int i = 0; i < players.length; i++) {
+			players[i].controller = this;
+		}
+		
 		model.designateRanks();
 
+		for (int nGames = 0; nGames < model.NUMBER_OF_GAMES; nGames++) {
+			Arrays.sort(model.getPlayers());
+			model.clearHands();
+			model.handOutCards();
+
+			if (model.someoneWantsRevolution()) {
+				model.revolution();
+				System.out.println("혁명을 했다");
+
+			} else {
+				System.out.println("세금 걷기");
+
+				model.collectTaxes();
+			}
+
+			System.out.println(nGames + "번째 게임입니다.");
+			model.playGame();
+			model.aggregateScore();
+
+		}
+
+	}
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Controller controller = new Controller();
+	}
+
+	public void updateView() {
 		Player[] players = model.getPlayers();
 		int[] ranks = new int[players.length];
 		String[] names = new String[players.length];
@@ -31,48 +66,6 @@ public class Controller {
 
 		view.updateView(ranks, names, hands, model.getExCardNum(), model.getExCardsCount());
 
-		Scanner sc = new Scanner(System.in);
-		int k;
-
-		for (int nGames = 0; nGames < model.NUMBER_OF_GAMES; nGames++) {
-			Arrays.sort(model.getPlayers());
-			model.clearHands();
-			model.handOutCards();
-
-			k = sc.nextInt();
-			view.updateView(ranks, names, hands, model.getExCardNum(), model.getExCardsCount());
-
-			if (model.someoneWantsRevolution()) {
-				model.revolution();
-
-				for (int i = 0; i < players.length; i++) {
-					System.out.println(players[i]);
-				}
-
-			} else {
-				System.out.println("세금 걷기");
-
-				model.collectTaxes();
-			}
-
-			System.out.println(nGames + "번째 게임입니다.");
-			model.playGame();
-			model.aggregateScore();
-
-			k = sc.nextInt();
-			view.updateView(ranks, names, hands, model.getExCardNum(), model.getExCardsCount());
-		}
-
-		for (int i = 0; i < players.length; i++) {
-			System.out.println("점수 집계!");
-			System.out.println((i + 1) + "등은 " + players[i] + " 점수는 " + players[i].getScore());
-		}
-
-	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		Controller controller = new Controller();
 	}
 
 }

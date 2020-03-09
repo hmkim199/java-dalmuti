@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Collections;
+import java.util.Scanner;
 
 public class AI extends Player {
 

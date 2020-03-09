@@ -44,7 +44,14 @@ public class Controller {
 
 			if (model.someoneWantsRevolution()) {
 				model.revolution();
+
+				for (int i = 0; i < players.length; i++) {
+					System.out.println(players[i]);
+				}
+
 			} else {
+				System.out.println("¼¼±Ý °È±â");
+
 				model.collectTaxes();
 			}
 

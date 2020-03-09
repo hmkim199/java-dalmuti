@@ -1,5 +1,10 @@
 package model;
 
+import java.util.Scanner;
+
+import model.Card;
+import model.Player;
+
 public class Human extends AI {
 
 	public Human(String name) {
@@ -7,11 +12,22 @@ public class Human extends AI {
 		// TODO Auto-generated constructor stub
 	}
 
-//	@Override
-//	public boolean wantsRevolution() {
-//		// TODO Auto-generated method stub
-//		return false;
-//	}
+	@Override
+	public boolean wantsRevolution() {
+		// TODO Auto-generated method stub
+		System.out.println("혁명을 원하시나요? (Y/N)");
+		Scanner sc = new Scanner(System.in);
+		String input = sc.next();
+		
+		System.out.println(input);
+		
+		if (input == "Y") {
+			return true;
+		}
+		
+		return false;
+	}
+
 //
 //	@Override
 //	public Card findTaxCard() {

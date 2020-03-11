@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 import controller.Controller;
 import model.Card;
@@ -11,13 +12,12 @@ public class Human extends AI {
 
 	public Human(String name) {
 		super(name);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public boolean wantsRevolution() {
-		// TODO Auto-generated method stub
-		controller.updateView();
+		super.updateAndDelay();
+		
 		System.out.println("혁명을 원하시나요? (Y/N)");
 		Scanner sc = new Scanner(System.in);
 		String input = sc.next();
@@ -31,23 +31,30 @@ public class Human extends AI {
 		return false;
 	}
 
-//
+	
+	
 //	@Override
 //	public Card findTaxCard() {
 //		// TODO Auto-generated method stub
+//	super.updateAndDelay();
+//
 //		return null;
 //	}
 //
 //	@Override
 //	public int[] selectCards(int exCardNum, int exCardsCount) {
 //		// TODO Auto-generated method stub
+//		super.updateAndDelay();
+//
 //		return null;
 //	}
 //
 //	@Override
 //	public boolean wantsPass() {
 //		// TODO Auto-generated method stub
+//		super.updateAndDelay();
+//
 //		return false;
 //	}
-
+	
 }

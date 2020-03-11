@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 
 import controller.Controller;
 
@@ -104,6 +105,17 @@ abstract public class Player implements Comparable<Player> {
 	public boolean handIsEmpty() {
 		return hand.size() == 0;
 	}
+
+	public void updateAndDelay() {
+		controller.updateView();
+		
+		try {
+			TimeUnit.SECONDS.sleep(1);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	@Override
 	public String toString() {

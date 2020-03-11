@@ -34,25 +34,15 @@ public class PlayerPanel extends JPanel {
 		nameLabel.setAlignmentX(CENTER_ALIGNMENT);
 
 		if (position == BorderLayout.SOUTH) {
-			cardLabels = new JLabel[15];
-			for (int i = 0; i < 15; i++) {
+			cardLabels = new JLabel[17];
+			for (int i = 0; i < cardLabels.length; i++) {
 				cardLabels[i] = new JLabel();
-				cardLabels[i].setPreferredSize(new Dimension(60, 80));
-
-//				try {
-//					String imagePath = "res/1.png";
-//					Image image = ImageIO.read(new File(imagePath));
-//					Image scaledImage = image.getScaledInstance(60, 80, 0);
-//					ImageIcon imageIcon = new ImageIcon(scaledImage);
-//					cardLabels[i].setIcon(imageIcon);
-//				} catch (IOException e) {
-//					e.printStackTrace();
-//				}
+				cardLabels[i].setPreferredSize(new Dimension(72, 96));
 			}
 
 			cardPanel = new JPanel();
 
-			for (int i = 0; i < 15; i++) {
+			for (int i = 0; i < cardLabels.length; i++) {
 				cardPanel.add(cardLabels[i]);
 			}
 			cardPanel.setLayout(new FlowLayout());

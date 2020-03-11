@@ -117,6 +117,10 @@ abstract public class Player implements Comparable<Player> {
 	}
 	
 	
+	public String getName() {
+		return name;
+	}
+
 	@Override
 	public String toString() {
 		return "Player " + name;

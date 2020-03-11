@@ -92,25 +92,51 @@ public class MainView extends JFrame {
 
 	public void updateView(int[] ranks, String[] names, ArrayList<Card>[] hands, int exCardNum, int exCardsCount) {
 		// TODO Auto-generated method stub
+		int meIndex = 0;
+		int[] locations = new int[ranks.length];
+		
+		for (int i = 0; i < names.length; i++) {
+			System.out.println(names[i]);
+			if (names[i].equals("Player 나")) {
+				meIndex = i;
+//				0 1 2나 3 -> 2 3 0 1
+			}
+		}
+		
+		for (int i = 0; i < locations.length; i++) {
+			locations[(meIndex + i) % locations.length] = i;
+		}
+		
+		for ( String name : names) {
+			System.out.print(name + " ");
+		}
+		System.out.println();
+		
+		for (int location : locations) {
+			System.out.print(location + " ");
+		}
+		System.out.println();
+		
 		for (int i = 0; i < ranks.length; i++) {
-			playerPanels[i].rankLabel.setText("" + ranks[i]);
-			playerPanels[i].nameLabel.setText("" + names[i]);
-			if (playerPanels[i].leftCardsLabel != null) {
-				playerPanels[i].leftCardsLabel.setText("남은 카드 수: " + hands[i].size());
+			int index = locations[i];
+			playerPanels[index].rankLabel.setText("" + ranks[i]);
+			playerPanels[index].nameLabel.setText("" + names[i]);
+			if (playerPanels[index].leftCardsLabel != null) {
+				playerPanels[index].leftCardsLabel.setText("남은 카드 수: " + hands[i].size());
 			} else {
-				for (int j = 0; j < playerPanels[i].cardLabels.length; j++) {
-					playerPanels[i].cardLabels[j].setIcon(null);
+				for (int j = 0; j < playerPanels[index].cardLabels.length; j++) {
+					playerPanels[index].cardLabels[j].setIcon(null);
 				}
 
 				for (int j = 0; j < hands[i].size(); j++) {
 					int cardNum = hands[i].get(j).getNumber();
-					playerPanels[i].cardLabels[j].setIcon(imageIcons[cardNum]);
+					playerPanels[index].cardLabels[j].setIcon(imageIcons[cardNum]);
 				}
 
 			}
 
-			System.out.println(hands[i].size());
-			System.out.println(hands[i]);
+//			System.out.println(hands[index].size());
+//			System.out.println(hands[index]);
 		}
 		boardPanel.setExCards(exCardNum, exCardsCount);
 	}

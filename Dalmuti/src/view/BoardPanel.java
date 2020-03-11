@@ -28,6 +28,8 @@ public class BoardPanel extends JPanel {
 	public void setExCards(int num, int count) {
 		this.exCardNum = num;
 		this.exCardsCount = count;
+		
+		this.repaint();
 	}
 
 	@Override

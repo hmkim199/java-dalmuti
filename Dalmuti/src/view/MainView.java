@@ -96,7 +96,6 @@ public class MainView extends JFrame {
 		int[] locations = new int[ranks.length];
 		
 		for (int i = 0; i < names.length; i++) {
-			System.out.println(names[i]);
 			if (names[i].equals("Player ³ª")) {
 				meIndex = i;
 //				0 1 2³ª 3 -> 2 3 0 1
@@ -106,16 +105,6 @@ public class MainView extends JFrame {
 		for (int i = 0; i < locations.length; i++) {
 			locations[(meIndex + i) % locations.length] = i;
 		}
-		
-		for ( String name : names) {
-			System.out.print(name + " ");
-		}
-		System.out.println();
-		
-		for (int location : locations) {
-			System.out.print(location + " ");
-		}
-		System.out.println();
 		
 		for (int i = 0; i < ranks.length; i++) {
 			int index = locations[i];
@@ -135,8 +124,6 @@ public class MainView extends JFrame {
 
 			}
 
-//			System.out.println(hands[index].size());
-//			System.out.println(hands[index]);
 		}
 		boardPanel.setExCards(exCardNum, exCardsCount);
 	}

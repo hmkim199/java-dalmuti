@@ -11,7 +11,7 @@ import view.MainView;
 
 public class Controller {
 	Dalmuti model = new Dalmuti();
-	MainView view = new MainView();
+	static MainView view = new MainView();
 
 	public Controller() {
 		model.createCards();
@@ -66,6 +66,11 @@ public class Controller {
 
 		view.updateView(ranks, names, hands, model.getExCardNum(), model.getExCardsCount());
 
+	}
+
+	public static boolean askRevolution() {
+		return view.askRevolution();
+		
 	}
 
 }

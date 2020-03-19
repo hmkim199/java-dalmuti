@@ -4,16 +4,21 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 import model.Card;
 
@@ -25,6 +30,7 @@ public class MainView extends JFrame {
 	Image scaledImage;
 	ImageIcon[] imageIcons;
 	BoardPanel boardPanel;
+	static boolean revolution;
 
 	public MainView() {
 		super("Dalmuti");
@@ -87,25 +93,24 @@ public class MainView extends JFrame {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		MainView mainview = new MainView();
-
 	}
 
 	public void updateView(int[] ranks, String[] names, ArrayList<Card>[] hands, int exCardNum, int exCardsCount) {
 		// TODO Auto-generated method stub
 		int meIndex = 0;
 		int[] locations = new int[ranks.length];
-		
+
 		for (int i = 0; i < names.length; i++) {
 			if (names[i].equals("Player 나")) {
 				meIndex = i;
 //				0 1 2나 3 -> 2 3 0 1
 			}
 		}
-		
+
 		for (int i = 0; i < locations.length; i++) {
 			locations[(meIndex + i) % locations.length] = i;
 		}
-		
+
 		for (int i = 0; i < ranks.length; i++) {
 			int index = locations[i];
 			playerPanels[index].rankLabel.setText("" + ranks[i]);
@@ -126,5 +131,53 @@ public class MainView extends JFrame {
 
 		}
 		boardPanel.setExCards(exCardNum, exCardsCount);
+	}
+
+	public boolean askRevolution() {
+		Toolkit kit = Toolkit.getDefaultToolkit();
+		Dimension screenSize = kit.getScreenSize();
+
+		JFrame revoFrame = new JFrame();
+		revoFrame.setVisible(true);
+		revoFrame.setLocation(screenSize.width / 2 - 300, screenSize.height / 2 - 100);
+		revoFrame.setSize(600, 200);
+		revoFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		JLabel revoLabel = new JLabel("<html>조커  2장을  보유하여  혁명을  할  수  있습니다.<br/>혁명을  하시겠습니까?</html>");
+		revoLabel.setVerticalAlignment(SwingConstants.CENTER);
+		revoLabel.setHorizontalAlignment(SwingConstants.LEFT);
+
+		JButton yesBtn = new JButton("YES");
+		JButton noBtn = new JButton("NO");
+		yesBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				revolution = true;
+				revoFrame.dispose();
+			}
+		});
+		noBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				revolution = false;
+				revoFrame.dispose();
+			}
+		});
+
+		JPanel btnPanel = new JPanel();
+		btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.X_AXIS));
+		btnPanel.add(yesBtn);
+		btnPanel.add(noBtn);
+
+		JPanel revoPanel = new JPanel();
+		revoPanel.setLayout(new BoxLayout(revoPanel, BoxLayout.Y_AXIS));
+		revoPanel.add(revoLabel);
+		revoPanel.add(btnPanel);
+
+		revoFrame.add(revoPanel);
+
+		return revolution;
 	}
 }

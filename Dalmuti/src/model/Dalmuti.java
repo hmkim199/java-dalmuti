@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 
+import controller.Controller;
+
 public class Dalmuti {
 	private final int NUMBER_OF_PLAYERS = 4;
 	public final int NUMBER_OF_GAMES = 5;
@@ -204,6 +206,7 @@ public class Dalmuti {
 			int indexLast13 = hand.lastIndexOf(new Card(13));
 			if (indexFirst13 != indexLast13) {
 //				System.out.println(players[i] + "가 13을 2개 가졌다");
+				
 				if (players[i].wantsRevolution()) {
 					return true;
 				}

@@ -17,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -30,7 +31,6 @@ public class MainView extends JFrame {
 	Image scaledImage;
 	ImageIcon[] imageIcons;
 	BoardPanel boardPanel;
-	static int revolution = -1;
 
 	public MainView() {
 		super("Dalmuti");
@@ -91,10 +91,7 @@ public class MainView extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		MainView mainview = new MainView();
-//		boolean revo = askRevolution();
-//		System.out.println(revo);
 	}
 
 	public void updateView(int[] ranks, String[] names, ArrayList<Card>[] hands, int exCardNum, int exCardsCount) {
@@ -135,67 +132,27 @@ public class MainView extends JFrame {
 		boardPanel.setExCards(exCardNum, exCardsCount);
 	}
 
-	public synchronized boolean askRevolution() {
-		Toolkit kit = Toolkit.getDefaultToolkit();
-		Dimension screenSize = kit.getScreenSize();
+	public boolean askRevolution() {
+		String[] answer = {"Yes", "No"};
 
-		JFrame revoFrame = new JFrame();
-		revoFrame.setVisible(true);
-		revoFrame.setLocation(screenSize.width / 2 - 300, screenSize.height / 2 - 100);
-		revoFrame.setSize(600, 200);
-		revoFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		int ans = JOptionPane.showOptionDialog(this, "조커가 2장 있습니다. 혁명을 하시겠습니까?", "혁명 체크", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, answer, null);
 
-		JLabel revoLabel = new JLabel("<html>조커  2장을  보유하여  혁명을  할  수  있습니다.<br/>혁명을  하시겠습니까?</html>");
-		revoLabel.setVerticalAlignment(SwingConstants.CENTER);
-		revoLabel.setHorizontalAlignment(SwingConstants.LEFT);
+		//ans는 인덱스번호(대답) - First를 눌렀다면 0, Second면 1, Third면 2가 리턴된다.
 
-		JButton yesBtn = new JButton("YES");
-		JButton noBtn = new JButton("NO");
-		yesBtn.addActionListener(new ActionListener() {
+		if (ans == 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				revolution = 1;
-				revoFrame.dispose();
-			}
-		});
-		noBtn.addActionListener(new ActionListener() {
+	public void askToChooseTaxCard(ArrayList<Card> hand) {
+		// TODO Auto-generated method stub
+		String[] answer = {"확인"};
 
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				revolution = 0;
-				revoFrame.dispose();
-			}
-		});
-
-		JPanel btnPanel = new JPanel();
-		btnPanel.setLayout(new BoxLayout(btnPanel, BoxLayout.X_AXIS));
-		btnPanel.add(yesBtn);
-		btnPanel.add(noBtn);
-
-		JPanel revoPanel = new JPanel();
-		revoPanel.setLayout(new BoxLayout(revoPanel, BoxLayout.Y_AXIS));
-		revoPanel.add(revoLabel);
-		revoPanel.add(btnPanel);
-
-		revoFrame.add(revoPanel);
+		int ans = JOptionPane.showOptionDialog(this, "세금으로 교환할 카드를 고르십시오.", "세금 알림", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, answer, null);
 		
-		while (revolution == -1) {
-		    try {
-				wait();
-			} catch (InterruptedException e1) {
-				e1.printStackTrace();
-			}
-		}
-		notifyAll();		
 		
-		boolean revo = false;
-		if (revolution == 0) {
-			revo = false;
-		}
-		else if(revolution == 1) {
-			revo = true;
-		}
-		return revo;
 	}
 }

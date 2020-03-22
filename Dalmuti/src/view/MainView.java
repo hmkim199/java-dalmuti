@@ -30,7 +30,7 @@ public class MainView extends JFrame {
 	Image scaledImage;
 	ImageIcon[] imageIcons;
 	BoardPanel boardPanel;
-	static boolean revolution;
+	static int revolution = -1;
 
 	public MainView() {
 		super("Dalmuti");
@@ -93,6 +93,8 @@ public class MainView extends JFrame {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		MainView mainview = new MainView();
+//		boolean revo = askRevolution();
+//		System.out.println(revo);
 	}
 
 	public void updateView(int[] ranks, String[] names, ArrayList<Card>[] hands, int exCardNum, int exCardsCount) {
@@ -113,8 +115,8 @@ public class MainView extends JFrame {
 
 		for (int i = 0; i < ranks.length; i++) {
 			int index = locations[i];
-			playerPanels[index].rankLabel.setText("" + ranks[i]);
-			playerPanels[index].nameLabel.setText("" + names[i]);
+			playerPanels[index].rankLabel.setText("랭크 : " + ranks[i]);
+			playerPanels[index].nameLabel.setText("이름 : " + names[i]);
 			if (playerPanels[index].leftCardsLabel != null) {
 				playerPanels[index].leftCardsLabel.setText("남은 카드 수: " + hands[i].size());
 			} else {
@@ -133,7 +135,7 @@ public class MainView extends JFrame {
 		boardPanel.setExCards(exCardNum, exCardsCount);
 	}
 
-	public boolean askRevolution() {
+	public synchronized boolean askRevolution() {
 		Toolkit kit = Toolkit.getDefaultToolkit();
 		Dimension screenSize = kit.getScreenSize();
 
@@ -153,7 +155,7 @@ public class MainView extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				revolution = true;
+				revolution = 1;
 				revoFrame.dispose();
 			}
 		});
@@ -161,7 +163,7 @@ public class MainView extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				revolution = false;
+				revolution = 0;
 				revoFrame.dispose();
 			}
 		});
@@ -177,7 +179,23 @@ public class MainView extends JFrame {
 		revoPanel.add(btnPanel);
 
 		revoFrame.add(revoPanel);
-
-		return revolution;
+		
+		while (revolution == -1) {
+		    try {
+				wait();
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
+		}
+		notifyAll();		
+		
+		boolean revo = false;
+		if (revolution == 0) {
+			revo = false;
+		}
+		else if(revolution == 1) {
+			revo = true;
+		}
+		return revo;
 	}
 }

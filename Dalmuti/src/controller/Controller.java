@@ -31,6 +31,9 @@ public class Controller {
 
 			if (model.someoneWantsRevolution()) {
 				model.revolution();
+				
+				updateView();
+				
 				System.out.println("«ı∏Ì¿ª «ﬂ¥Ÿ");
 
 			} else {

@@ -23,13 +23,13 @@ public class Human extends AI {
 
 	
 	
-//	@Override
-//	public Card findTaxCard() {
-//		super.updateAndDelay();
-//		
-//		controller.askToChooseTaxCard(hand);
-//		return null;
-//	}
+	@Override
+	public Card findTaxCard() {
+		super.delay();
+		
+		controller.askToChooseTaxCard();
+		return null;
+	}
 //
 //	@Override
 //	public int[] selectCards(int exCardNum, int exCardsCount) {

@@ -177,8 +177,8 @@ public class Controller {
 		
 	}
 
-//	public void askToChooseTaxCard(ArrayList<Card> hand) {
-//		view.askToChooseTaxCard(hand);
-//	}
+	public void askToChooseTaxCard() {
+		view.askToChooseTaxCard();
+	}
 
 }

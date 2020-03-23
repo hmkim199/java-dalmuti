@@ -5,6 +5,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
+import java.awt.MouseInfo;
+import java.awt.PointerInfo;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -26,6 +30,8 @@ public class PlayerPanel extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.setAlignmentX(CENTER_ALIGNMENT);
 		this.add(Box.createVerticalGlue());
+		
+		this.addMouseListener(new MyMouseListener());
 
 		rankLabel = new JLabel("·©Å©");
 		rankLabel.setAlignmentX(CENTER_ALIGNMENT);
@@ -60,5 +66,51 @@ public class PlayerPanel extends JPanel {
 		this.add(Box.createVerticalGlue());
 
 	}
+	
+	public void selectedLocation() {
+		PointerInfo M_pointer = MouseInfo.getPointerInfo();
+		
+		System.out.println(M_pointer.getLocation());
+		int x = M_pointer.getLocation().x;
+		int index = (int)x/72;
+		
+		System.out.println(index);
+		
+	}
 
+	public class MyMouseListener implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+//			System.out.println("mouse clicked");
+//			System.out.println(e.getPoint());
+			System.out.println(e.getX() / cardLabels[0].getWidth());
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+	}
 }

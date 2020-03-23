@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.MouseInfo;
+import java.awt.PointerInfo;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,7 +26,7 @@ import javax.swing.SwingConstants;
 import model.Card;
 
 public class MainView extends JFrame {
-	PlayerPanel[] playerPanels;
+	static PlayerPanel[] playerPanels;
 	int numOfImg = 14;
 	String imagePath;
 	Image image;
@@ -68,7 +70,7 @@ public class MainView extends JFrame {
 		playerPanels[1] = new PlayerPanel(BorderLayout.WEST);
 		playerPanels[2] = new PlayerPanel(BorderLayout.NORTH);
 		playerPanels[3] = new PlayerPanel(BorderLayout.EAST);
-
+		
 		boardPanel = new BoardPanel();
 
 		JPanel mainPanel = new JPanel();
@@ -91,7 +93,12 @@ public class MainView extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		MainView mainview = new MainView();
+		MainView mainView = new MainView();
+		
+		for (int j = 1; j < 14; j++) {
+			mainView.playerPanels[0].cardLabels[j].setIcon(mainView.imageIcons[j]);
+		}
+		playerPanels[0].selectedLocation();
 	}
 
 	public void updateView(int[] ranks, String[] names, ArrayList<Card>[] hands, int exCardNum, int exCardsCount) {
@@ -147,12 +154,8 @@ public class MainView extends JFrame {
 		}
 	}
 
-//	public void askToChooseTaxCard(ArrayList<Card> hand) {
-//		// TODO Auto-generated method stub
-//		String[] answer = {"확인"};
-//
-//		int ans = JOptionPane.showOptionDialog(this, "세금으로 교환할 카드를 고르십시오.", "세금 알림", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, answer, null);
-//		
-//		
-//	}
+	public void askToChooseTaxCard() {
+		PointerInfo M_pointer = MouseInfo.getPointerInfo();
+		
+	}
 }

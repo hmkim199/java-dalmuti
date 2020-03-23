@@ -147,12 +147,12 @@ public class MainView extends JFrame {
 		}
 	}
 
-	public void askToChooseTaxCard(ArrayList<Card> hand) {
-		// TODO Auto-generated method stub
-		String[] answer = {"확인"};
-
-		int ans = JOptionPane.showOptionDialog(this, "세금으로 교환할 카드를 고르십시오.", "세금 알림", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, answer, null);
-		
-		
-	}
+//	public void askToChooseTaxCard(ArrayList<Card> hand) {
+//		// TODO Auto-generated method stub
+//		String[] answer = {"확인"};
+//
+//		int ans = JOptionPane.showOptionDialog(this, "세금으로 교환할 카드를 고르십시오.", "세금 알림", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, answer, null);
+//		
+//		
+//	}
 }

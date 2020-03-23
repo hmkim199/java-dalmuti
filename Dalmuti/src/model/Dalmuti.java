@@ -12,18 +12,15 @@ public class Dalmuti {
 	public final int NUMBER_OF_GAMES = 5;
 	private Player[] players;
 	private ArrayList<Card> cards;
-	private int newRank;
+	public int newRank;
 	
-	private int exCardNum = 0;
-	private int exCardsCount = 0;
+	public int exCardNum = 0;
+	public int exCardsCount = 0;
 
-	public int getExCardNum() {
-		return exCardNum;
-	}
-
-	public int getExCardsCount() {
-		return exCardsCount;
-	}
+	public int totalTurn = 0;
+	public int turn = 0;
+	public int[] play = new int[2];
+	public int passCount = 0;
 
 	public Dalmuti() {
 		System.out.println("Welcome to Dalmuti.");
@@ -64,98 +61,98 @@ public class Dalmuti {
 		return players;
 	}
 
-	public void playGame() {
-		// TODO 달무티가 카드를 내면 그 다음 사람들은 더 낮은 숫자의 카드를 해당개수만큼 내야함. 모두가 못내면 한 라운드 끝
-		// 이전 라운드에 마지막으로 낸 사람이 다음 라운드의 선 플레이어가 됨.
-		// 한 게임에 여러 라운드가 있다. 한명 제외 모두가 카드를 소진했을 때 한 게임 끝.
-
-		int firstPlayer = 0;
-		int thisRound = 0;
-		newRank = 1;
-//		System.out.println("\n게임 시작!!\n");
-		while (true) {
-//			System.out.println("\n**********" + thisRound + "번째 라운드 입니다.*************\n");
-//			System.out.println("선플레이어는 " + firstPlayer + "입니다.");
-			firstPlayer = playRound(firstPlayer);
-
-			thisRound++;
-			if (firstPlayer == -1) {
-				break;
-			}
-		}
-
-//		for (Player player: players) {
-//			System.out.print(player + "   ");
+//	public void playGame() {
+//		// TODO 달무티가 카드를 내면 그 다음 사람들은 더 낮은 숫자의 카드를 해당개수만큼 내야함. 모두가 못내면 한 라운드 끝
+//		// 이전 라운드에 마지막으로 낸 사람이 다음 라운드의 선 플레이어가 됨.
+//		// 한 게임에 여러 라운드가 있다. 한명 제외 모두가 카드를 소진했을 때 한 게임 끝.
+//
+//		int firstPlayer = 0;
+//		int thisRound = 0;
+//		newRank = 1;
+////		System.out.println("\n게임 시작!!\n");
+//		while (true) {
+////			System.out.println("\n**********" + thisRound + "번째 라운드 입니다.*************\n");
+////			System.out.println("선플레이어는 " + firstPlayer + "입니다.");
+//			firstPlayer = playRound(firstPlayer);
+//
+//			thisRound++;
+//			if (firstPlayer == -1) {
+//				break;
+//			}
 //		}
-//		System.out.println();
-	}
-
-	private int playRound(int firstPlayer) {
-
-		int totalTurn = firstPlayer;
-		int turn = 0;
-		int[] play = new int[2];
-		int passCount = 0;
-		exCardNum = 0;
-		exCardsCount = 0;
-
-		while (true) {
-			turn = totalTurn % players.length;
-
-			if (players[turn].handIsEmpty()) {
-				passCount++;
-			} else {
-//				System.out.println(turn + "번째 player 차례입니다.");
-//				System.out.println(players[turn].getHand());
-
-				play = players[turn].playCards(exCardNum, exCardsCount);
-
-				if (play[0] == 0 && play[1] == 0) {
-					passCount++;
-				} else {
-					exCardNum = play[0];
-					exCardsCount = play[1];
-					passCount = 0;
-				}
-				if (players[turn].handIsEmpty()) {
-					players[turn].setRank(newRank);
-					newRank++;
-
-//					System.out.println("#######" + players[turn] + "끝!!!!!!!났고");
-//					System.out.println("########새 랭크는"+players[turn].getRank());	
-				}
-			}
-
-			if (passCount == players.length - 1) {
-//				System.out.println("라운드 끝");
-				turn = (turn + 1) % players.length;
-				break;
-			}
-			totalTurn++;
-
-			int donePlayers = 0;
-			for (int i = 0; i < players.length; i++) {
-
-				if (players[i].handIsEmpty()) {
-					donePlayers++;
-				}
-			}
-
-//			System.out.println(donePlayers + "명이 패를 모두 소진했습니다.");
-
-			if (donePlayers == players.length - 1) {
-				for (int i = 0; i < players.length; i++) {
-					if (!players[i].handIsEmpty()) {
-						players[i].setRank(newRank);
-						break;
-					}
-				}
-				turn = -1;
-				break;
-			}
-		}
-		return turn;
-	}
+//
+////		for (Player player: players) {
+////			System.out.print(player + "   ");
+////		}
+////		System.out.println();
+//	}
+//
+//	private int playRound(int firstPlayer) {
+//
+//		int totalTurn = firstPlayer;
+//		int turn = 0;
+//		int[] play = new int[2];
+//		int passCount = 0;
+//		exCardNum = 0;
+//		exCardsCount = 0;
+//
+//		while (true) {
+//			turn = totalTurn % players.length;
+//
+//			if (players[turn].handIsEmpty()) {
+//				passCount++;
+//			} else {
+////				System.out.println(turn + "번째 player 차례입니다.");
+////				System.out.println(players[turn].getHand());
+//
+//				play = players[turn].playCards(exCardNum, exCardsCount);
+//
+//				if (play[0] == 0 && play[1] == 0) {
+//					passCount++;
+//				} else {
+//					exCardNum = play[0];
+//					exCardsCount = play[1];
+//					passCount = 0;
+//				}
+//				if (players[turn].handIsEmpty()) {
+//					players[turn].setRank(newRank);
+//					newRank++;
+//
+////					System.out.println("#######" + players[turn] + "끝!!!!!!!났고");
+////					System.out.println("########새 랭크는"+players[turn].getRank());	
+//				}
+//			}
+//
+//			if (passCount == players.length - 1) {
+////				System.out.println("라운드 끝");
+//				turn = (turn + 1) % players.length;
+//				break;
+//			}
+//			totalTurn++;
+//
+//			int donePlayers = 0;
+//			for (int i = 0; i < players.length; i++) {
+//
+//				if (players[i].handIsEmpty()) {
+//					donePlayers++;
+//				}
+//			}
+//
+////			System.out.println(donePlayers + "명이 패를 모두 소진했습니다.");
+//
+//			if (donePlayers == players.length - 1) {
+//				for (int i = 0; i < players.length; i++) {
+//					if (!players[i].handIsEmpty()) {
+//						players[i].setRank(newRank);
+//						break;
+//					}
+//				}
+//				turn = -1;
+//				break;
+//			}
+//		}
+//		return turn;
+//	}
 
 	public void aggregateScore() {
 

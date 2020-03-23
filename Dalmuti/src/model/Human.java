@@ -18,16 +18,16 @@ public class Human extends AI {
 	public boolean wantsRevolution() {
 		super.updateAndDelay();
 		
-		return Controller.askRevolution();
+		return controller.askRevolution();
 	}
 
 	
 	
 //	@Override
 //	public Card findTaxCard() {
-//		// TODO Auto-generated method stub
-//	super.updateAndDelay();
-//
+//		super.updateAndDelay();
+//		
+//		controller.askToChooseTaxCard(hand);
 //		return null;
 //	}
 //

@@ -28,12 +28,12 @@ public class Controller {
 			Arrays.sort(model.getPlayers());
 			model.clearHands();
 			model.handOutCards();
+			
+			updateView();
 
 			if (model.someoneWantsRevolution()) {
 				model.revolution();
-				
-				updateView();
-				
+								
 				System.out.println("혁명을 했다");
 
 			} else {
@@ -42,10 +42,14 @@ public class Controller {
 				model.collectTaxes();
 			}
 
+			updateView();
+
 			System.out.println(nGames + "번째 게임입니다.");
 			playGame();
 			model.aggregateScore();
-
+			
+			updateView();
+			
 		}
 
 	}
@@ -103,6 +107,8 @@ public class Controller {
 
 				model.play = players[model.turn].playCards(model.exCardNum, model.exCardsCount);
 
+				updateView();
+				
 				if (model.play[0] == 0 && model.play[1] == 0) {
 					model.passCount++;
 				} else {

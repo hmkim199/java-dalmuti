@@ -16,7 +16,7 @@ public class Human extends AI {
 
 	@Override
 	public boolean wantsRevolution() {
-		super.updateAndDelay();
+		super.delay();
 		
 		return controller.askRevolution();
 	}

@@ -17,7 +17,7 @@ abstract public class Player implements Comparable<Player> {
 	protected int rank;
 	protected ArrayList<Card> hand;
 	private int score;
-
+	
 	public Controller controller;
 
 	public Player(String name) {
@@ -106,8 +106,7 @@ abstract public class Player implements Comparable<Player> {
 		return hand.size() == 0;
 	}
 
-	public void updateAndDelay() {
-		controller.updateView();
+	public void delay() {
 		
 		try {
 			TimeUnit.SECONDS.sleep(1);

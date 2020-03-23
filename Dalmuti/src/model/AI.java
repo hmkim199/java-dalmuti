@@ -12,13 +12,13 @@ public class AI extends Player {
 
 	@Override
 	public boolean wantsRevolution() {
-		super.updateAndDelay();
+		super.delay();
 		return Math.random() < 0.5;
 	}
 
 	@Override
 	public Card findTaxCard() {
-		super.updateAndDelay();
+		super.delay();
 
 		Card tax = Collections.min(this.hand);
 
@@ -32,7 +32,7 @@ public class AI extends Player {
 
 	@Override
 	public int[] selectCards(int exCardNum, int exCardsCount) {
-		super.updateAndDelay();
+		super.delay();
 
 		int[] cardsInfo = new int[2];
 		int[] handCount = new int[14];
@@ -65,7 +65,7 @@ public class AI extends Player {
 
 	@Override
 	public boolean wantsPass() {
-		super.updateAndDelay();
+		super.delay();
 
 		return Math.random() < 0.2;
 	}

@@ -24,10 +24,16 @@ public class Human extends AI {
 	
 	
 	@Override
-	public Card findTaxCard() {
+	public synchronized Card findTaxCard() {
 		super.delay();
-		
+		try {
+			wait();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		controller.askToChooseTaxCard();
+		
 		return null;
 	}
 //

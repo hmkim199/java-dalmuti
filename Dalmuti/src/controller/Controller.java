@@ -19,11 +19,11 @@ public class Controller {
 		view.confirmBtn.addActionListener(new ActionListener() {
 
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public synchronized void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 				view.playerPanels[0].getClickedLocations();
 				System.out.println("Button clicked.");
-				
+				notifyAll();
 			}
 			
 		});

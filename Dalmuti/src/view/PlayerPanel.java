@@ -43,7 +43,7 @@ public class PlayerPanel extends JPanel {
 			cardLabels = new JLabel[17];
 			for (int i = 0; i < cardLabels.length; i++) {
 				cardLabels[i] = new JLabel();
-				cardLabels[i].setPreferredSize(new Dimension(72, 96));
+				cardLabels[i].setPreferredSize(new Dimension(60, 80));
 			}
 
 			cardPanel = new JPanel();
@@ -51,9 +51,10 @@ public class PlayerPanel extends JPanel {
 			for (int i = 0; i < cardLabels.length; i++) {
 				cardPanel.add(cardLabels[i]);
 			}
-			cardPanel.setLayout(new FlowLayout());
+			cardPanel.setLayout(new BoxLayout(cardPanel, BoxLayout.X_AXIS));
 			cardPanel.setBackground(Color.pink);
 			cardPanel.setOpaque(true);
+			cardPanel.add(Box.createHorizontalGlue());
 			this.add(cardPanel);
 		} else {
 			leftCardsLabel = new JLabel("남은 카드 수 : 00");
@@ -66,17 +67,6 @@ public class PlayerPanel extends JPanel {
 		this.add(Box.createVerticalGlue());
 
 	}
-	
-	public void selectedLocation() {
-		PointerInfo M_pointer = MouseInfo.getPointerInfo();
-		
-		System.out.println(M_pointer.getLocation());
-		int x = M_pointer.getLocation().x;
-		int index = (int)x/72;
-		
-		System.out.println(index);
-		
-	}
 
 	public class MyMouseListener implements MouseListener {
 
@@ -86,6 +76,7 @@ public class PlayerPanel extends JPanel {
 //			System.out.println("mouse clicked");
 //			System.out.println(e.getPoint());
 			System.out.println(e.getX() / cardLabels[0].getWidth());
+			int clickedLocation = e.getX() / cardLabels[0].getWidth();
 		}
 
 		@Override

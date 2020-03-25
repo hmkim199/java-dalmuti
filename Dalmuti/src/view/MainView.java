@@ -43,7 +43,7 @@ public class MainView extends JFrame {
 			for (int i = 1; i < numOfImg; i++) {
 				imagePath = "res/card" + i + ".png";
 				image = ImageIO.read(new File(imagePath));
-				scaledImage = image.getScaledInstance(72, 96, 0);
+				scaledImage = image.getScaledInstance(60, 80, 0);
 				imageIcons[i] = new ImageIcon(scaledImage);
 			}
 
@@ -86,7 +86,7 @@ public class MainView extends JFrame {
 		this.add(mainPanel, BorderLayout.CENTER);
 		this.add(infoPanel, BorderLayout.EAST);
 
-		this.setPreferredSize(new Dimension(1600, 900));
+		this.setPreferredSize(new Dimension(1200, 700));
 		this.setVisible(true);
 		this.pack();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -95,10 +95,9 @@ public class MainView extends JFrame {
 	public static void main(String[] args) {
 		MainView mainView = new MainView();
 		
-		for (int j = 1; j < 14; j++) {
-			mainView.playerPanels[0].cardLabels[j].setIcon(mainView.imageIcons[j]);
+		for (int j = 0; j < 13; j++) {
+			mainView.playerPanels[0].cardLabels[j].setIcon(mainView.imageIcons[j+1]);
 		}
-		playerPanels[0].selectedLocation();
 	}
 
 	public void updateView(int[] ranks, String[] names, ArrayList<Card>[] hands, int exCardNum, int exCardsCount) {

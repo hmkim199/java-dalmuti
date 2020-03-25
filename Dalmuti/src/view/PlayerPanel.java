@@ -11,6 +11,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.imageio.ImageIO;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -24,6 +28,11 @@ public class PlayerPanel extends JPanel {
 	JLabel[] cardLabels;
 	private JPanel cardPanel;
 	JLabel leftCardsLabel;
+	HashSet<Integer> clickedLocations = new HashSet<>();
+
+	public HashSet<Integer> getClickedLocations() {
+		return clickedLocations;
+	}
 
 	public PlayerPanel(String position) {
 		super();
@@ -72,11 +81,15 @@ public class PlayerPanel extends JPanel {
 
 		@Override
 		public void mouseClicked(MouseEvent e) {
-			// TODO Auto-generated method stub
-//			System.out.println("mouse clicked");
-//			System.out.println(e.getPoint());
-			System.out.println(e.getX() / cardLabels[0].getWidth());
-			int clickedLocation = e.getX() / cardLabels[0].getWidth();
+			int exClicked = e.getX() / cardLabels[0].getWidth();
+			if (clickedLocations.contains(exClicked)) {
+				clickedLocations.remove(exClicked);
+			}
+			else {
+				clickedLocations.add(exClicked);
+			}
+			
+			System.out.println(clickedLocations);
 		}
 
 		@Override
@@ -103,5 +116,9 @@ public class PlayerPanel extends JPanel {
 
 		}
 
+	}
+
+	public int askToChooseTaxCard() {
+		return 0;
 	}
 }

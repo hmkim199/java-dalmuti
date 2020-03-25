@@ -1,5 +1,7 @@
 package controller;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -14,6 +16,18 @@ public class Controller {
 	MainView view = new MainView();
 
 	public Controller() {
+		view.confirmBtn.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				view.playerPanels[0].getClickedLocations();
+				System.out.println("Button clicked.");
+				
+			}
+			
+		});
+		
 		model.createCards();
 		model.createPlayers();
 		
@@ -39,6 +53,7 @@ public class Controller {
 			} else {
 				System.out.println("¼¼±Ý °È±â");
 
+				
 				model.collectTaxes();
 			}
 

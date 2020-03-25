@@ -26,13 +26,14 @@ import javax.swing.SwingConstants;
 import model.Card;
 
 public class MainView extends JFrame {
-	static PlayerPanel[] playerPanels;
+	public PlayerPanel[] playerPanels;
 	int numOfImg = 14;
 	String imagePath;
 	Image image;
 	Image scaledImage;
 	ImageIcon[] imageIcons;
 	BoardPanel boardPanel;
+	public JButton confirmBtn;
 
 	public MainView() {
 		super("Dalmuti");
@@ -60,9 +61,10 @@ public class MainView extends JFrame {
 		infoPanel.add(infoLabel);
 		infoPanel.setBackground(Color.white);
 
-		JButton confirmBtn = new JButton("확인");
+		confirmBtn = new JButton("확인");
 		confirmBtn.setVisible(true);
 		confirmBtn.setPreferredSize(new Dimension(60, 126));
+		
 		infoPanel.add(confirmBtn, BorderLayout.SOUTH);
 
 		playerPanels = new PlayerPanel[4];
@@ -154,7 +156,6 @@ public class MainView extends JFrame {
 	}
 
 	public void askToChooseTaxCard() {
-		PointerInfo M_pointer = MouseInfo.getPointerInfo();
-		
+		playerPanels[0].askToChooseTaxCard();
 	}
 }

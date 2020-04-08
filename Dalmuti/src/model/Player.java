@@ -65,7 +65,7 @@ abstract public class Player implements Comparable<Player> {
 
 		while (countOfCardsForTax != 0) {
 			Card tax = this.findTaxCard();
-
+			
 //			System.out.println(tax);
 			this.giveCard(tax, toPlayer);
 			countOfCardsForTax--;

@@ -52,7 +52,7 @@ public class MainView extends JFrame {
 			e.printStackTrace();
 		}
 
-		JLabel infoLabel = new JLabel("¡§∫∏        ...");
+		JLabel infoLabel = new JLabel("Ï†ïÎ≥¥        ...");
 		infoLabel.setPreferredSize(new Dimension(200, 500));
 
 		JPanel infoPanel = new JPanel();
@@ -61,7 +61,7 @@ public class MainView extends JFrame {
 		infoPanel.add(infoLabel);
 		infoPanel.setBackground(Color.white);
 
-		confirmBtn = new JButton("»Æ¿Œ");
+		confirmBtn = new JButton("ÌôïÏù∏");
 		confirmBtn.setVisible(true);
 		confirmBtn.setPreferredSize(new Dimension(60, 126));
 		
@@ -108,9 +108,9 @@ public class MainView extends JFrame {
 		int[] locations = new int[ranks.length];
 
 		for (int i = 0; i < names.length; i++) {
-			if (names[i].equals("Player ≥™")) {
+			if (names[i].equals("Player ÎÇò")) {
 				meIndex = i;
-//				0 1 2≥™ 3 -> 2 3 0 1
+//				0 1 2ÎÇò 3 -> 2 3 0 1
 			}
 		}
 
@@ -120,10 +120,10 @@ public class MainView extends JFrame {
 
 		for (int i = 0; i < ranks.length; i++) {
 			int index = locations[i];
-			playerPanels[index].rankLabel.setText("∑©≈© : " + ranks[i]);
-			playerPanels[index].nameLabel.setText("¿Ã∏ß : " + names[i]);
+			playerPanels[index].rankLabel.setText("Îû≠ÌÅ¨ : " + ranks[i]);
+			playerPanels[index].nameLabel.setText("Ïù¥Î¶Ñ : " + names[i]);
 			if (playerPanels[index].leftCardsLabel != null) {
-				playerPanels[index].leftCardsLabel.setText("≥≤¿∫ ƒ´µÂ ºˆ: " + hands[i].size());
+				playerPanels[index].leftCardsLabel.setText("ÎÇ®ÏùÄ Ïπ¥Îìú Ïàò: " + hands[i].size());
 			} else {
 				for (int j = 0; j < playerPanels[index].cardLabels.length; j++) {
 					playerPanels[index].cardLabels[j].setIcon(null);
@@ -143,9 +143,9 @@ public class MainView extends JFrame {
 	public boolean askRevolution() {
 		String[] answer = {"Yes", "No"};
 
-		int ans = JOptionPane.showOptionDialog(this, "¡∂ƒø∞° 2¿Â ¿÷Ω¿¥œ¥Ÿ. «ı∏Ì¿ª «œΩ√∞⁄Ω¿¥œ±Ó?", "«ı∏Ì √º≈©", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, answer, null);
+		int ans = JOptionPane.showOptionDialog(this, "Ï°∞Ïª§Í∞Ä 2Ïû• ÏûàÏäµÎãàÎã§. ÌòÅÎ™ÖÏùÑ ÌïòÏãúÍ≤†ÏäµÎãàÍπå?", "ÌòÅÎ™Ö Ï≤¥ÌÅ¨", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, answer, null);
 
-		//ans¥¬ ¿Œµ¶Ω∫π¯»£(¥Î¥‰) - First∏¶ ¥≠∑∂¥Ÿ∏È 0, Second∏È 1, Third∏È 2∞° ∏Æ≈œµ»¥Ÿ.
+		//ansÎäî Ïù∏Îç±Ïä§Î≤àÌò∏(ÎåÄÎãµ) - FirstÎ•º ÎàåÎ†ÄÎã§Î©¥ 0, SecondÎ©¥ 1, ThirdÎ©¥ 2Í∞Ä Î¶¨ÌÑ¥ÎêúÎã§.
 
 		if (ans == 0) {
 			return true;

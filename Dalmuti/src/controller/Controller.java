@@ -48,10 +48,10 @@ public class Controller {
 			if (model.someoneWantsRevolution()) {
 				model.revolution();
 								
-				System.out.println("Çõ¸íÀ» Çß´Ù");
+				System.out.println("í˜ëª…ì„ í–ˆë‹¤");
 
 			} else {
-				System.out.println("¼¼±İ °È±â");
+				System.out.println("ì„¸ê¸ˆ ê±·ê¸°");
 
 				
 				model.collectTaxes();
@@ -59,7 +59,7 @@ public class Controller {
 
 			updateView();
 
-			System.out.println(nGames + "¹øÂ° °ÔÀÓÀÔ´Ï´Ù.");
+			System.out.println(nGames + "ë²ˆì§¸ ê²Œì„ì…ë‹ˆë‹¤.");
 			playGame();
 			model.aggregateScore();
 			
@@ -75,17 +75,17 @@ public class Controller {
 	}
 	
 	public void playGame() {
-		// TODO ´Ş¹«Æ¼°¡ Ä«µå¸¦ ³»¸é ±× ´ÙÀ½ »ç¶÷µéÀº ´õ ³·Àº ¼ıÀÚÀÇ Ä«µå¸¦ ÇØ´ç°³¼ö¸¸Å­ ³»¾ßÇÔ. ¸ğµÎ°¡ ¸ø³»¸é ÇÑ ¶ó¿îµå ³¡
-		// ÀÌÀü ¶ó¿îµå¿¡ ¸¶Áö¸·À¸·Î ³½ »ç¶÷ÀÌ ´ÙÀ½ ¶ó¿îµåÀÇ ¼± ÇÃ·¹ÀÌ¾î°¡ µÊ.
-		// ÇÑ °ÔÀÓ¿¡ ¿©·¯ ¶ó¿îµå°¡ ÀÖ´Ù. ÇÑ¸í Á¦¿Ü ¸ğµÎ°¡ Ä«µå¸¦ ¼ÒÁøÇßÀ» ¶§ ÇÑ °ÔÀÓ ³¡.
+		// TODO ë‹¬ë¬´í‹°ê°€ ì¹´ë“œë¥¼ ë‚´ë©´ ê·¸ ë‹¤ìŒ ì‚¬ëŒë“¤ì€ ë” ë‚®ì€ ìˆ«ìì˜ ì¹´ë“œë¥¼ í•´ë‹¹ê°œìˆ˜ë§Œí¼ ë‚´ì•¼í•¨. ëª¨ë‘ê°€ ëª»ë‚´ë©´ í•œ ë¼ìš´ë“œ ë
+		// ì´ì „ ë¼ìš´ë“œì— ë§ˆì§€ë§‰ìœ¼ë¡œ ë‚¸ ì‚¬ëŒì´ ë‹¤ìŒ ë¼ìš´ë“œì˜ ì„  í”Œë ˆì´ì–´ê°€ ë¨.
+		// í•œ ê²Œì„ì— ì—¬ëŸ¬ ë¼ìš´ë“œê°€ ìˆë‹¤. í•œëª… ì œì™¸ ëª¨ë‘ê°€ ì¹´ë“œë¥¼ ì†Œì§„í–ˆì„ ë•Œ í•œ ê²Œì„ ë.
 
 		int firstPlayer = 0;
 		int thisRound = 0;
 		model.newRank = 1;
-//		System.out.println("\n°ÔÀÓ ½ÃÀÛ!!\n");
+//		System.out.println("\nê²Œì„ ì‹œì‘!!\n");
 		while (true) {
-//			System.out.println("\n**********" + thisRound + "¹øÂ° ¶ó¿îµå ÀÔ´Ï´Ù.*************\n");
-//			System.out.println("¼±ÇÃ·¹ÀÌ¾î´Â " + firstPlayer + "ÀÔ´Ï´Ù.");
+//			System.out.println("\n**********" + thisRound + "ë²ˆì§¸ ë¼ìš´ë“œ ì…ë‹ˆë‹¤.*************\n");
+//			System.out.println("ì„ í”Œë ˆì´ì–´ëŠ” " + firstPlayer + "ì…ë‹ˆë‹¤.");
 			firstPlayer = playRound(firstPlayer);
 
 			thisRound++;
@@ -117,7 +117,7 @@ public class Controller {
 			if (players[model.turn].handIsEmpty()) {
 				model.passCount++;
 			} else {
-//				System.out.println(turn + "¹øÂ° player Â÷·ÊÀÔ´Ï´Ù.");
+//				System.out.println(turn + "ë²ˆì§¸ player ì°¨ë¡€ì…ë‹ˆë‹¤.");
 //				System.out.println(players[turn].getHand());
 
 				model.play = players[model.turn].playCards(model.exCardNum, model.exCardsCount);
@@ -135,13 +135,13 @@ public class Controller {
 					players[model.turn].setRank(model.newRank);
 					model.newRank++;
 
-//					System.out.println("#######" + players[turn] + "³¡!!!!!!!³µ°í");
-//					System.out.println("########»õ ·©Å©´Â"+players[turn].getRank());	
+//					System.out.println("#######" + players[turn] + "ë!!!!!!!ë‚¬ê³ ");
+//					System.out.println("########ìƒˆ ë­í¬ëŠ”"+players[turn].getRank());	
 				}
 			}
 
 			if (model.passCount == players.length - 1) {
-//				System.out.println("¶ó¿îµå ³¡");
+//				System.out.println("ë¼ìš´ë“œ ë");
 				model.turn = (model.turn + 1) % players.length;
 				break;
 			}
@@ -155,7 +155,7 @@ public class Controller {
 				}
 			}
 
-//			System.out.println(donePlayers + "¸íÀÌ ÆĞ¸¦ ¸ğµÎ ¼ÒÁøÇß½À´Ï´Ù.");
+//			System.out.println(donePlayers + "ëª…ì´ íŒ¨ë¥¼ ëª¨ë‘ ì†Œì§„í–ˆìŠµë‹ˆë‹¤.");
 
 			if (donePlayers == players.length - 1) {
 				for (int i = 0; i < players.length; i++) {

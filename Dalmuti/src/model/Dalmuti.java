@@ -39,14 +39,14 @@ public class Dalmuti {
 //			} else {
 //				collectTaxes();
 //			}
-//			System.out.println(nGames + "¹øÂ° °ÔÀÓÀÔ´Ï´Ù.");
+//			System.out.println(nGames + "ë²ˆì§¸ ê²Œì„ì…ë‹ˆë‹¤.");
 //			playGame();
 //			aggregateScore();
 //		}
 //
 //		for (int i = 0; i < players.length; i++) {
-//			System.out.println("Á¡¼ö Áı°è!");
-//			System.out.println((i + 1) + "µîÀº " + players[i] + " Á¡¼ö´Â " + players[i].getScore());
+//			System.out.println("ì ìˆ˜ ì§‘ê³„!");
+//			System.out.println((i + 1) + "ë“±ì€ " + players[i] + " ì ìˆ˜ëŠ” " + players[i].getScore());
 //		}
 
 	}
@@ -62,17 +62,17 @@ public class Dalmuti {
 	}
 
 //	public void playGame() {
-//		// TODO ´Ş¹«Æ¼°¡ Ä«µå¸¦ ³»¸é ±× ´ÙÀ½ »ç¶÷µéÀº ´õ ³·Àº ¼ıÀÚÀÇ Ä«µå¸¦ ÇØ´ç°³¼ö¸¸Å­ ³»¾ßÇÔ. ¸ğµÎ°¡ ¸ø³»¸é ÇÑ ¶ó¿îµå ³¡
-//		// ÀÌÀü ¶ó¿îµå¿¡ ¸¶Áö¸·À¸·Î ³½ »ç¶÷ÀÌ ´ÙÀ½ ¶ó¿îµåÀÇ ¼± ÇÃ·¹ÀÌ¾î°¡ µÊ.
-//		// ÇÑ °ÔÀÓ¿¡ ¿©·¯ ¶ó¿îµå°¡ ÀÖ´Ù. ÇÑ¸í Á¦¿Ü ¸ğµÎ°¡ Ä«µå¸¦ ¼ÒÁøÇßÀ» ¶§ ÇÑ °ÔÀÓ ³¡.
+//		// TODO ë‹¬ë¬´í‹°ê°€ ì¹´ë“œë¥¼ ë‚´ë©´ ê·¸ ë‹¤ìŒ ì‚¬ëŒë“¤ì€ ë” ë‚®ì€ ìˆ«ìì˜ ì¹´ë“œë¥¼ í•´ë‹¹ê°œìˆ˜ë§Œí¼ ë‚´ì•¼í•¨. ëª¨ë‘ê°€ ëª»ë‚´ë©´ í•œ ë¼ìš´ë“œ ë
+//		// ì´ì „ ë¼ìš´ë“œì— ë§ˆì§€ë§‰ìœ¼ë¡œ ë‚¸ ì‚¬ëŒì´ ë‹¤ìŒ ë¼ìš´ë“œì˜ ì„  í”Œë ˆì´ì–´ê°€ ë¨.
+//		// í•œ ê²Œì„ì— ì—¬ëŸ¬ ë¼ìš´ë“œê°€ ìˆë‹¤. í•œëª… ì œì™¸ ëª¨ë‘ê°€ ì¹´ë“œë¥¼ ì†Œì§„í–ˆì„ ë•Œ í•œ ê²Œì„ ë.
 //
 //		int firstPlayer = 0;
 //		int thisRound = 0;
 //		newRank = 1;
-////		System.out.println("\n°ÔÀÓ ½ÃÀÛ!!\n");
+////		System.out.println("\nê²Œì„ ì‹œì‘!!\n");
 //		while (true) {
-////			System.out.println("\n**********" + thisRound + "¹øÂ° ¶ó¿îµå ÀÔ´Ï´Ù.*************\n");
-////			System.out.println("¼±ÇÃ·¹ÀÌ¾î´Â " + firstPlayer + "ÀÔ´Ï´Ù.");
+////			System.out.println("\n**********" + thisRound + "ë²ˆì§¸ ë¼ìš´ë“œ ì…ë‹ˆë‹¤.*************\n");
+////			System.out.println("ì„ í”Œë ˆì´ì–´ëŠ” " + firstPlayer + "ì…ë‹ˆë‹¤.");
 //			firstPlayer = playRound(firstPlayer);
 //
 //			thisRound++;
@@ -102,7 +102,7 @@ public class Dalmuti {
 //			if (players[turn].handIsEmpty()) {
 //				passCount++;
 //			} else {
-////				System.out.println(turn + "¹øÂ° player Â÷·ÊÀÔ´Ï´Ù.");
+////				System.out.println(turn + "ë²ˆì§¸ player ì°¨ë¡€ì…ë‹ˆë‹¤.");
 ////				System.out.println(players[turn].getHand());
 //
 //				play = players[turn].playCards(exCardNum, exCardsCount);
@@ -118,13 +118,13 @@ public class Dalmuti {
 //					players[turn].setRank(newRank);
 //					newRank++;
 //
-////					System.out.println("#######" + players[turn] + "³¡!!!!!!!³µ°í");
-////					System.out.println("########»õ ·©Å©´Â"+players[turn].getRank());	
+////					System.out.println("#######" + players[turn] + "ë!!!!!!!ë‚¬ê³ ");
+////					System.out.println("########ìƒˆ ë­í¬ëŠ”"+players[turn].getRank());	
 //				}
 //			}
 //
 //			if (passCount == players.length - 1) {
-////				System.out.println("¶ó¿îµå ³¡");
+////				System.out.println("ë¼ìš´ë“œ ë");
 //				turn = (turn + 1) % players.length;
 //				break;
 //			}
@@ -138,7 +138,7 @@ public class Dalmuti {
 //				}
 //			}
 //
-////			System.out.println(donePlayers + "¸íÀÌ ÆĞ¸¦ ¸ğµÎ ¼ÒÁøÇß½À´Ï´Ù.");
+////			System.out.println(donePlayers + "ëª…ì´ íŒ¨ë¥¼ ëª¨ë‘ ì†Œì§„í–ˆìŠµë‹ˆë‹¤.");
 //
 //			if (donePlayers == players.length - 1) {
 //				for (int i = 0; i < players.length; i++) {
@@ -176,15 +176,15 @@ public class Dalmuti {
 		players[1].payTax(1, players[players.length - 2]);
 		players[0].payTax(2, players[players.length - 1]);
 
-//		System.out.println("¼¼±İ ±³È¯ ¿Ï·á");
+//		System.out.println("ì„¸ê¸ˆ êµí™˜ ì™„ë£Œ");
 		for (int i = 0; i < 4; i++) {
 //			System.out.println(players[i].getHand());
 		}
 	}
 
 	public void revolution() {
-		// ¼¼±İ ¾ø°í °è±Ş ¹İ´ë
-//		System.out.println("Çõ¸í! °è±Ş¼ø¼­ º¯°æ!!!!!!!!!!");
+		// ì„¸ê¸ˆ ì—†ê³  ê³„ê¸‰ ë°˜ëŒ€
+//		System.out.println("í˜ëª…! ê³„ê¸‰ìˆœì„œ ë³€ê²½!!!!!!!!!!");
 		for (int j = 0; j < players.length; j++) {
 			int newRank = players.length - j;
 			players[j].setRank(newRank);
@@ -196,13 +196,13 @@ public class Dalmuti {
 	}
 
 	public boolean someoneWantsRevolution() {
-		// Çõ¸í °¡´É Ã¼Å©
+		// í˜ëª… ê°€ëŠ¥ ì²´í¬
 		for (int i = 0; i < players.length; i++) {
 			ArrayList<Card> hand = players[i].getHand();
 			int indexFirst13 = hand.indexOf(new Card(13));
 			int indexLast13 = hand.lastIndexOf(new Card(13));
 			if (indexFirst13 != indexLast13) {
-//				System.out.println(players[i] + "°¡ 13À» 2°³ °¡Á³´Ù");
+//				System.out.println(players[i] + "ê°€ 13ì„ 2ê°œ ê°€ì¡Œë‹¤");
 				
 				if (players[i].wantsRevolution()) {
 					return true;
@@ -230,7 +230,7 @@ public class Dalmuti {
 	}
 
 	public void designateRanks() {
-		// »Ì±â
+		// ë½‘ê¸°
 		int rank = 0;
 		for (int i = 0; i < players.length; i++) {
 			rank = cards.get(i).getNumber();
@@ -243,13 +243,13 @@ public class Dalmuti {
 		for (int i = 0; i < players.length; i++) {
 			players[i].setRank(i + 1);
 //			System.out.println(players[i]);
-//			System.out.println("·©Å©´Â"+players[i].getRank()+"ÀÔ´Ï´Ù!!!");
+//			System.out.println("ë­í¬ëŠ”"+players[i].getRank()+"ì…ë‹ˆë‹¤!!!");
 		}
 	}
 
 	public void createPlayers() {
 		players = new Player[NUMBER_OF_PLAYERS];
-		players[0] = new Human("³ª");
+		players[0] = new Human("ë‚˜");
 		for (int i = 1; i < players.length; i++) {
 			players[i] = new AI("Bot" + i);
 		}
@@ -266,7 +266,7 @@ public class Dalmuti {
 		}
 		cards.add(new Card(13));
 		cards.add(new Card(13));
-		// ¼¯±â
+		// ì„ê¸°
 		Collections.shuffle(cards);
 	}
 

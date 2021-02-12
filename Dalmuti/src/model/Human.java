@@ -29,21 +29,21 @@ public class Human extends AI {
 		super.delay();
 		Card tax;
 		while(true) {
-			System.out.println("¼¼±İÀ¸·Î ³¾ Ä«µå¸¦ ÀÔ·ÂÇÏ½Ã¿À.");
+			System.out.println("ì„¸ê¸ˆìœ¼ë¡œ ë‚¼ ì¹´ë“œë¥¼ ì…ë ¥í•˜ì‹œì˜¤.");
 			Scanner sc = new Scanner(System.in);
 			tax = new Card(sc.nextInt());
 			
 			if(!this.hand.contains(tax)) {
-				System.out.println("ÇØ´ç Ä«µå°¡ ³» ÆĞ¿¡ ¾ø½À´Ï´Ù.\n");
+				System.out.println("í•´ë‹¹ ì¹´ë“œê°€ ë‚´ íŒ¨ì— ì—†ìŠµë‹ˆë‹¤.\n");
 				continue;	
 			}
 			else if(this.rank > 2) {
 				if(!tax.equals(Collections.min(hand))) {
-					System.out.println("°¡Àå ³·Àº ¼öÀÇ Ä«µå¸¦ ¼¼±İÀ¸·Î ³»¾ß ÇÕ´Ï´Ù.\n");
+					System.out.println("ê°€ì¥ ë‚®ì€ ìˆ˜ì˜ ì¹´ë“œë¥¼ ì„¸ê¸ˆìœ¼ë¡œ ë‚´ì•¼ í•©ë‹ˆë‹¤.\n");
 					continue;
 				}
 			}
-			System.out.println("¾ßÈ£ ³ª´Â¾ß ¼¼±İ Àß³»´Â ¸ğ¹ü½Ã¹Î~!");
+			System.out.println("ì•¼í˜¸ ë‚˜ëŠ”ì•¼ ì„¸ê¸ˆ ì˜ë‚´ëŠ” ëª¨ë²”ì‹œë¯¼~!");
 			break;
 		}
 		

@@ -42,10 +42,10 @@ public class PlayerPanel extends JPanel {
 		
 		this.addMouseListener(new MyMouseListener());
 
-		rankLabel = new JLabel("·©Å©");
+		rankLabel = new JLabel("ë­í¬");
 		rankLabel.setAlignmentX(CENTER_ALIGNMENT);
 
-		nameLabel = new JLabel("ÀÌ¸§");
+		nameLabel = new JLabel("ì´ë¦„");
 		nameLabel.setAlignmentX(CENTER_ALIGNMENT);
 
 		if (position == BorderLayout.SOUTH) {
@@ -66,7 +66,7 @@ public class PlayerPanel extends JPanel {
 			cardPanel.add(Box.createHorizontalGlue());
 			this.add(cardPanel);
 		} else {
-			leftCardsLabel = new JLabel("³²Àº Ä«µå ¼ö : 00");
+			leftCardsLabel = new JLabel("ë‚¨ì€ ì¹´ë“œ ìˆ˜ : 00");
 			leftCardsLabel.setAlignmentX(CENTER_ALIGNMENT);
 			this.add(leftCardsLabel);
 		}

@@ -11,8 +11,8 @@ abstract public class Player implements Comparable<Player> {
 
 	private String name;
 	/**
-	 * 0 = °è±Ş ¾øÀ½ 1 = ´Ş¹«Æ¼ DALMUTI 2 = ´ëÁÖ±³ BISHOP 3 = ±¤ºÎ STONECUTTER 4 = ³ó³ë PEASANT
-	 * 5ÀÌ»óÀº »ç¿ëÇÒ ¼ø ÀÖÁö¸¸ ÀÌ¸§ÀÌ ÁÖ¾îÁöÁø ¾ÊÀ½
+	 * 0 = ê³„ê¸‰ ì—†ìŒ 1 = ë‹¬ë¬´í‹° DALMUTI 2 = ëŒ€ì£¼êµ BISHOP 3 = ê´‘ë¶€ STONECUTTER 4 = ë†ë…¸ PEASANT
+	 * 5ì´ìƒì€ ì‚¬ìš©í•  ìˆœ ìˆì§€ë§Œ ì´ë¦„ì´ ì£¼ì–´ì§€ì§„ ì•ŠìŒ
 	 */
 	protected int rank;
 	protected ArrayList<Card> hand;
@@ -78,9 +78,9 @@ abstract public class Player implements Comparable<Player> {
 
 	abstract public boolean wantsPass();
 
-	// ÀÌÀü Ä«µå¿¡ ´ëÇÑ Á¤º¸¸¦ ¹Ş¾Æ¼­ ³» Ä«µå Áß ¾î´À °É ¾ó¸¶³ª ³¾Áö Á¤ÇÑ ÈÄ, Ä«µå ³»±â
+	// ì´ì „ ì¹´ë“œì— ëŒ€í•œ ì •ë³´ë¥¼ ë°›ì•„ì„œ ë‚´ ì¹´ë“œ ì¤‘ ì–´ëŠ ê±¸ ì–¼ë§ˆë‚˜ ë‚¼ì§€ ì •í•œ í›„, ì¹´ë“œ ë‚´ê¸°
 	public int[] playCards(int exCardNum, int exCardsCount) {
-		// cardsInfo¿¡ ¹«½¼ Ä«µå¸¦ ¸îÀå ³Â´ÂÁö ÀúÀå
+		// cardsInfoì— ë¬´ìŠ¨ ì¹´ë“œë¥¼ ëª‡ì¥ ëƒˆëŠ”ì§€ ì €ì¥
 		int[] cardsInfo = new int[2];
 		if (!wantsPass()) {
 			cardsInfo = selectCards(exCardNum, exCardsCount);
@@ -94,10 +94,10 @@ abstract public class Player implements Comparable<Player> {
 		}
 		
 //		if (cardsInfo[0] != 0 && cardsInfo[1] != 0) {
-//			System.out.println(cardsInfo[0] + "À»" + cardsInfo[1] + "Àå ³Â½À´Ï´Ù.\n");
+//			System.out.println(cardsInfo[0] + "ì„" + cardsInfo[1] + "ì¥ ëƒˆìŠµë‹ˆë‹¤.\n");
 //		}
 //		else {
-//			System.out.println("ÆĞ½ºÇß½À´Ï´Ù.\n");
+//			System.out.println("íŒ¨ìŠ¤í–ˆìŠµë‹ˆë‹¤.\n");
 //		}
 		return cardsInfo;
 	}
